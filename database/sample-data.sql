@@ -1,22 +1,13 @@
--- INSERT DATA: CategoryStatus
-INSERT INTO CategoryStatus (Id, [Status])
-VALUES
-(1, 'Active'),
-(2, 'Inactive');
+USE StoreDB;
 GO
 
--- INSERT DATA: ProductStatus
-INSERT INTO ProductStatus (Id, [Status])
-VALUES
-(1, 'Active'),
-(2, 'Inactive');
-GO
+-- Ejecutar primero "status-tables.sql"
 
 -- INSERT DATA: Category
-INSERT INTO Category (Id, CategoryName, [Status])
+INSERT INTO Category (Id, [Name], IdStatus)
 VALUES
 (1, 'Computadoras', 1),
-(2, 'PerifÈricos', 1),
+(2, 'Perif√©ricos', 1),
 (3, 'Monitores', 1),
 (4, 'Componentes', 1),
 (5, 'Accesorios', 1);
@@ -26,31 +17,32 @@ GO
 INSERT INTO Product
 (
     Id,
-    ProductName,
+    [Name],
     [Description],
     Price,
-    CategoryId,
-    [Status],
+    IdCategory,
+    IdStatus,
     CreatedAt,
     UpdatedAt,
     Stock
 )
 VALUES
-(1, 'Laptop Lenovo IdeaPad', 'Laptop para uso acadÈmico y profesional', 450000.00, 1, 1, GETDATE(), NULL, 15),
-(2, 'Teclado Mec·nico RGB', 'Teclado mec·nico con iluminaciÛn RGB', 35000.00, 2, 1, GETDATE(), NULL, 30),
+(1, 'Laptop Lenovo IdeaPad', 'Laptop para uso acad√©mico y profesional', 450000.00, 1, 1, GETDATE(), NULL, 15),
+(2, 'Teclado Mec√°nico RGB', 'Teclado mec√°nico con iluminaci√≥n RGB', 35000.00, 2, 1, GETDATE(), NULL, 30),
 (3, 'Monitor LG 27"', 'Monitor de 27 pulgadas Full HD', 125000.00, 3, 1, GETDATE(), NULL, 10),
 (4, 'Memoria RAM 16GB DDR5', 'Memoria RAM DDR5 de 16GB', 45000.00, 4, 1, GETDATE(), NULL, 25),
-(5, 'Mouse Gamer', 'Mouse Ûptico para gaming', 22000.00, 2, 1, GETDATE(), NULL, 40),
-(6, 'Tarjeta Gr·fica RTX 4060', 'Tarjeta gr·fica de 8GB', 280000.00, 4, 1, GETDATE(), NULL, 8),
-(7, 'Webcam Full HD', 'C·mara web Full HD para videollamadas', 30000.00, 5, 1, GETDATE(), NULL, 20),
-(8, 'AudÌfonos Gamer', 'AudÌfonos con micrÛfono integrado', 55000.00, 5, 1, GETDATE(), NULL, 18),
+(5, 'Mouse Gamer', 'Mouse √≥ptico para gaming', 22000.00, 2, 1, GETDATE(), NULL, 40),
+(6, 'Tarjeta Gr√°fica RTX 4060', 'Tarjeta gr√°fica de 8GB', 280000.00, 4, 1, GETDATE(), NULL, 8),
+(7, 'Webcam Full HD', 'C√°mara web Full HD para videollamadas', 30000.00, 5, 1, GETDATE(), NULL, 20),
+(8, 'Aud√≠fonos Gamer', 'Aud√≠fonos con micr√≥fono integrado', 55000.00, 5, 1, GETDATE(), NULL, 18),
 (9, 'SSD NVMe 1TB', 'Unidad de almacenamiento SSD NVMe de 1TB', 65000.00, 4, 1, GETDATE(), NULL, 20),
-(10, 'Webcam Full HD', 'C·mara web Full HD para videollamadas', 30000.00, 5, 1, GETDATE(), NULL, 22),
-(11, 'AudÌfonos Gamer', 'AudÌfonos con micrÛfono integrado para videojuegos', 55000.00, 5, 1, GETDATE(), NULL, 18),
+(10, 'Webcam Full HD', 'C√°mara web Full HD para videollamadas', 30000.00, 5, 1, GETDATE(), NULL, 22),
+(11, 'Aud√≠fonos Gamer', 'Aud√≠fonos con micr√≥fono integrado para videojuegos', 55000.00, 5, 1, GETDATE(), NULL, 18),
 (12, 'Base para Laptop', 'Base ajustable para laptops', 28000.00, 5, 1, GETDATE(), NULL, 14),
-(13, 'Teclado de Oficina', 'Teclado est·ndar para uso empresarial', 15000.00, 2, 1, GETDATE(), NULL, 35),
+(13, 'Teclado de Oficina', 'Teclado est√°ndar para uso empresarial', 15000.00, 2, 1, GETDATE(), NULL, 35),
 (14, 'Monitor Curvo 32"', 'Monitor curvo de 32 pulgadas para entretenimiento', 210000.00, 3, 1, GETDATE(), NULL, 7),
-(15, 'Tarjeta Madre B650', 'Tarjeta madre compatible con procesadores AMD', 145000.00, 4, 2, GETDATE(), NULL, 0);
+(15, 'Tarjeta Madre B650', 'Tarjeta madre compatible con procesadores AMD', 145000.00, 4, 0, GETDATE(), NULL, 0);
+GO
 
 -- INSERT DATA: PurchaseOrder
 INSERT INTO PurchaseOrder
@@ -64,43 +56,43 @@ INSERT INTO PurchaseOrder
     GrandTotal
 )
 VALUES
-(1, 'Carlos RodrÌguez', '88881111', 'carlos.rodriguez@email.com',
- 'San JosÈ, Costa Rica', '2026-08-01 09:30:00', 507000.00),
+(1, 'Carlos Rodr√≠guez', '88881111', 'carlos.rodriguez@email.com',
+ 'San Jos√©, Costa Rica', '2026-08-01 09:30:00', 507000.00),
 
-(2, 'MarÌa Gonz·lez', '88882222', 'maria.gonzalez@email.com',
+(2, 'Mar√≠a Gonz√°lez', '88882222', 'maria.gonzalez@email.com',
  'Alajuela, Costa Rica', '2026-08-03 14:15:00', 147000.00),
 
-(3, 'AndrÈs Vargas', '88883333', 'andres.vargas@email.com',
+(3, 'Andr√©s Vargas', '88883333', 'andres.vargas@email.com',
  'Heredia, Costa Rica', '2026-08-05 11:45:00', 345000.00),
 
-(4, 'SofÌa Hern·ndez', '88884444', 'sofia.hernandez@email.com',
+(4, 'Sof√≠a Hern√°ndez', '88884444', 'sofia.hernandez@email.com',
  'Cartago, Costa Rica', '2026-08-07 16:20:00', 280000.00),
 
 (5, 'Daniel Castro', '88885555', 'daniel.castro@email.com',
  'Puntarenas, Costa Rica', '2026-08-10 10:00:00', 95000.00),
 
-(6, 'Laura RamÌrez', '88886666', 'laura.ramirez@email.com',
- 'LimÛn, Costa Rica', '2026-08-12 13:30:00', 160000.00),
+(6, 'Laura Ram√≠rez', '88886666', 'laura.ramirez@email.com',
+ 'Lim√≥n, Costa Rica', '2026-08-12 13:30:00', 160000.00),
 
-(7, 'JosÈ MÈndez', '88887777', 'jose.mendez@email.com',
+(7, 'Jos√© M√©ndez', '88887777', 'jose.mendez@email.com',
  'Guanacaste, Costa Rica', '2026-08-14 15:45:00', 317000.00),
 
 (8, 'Miguel Solano', '88889999', 'miguel.solano@email.com',
- 'San JosÈ, Costa Rica', '2026-08-15 09:20:00', 185000.00),
+ 'San Jos√©, Costa Rica', '2026-08-15 09:20:00', 185000.00),
 
 (9, 'Daniela Rojas', '88880000', 'daniela.rojas@email.com',
  'Heredia, Costa Rica', '2026-08-16 12:40:00', 117000.00),
 
-(10, 'Luis JimÈnez', '88881122', 'luis.jimenez@email.com',
- 'Alajuela, Costa Rica', '2026-08-16 16:10:00', 365000.00)
+(10, 'Luis Jim√©nez', '88881122', 'luis.jimenez@email.com',
+ 'Alajuela, Costa Rica', '2026-08-16 16:10:00', 365000.00);
 GO
 
 -- INSERT DATA: PurchaseOrderProduct
 INSERT INTO PurchaseOrderProduct
 (
     Id,
-    ProductId,
-    PurchaseOrderId,
+    IdProduct,
+    IdPurchaseOrder,
     ProductQuantity,
     Price
 )
@@ -147,8 +139,6 @@ VALUES
 (21, 1, 10, 1, 450000.00);
 GO
 
-SELECT * FROM CategoryStatus;
-SELECT * FROM ProductStatus;
 SELECT * FROM Category;
 SELECT * FROM Product;
 SELECT * FROM PurchaseOrder;
