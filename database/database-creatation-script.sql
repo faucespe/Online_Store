@@ -34,7 +34,7 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.sysobjects where name = 'Category' AND xtype = 'U')
 BEGIN
 	CREATE TABLE Category (
-		Id INT NOT NULL,
+		Id INT  IDENTITY(1,1) NOT NULL,
 		[Name] VARCHAR(60) NOT NULL,
 		IdStatus INT NOT NULL,
 		CONSTRAINT PK_Category PRIMARY KEY (Id),
@@ -47,7 +47,7 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.sysobjects where name = 'Product' AND xtype = 'U')
 BEGIN
 	CREATE TABLE [Product] (
-		Id INT NOT NULL,
+		Id INT IDENTITY(1,1) NOT NULL,
 		[Name] VARCHAR(60) NOT NULL,
 		[Description] VARCHAR(500) NOT NULL,
 		ImageUrl VARCHAR(MAX),
@@ -64,11 +64,27 @@ BEGIN
 END
 GO
 
+-- Create table Purchase Order
+IF NOT EXISTS (SELECT * FROM sys.sysobjects where name = 'PurchaseOrder' AND xtype = 'U')
+BEGIN
+	CREATE TABLE PurchaseOrder (
+		Id INT IDENTITY(1,1) NOT NULL,
+		CustomerName VARCHAR(50) NOT NULL,
+		CustomerPhoneNumber VARCHAR(8) NOT NULL,
+		CustomerEmail VARCHAR(100) NOT NULL,
+		CustomerAddress VARCHAR(100) NOT NULL,
+		PurchaseDate DATETIME2(7) NOT NULL,
+		GrandTotal DECIMAL(10,2) NOT NULL,
+		CONSTRAINT PK_PurchaseOrder PRIMARY KEY (Id)
+	)
+END
+GO
+
 -- Create table Purchase Order Product
 IF NOT EXISTS (SELECT * FROM sys.sysobjects where name = 'PurchaseOrderProduct' AND xtype = 'U')
 BEGIN
 	CREATE TABLE PurchaseOrderProduct (
-		Id INT NOT NULL,
+		Id INT IDENTITY(1,1) NOT NULL,
 		IdProduct INT NOT NULL,
 		IdPurchaseOrder INT NOT NULL,
 		ProductQuantity INT NOT NULL,
@@ -80,18 +96,3 @@ BEGIN
 END
 GO	
 
--- Create table Purchase Order
-IF NOT EXISTS (SELECT * FROM sys.sysobjects where name = 'PurchaseOrder' AND xtype = 'U')
-BEGIN
-	CREATE TABLE PurchaseOrder (
-		Id INT NOT NULL,
-		CustomerName VARCHAR(50) NOT NULL,
-		CustomerPhoneNumber VARCHAR(8) NOT NULL,
-		CustomerEmail VARCHAR(100) NOT NULL,
-		CustomerAddress VARCHAR(100) NOT NULL,
-		PurchaseDate DATETIME2(7) NOT NULL,
-		GrandTotal DECIMAL(10,2) NOT NULL,
-		CONSTRAINT PK_PurchaseOrder PRIMARY KEY (Id)
-	)
-END
-GO
