@@ -14,6 +14,7 @@ BEGIN
 	CREATE TABLE CategoryStatus (
 		Id INT NOT NULL,
 		[Status] VARCHAR(15) NOT NULL,
+		CONSTRAINT PK_CategoryStatus PRIMARY KEY (Id),
 		CONSTRAINT UX_CategoryStatusId Unique (Id),
 	)
 END
@@ -25,6 +26,7 @@ BEGIN
 	CREATE TABLE ProductStatus (
 		Id INT NOT NULL,
 		[Status] VARCHAR(15),
+		CONSTRAINT PK_ProductStatus PRIMARY KEY (Id),
 		CONSTRAINT UX_ProductStatusId Unique (Id),
 	)
 END

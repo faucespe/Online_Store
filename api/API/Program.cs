@@ -1,0 +1,24 @@
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.LicenseKey = "eyJhbGciOiJSUzI1NiIsImtpZCI6Ikx1Y2t5UGVubnlTb2Z0d2FyZUxpY2Vuc2VLZXkvYmJiMTNhY2I1OTkwNGQ4OWI0Y2IxYzg1ZjA4OGNjZjkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2x1Y2t5cGVubnlzb2Z0d2FyZS5jb20iLCJhdWQiOiJMdWNreVBlbm55U29mdHdhcmUiLCJleHAiOiIxODE4NzIwMDAwIiwiaWF0IjoiMTc4NzE5NDAxOCIsImFjY291bnRfaWQiOiIwMWEwMWQxMDI3ZDA3MDBiYTU2YjczMWQ2ZjgzMzRjMSIsImN1c3RvbWVyX2lkIjoiMDFhMDFkMTAyN2QwNzAwYmE1NmI3MzFkNmY4MzM0YzEiLCJzdWJfaWQiOiItIiwiZWRpdGlvbiI6IjAiLCJ0eXBlIjoiMiJ9.iTi1MmFKraoTCxU98tK0Y4zodpTsv6Ez78P77bOEUCUfFdM930T_54__umbPoAkghHYW02dFV22nR - 51o - 9dGYmuUTJennuN43gO0y_IntOrmc79MjEwUzDQJ6lNCrWfPhxL0yga7YmLM7N5BwFHghhkwbsH0JMYOL7pWCcuU1PIQL2a6B8QuiGzq0pN - EJMO6f5DJXLtZDNfjx1 - WukgZsIRp1jFLVglPT - k85Iy2wDnExN2v1PtCiUqHoPoSbKw8ttImo6Rwj4uzvj4E2q0hCXLKHERiRYwh0t6xi63uHcCUsftBDKx1XdvW0a0hcsC04KUpqaIoPL1BTtIyEP4A";
+    cfg.AddMaps(typeof(Program));
+});
+var app = builder.Build();
+
+app.UseHttpsRedirection();
+app.UseCors(options => 
+{
+    options.AllowAnyOrigin();
+    options.AllowAnyMethod();
+    options.AllowAnyHeader();
+});
+
+app.UseStatusCodePagesWithReExecute("errors/{0}");
+
+app.MapControllers();
+
+app.Run();
