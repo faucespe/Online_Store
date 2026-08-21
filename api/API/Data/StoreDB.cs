@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data;
 
-public partial class HospitalDB : DbContext
+public partial class StoreDB : DbContext
 {
-    public HospitalDB()
+    public StoreDB()
     {
     }
 
-    public HospitalDB(DbContextOptions<HospitalDB> options)
+    public StoreDB(DbContextOptions<StoreDB> options)
         : base(options)
     {
     }
@@ -47,7 +47,7 @@ public partial class HospitalDB : DbContext
 
         modelBuilder.Entity<CategoryStatus>(entity =>
         {
-            entity.HasIndex(e => e.Id, "UX_CategoryStatusId").IsUnique();
+            entity.HasKey(e => e.Id).HasName("PK_CategoryStatusId");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Status)
@@ -79,7 +79,7 @@ public partial class HospitalDB : DbContext
 
         modelBuilder.Entity<ProductStatus>(entity =>
         {
-            entity.HasIndex(e => e.Id, "UX_ProductStatusId").IsUnique();
+            entity.HasKey(e => e.Id).HasName("PK_ProductStatusId");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Status)

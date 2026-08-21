@@ -9,7 +9,7 @@ namespace API.Controllers
     public class ErrorController : ControllerBase
     {
         [Route("{StatusCode}")]
-        public ActionResult<APIResponse> HandleStatus(HttpStatusCode statusCode)
+        public ObjectResult HandleStatus(HttpStatusCode statusCode)
         {
             APIResponse response = new APIResponse()
             {
@@ -20,7 +20,7 @@ namespace API.Controllers
             ObjectResult result = new ObjectResult(response);
             result.StatusCode = (int)statusCode;
 
-            return response;
+            return result;
         }
     }
-}
+} 
