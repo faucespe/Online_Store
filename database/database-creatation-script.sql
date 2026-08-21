@@ -14,7 +14,7 @@ BEGIN
 	CREATE TABLE CategoryStatus (
 		Id INT NOT NULL,
 		[Status] VARCHAR(15) NOT NULL,
-		CONSTRAINT UX_CategoryStatusId Unique (Id),
+		CONSTRAINT PK_CategoryStatusId PRIMARY KEY (Id),
 	)
 END
 GO
@@ -24,8 +24,8 @@ IF NOT EXISTS (SELECT * FROM sys.sysobjects where name = 'ProductStatus' AND xty
 BEGIN
 	CREATE TABLE ProductStatus (
 		Id INT NOT NULL,
-		[Status] VARCHAR(15),
-		CONSTRAINT UX_ProductStatusId Unique (Id),
+		[Status] VARCHAR(15) NOT NULL,
+		CONSTRAINT PK_ProductStatusId PRIMARY KEY (Id),
 	)
 END
 GO
@@ -95,4 +95,5 @@ BEGIN
 	)
 END
 GO	
+
 
