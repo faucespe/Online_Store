@@ -27,7 +27,7 @@ app.UseCors(options =>
 });
 
 app.UseExceptionHandler("/errors/500");
-app.UseStatusCodePagesWithReExecute("errors/{0}");
+app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
 app.MapControllers();
 
