@@ -16,6 +16,7 @@ builder.Services.AddDbContext<StoreDB>();
 //Services
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryStatusService, CategoryStatusService>();
+builder.Services.AddScoped<IProductStatusService, ProductStatusService>();
 
 var app = builder.Build();
 
