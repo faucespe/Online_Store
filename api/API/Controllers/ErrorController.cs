@@ -4,7 +4,7 @@ using System.Net;
 
 namespace API.Controllers
 {
-    [Route("/errors")]
+    [Route("errors")]
     [ApiController]
     public class ErrorController : ControllerBase
     {
@@ -23,4 +23,4 @@ namespace API.Controllers
             return result;
         }
     }
-} 
+}
