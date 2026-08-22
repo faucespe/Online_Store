@@ -1,5 +1,6 @@
 ﻿using API.Data;
 using API.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
@@ -14,6 +15,14 @@ namespace API.Services
         public IQueryable<Product> ListProduct()
         {
             return this._database.Product;
+        }
+
+        public async Task<Product?> FindProduct(int id)
+        {
+            return await this._database
+                .Product
+                .Where(p => p.Id == id)
+                .FirstOrDefaultAsync();
         }
     }
 }
