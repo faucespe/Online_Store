@@ -1,5 +1,6 @@
 using API.Data;
 using API.Services;
+using API.Services.PurchaseOrderProductService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ builder.Services.AddScoped<ICategoryStatusService, CategoryStatusService>();
 builder.Services.AddScoped<IProductStatusService, ProductStatusService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
+builder.Services.AddScoped<IPurchaseOrderProductService, PurchaseOrderProductService>();
 
 var app = builder.Build();
 
