@@ -1,6 +1,7 @@
 ﻿using API.Data.Models;
 using API.DataTransferObjects;
 using API.Services;
+using API.Validators;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +15,13 @@ namespace API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IProductService _productService;
-        public ProductController(IMapper mapper, IProductService productService)
+        private readonly IProductValidator _productValidator;
+
+        public ProductController(IMapper mapper, IProductService productService, IProductValidator productValidator)
         {
             this._mapper = mapper;
             this._productService = productService;
+            this._productValidator = productValidator;
         }
         public IProductService ProductService { get; }
 
@@ -48,6 +52,23 @@ namespace API.Controllers
             {
                 Data = this._mapper.Map<Product, GetProductDTO>(product)
             };
+            return response;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<APIResponse>> InsertProduct(InsertUpdateProductDTO data)
+        {
+            APIResponse response = new();
+            response.Success = this._productValidator.ValidateInsertUpdateProductDTO(null, data, response.Messages);
+
+            if (response.Success)
+            {
+                Product product = this._mapper.Map<InsertUpdateProductDTO, Product>(data);
+                await this._productService.InsertProduct(product);
+                response.Data = this._mapper.Map<Product, GetProductDTO>(product);
+                response.Messages.Add("Product has been inserted");
+            }
+
             return response;
         }
     }

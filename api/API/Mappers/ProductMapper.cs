@@ -9,6 +9,7 @@ namespace API.Mapper
         public ProductMapper()
         {
             CreateMap<Product, GetProductDTO>();
+            CreateMap<InsertUpdateProductDTO, Product>();
         }
     }
 }

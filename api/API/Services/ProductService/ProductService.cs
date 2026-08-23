@@ -24,5 +24,11 @@ namespace API.Services
                 .Where(p => p.Id == id)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task InsertProduct(Product entity)
+        {
+            await this._database.Product.AddAsync(entity);
+            await this._database.SaveChangesAsync();
+        }
     }
 }
