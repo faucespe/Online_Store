@@ -25,7 +25,7 @@ namespace API.Services
                     && (!filter.MaxPrice.HasValue || p.Price <= filter.MaxPrice.Value)
                     && (!filter.IdCategory.HasValue || p.IdCategory == filter.IdCategory.Value)
                     && (!filter.IdStatus.HasValue || p.IdStatusNavigation.Id == filter.IdStatus.Value)
-);
+                    );
         }
 
         public async Task<Product?> FindProduct(int id)
