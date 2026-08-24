@@ -2,7 +2,7 @@
 using API.DataTransferObjects;
 using API.Services;
 
-namespace API.Validators.ProductValidator
+namespace API.Validators
 {
     public class ProductValidator : IProductValidator
     {
@@ -42,7 +42,6 @@ namespace API.Validators.ProductValidator
             // - Maximum length according to database
 
             // Price
-            // - Price it required and is decimal lo recibe asp.net core, so it will be 0 if not provided!!!
             if (data.Price == 0)
             {
                 innerMessages.Add("Price is required");
@@ -53,7 +52,6 @@ namespace API.Validators.ProductValidator
             }
 
             // IdCategory
-            // - Id it required and is int lo recibe asp.net core, so it will be 0 if not provided!!!
             if (data.IdCategory <= 0)
             {
                 innerMessages.Add("Category is required");
@@ -64,7 +62,6 @@ namespace API.Validators.ProductValidator
             }
 
             // IdStatus
-            // - Id it required and is int lo recibe asp.net core, so it will be 0 if not provided!!!
             if (data.IdStatus <= 0)
             {
                 innerMessages.Add("Status is required");
@@ -75,7 +72,6 @@ namespace API.Validators.ProductValidator
             }
 
             // Stock
-            // - Stock it required and is int lo recibe asp.net core, so it will be 0 if not provided!!!
             if (data.Stock <= 0)
             {
                 innerMessages.Add("Stock must be greater than or equal to 0");
@@ -90,8 +86,6 @@ namespace API.Validators.ProductValidator
             {
                 innerMessages.Add("CreatedAt must be less than or equal to the current date/time");
             }
-            // - Must be a valid DateTime
-            // - Must be greater than or equal to the current date/time
 
             // UpdatedAt
             if (data.UpdatedAt > DateTime.Now)

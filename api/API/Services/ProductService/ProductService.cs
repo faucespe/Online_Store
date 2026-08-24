@@ -27,7 +27,13 @@ namespace API.Services
 
         public async Task InsertProduct(Product entity)
         {
-            await this._database.Product.AddAsync(entity);
+            this._database.Product.Add(entity);
+            await this._database.SaveChangesAsync();
+        }
+
+        public async Task UpdateProduct(Product entity)
+        {
+            this._database.Product.Update(entity);
             await this._database.SaveChangesAsync();
         }
     }

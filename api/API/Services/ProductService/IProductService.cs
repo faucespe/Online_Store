@@ -8,5 +8,6 @@ namespace API.Services
         IQueryable<Product> ListProduct();
         Task<Product?> FindProduct(int id);
         Task InsertProduct(Product entity);
+        Task UpdateProduct(Product entity);
     }
 }

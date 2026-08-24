@@ -1,7 +1,7 @@
 ﻿using API.Data;
 using API.Data.Models;
 
-namespace API.Services.PurchaseOrderProductService
+namespace API.Services
 {
     public class PurchaseOrderProductService : IPurchaseOrderProductService
     {

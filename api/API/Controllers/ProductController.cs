@@ -38,7 +38,6 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Route("{id:int}")]
         public async Task<ActionResult<APIResponse>> FindProduct(int id)
         {
             Product? product = await this._productService.FindProduct(id);
@@ -67,6 +66,30 @@ namespace API.Controllers
                 await this._productService.InsertProduct(product);
                 response.Data = this._mapper.Map<Product, GetProductDTO>(product);
                 response.Messages.Add("Product has been inserted");
+            }
+
+            return response;
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<ActionResult<APIResponse>> UpdateProduct(int id, InsertUpdateProductDTO data)
+        {
+            Product? product = await this._productService.FindProduct(id);
+            if (product == null)
+            {
+                return HttpErrors.NotFound("Product does not exist in the system");
+            }
+
+            APIResponse response = new();
+            response.Success = this._productValidator.ValidateInsertUpdateProductDTO(id, data, response.Messages);
+
+            if (response.Success)
+            {
+                this._mapper.Map(data, product);
+                await this._productService.UpdateProduct(product);
+                response.Data = this._mapper.Map<Product, GetProductDTO>(product);
+                response.Messages.Add("Product has been updated");
             }
 
             return response;
