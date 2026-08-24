@@ -1,4 +1,5 @@
-﻿using API.Data.Models;
+﻿using API.Data.Filters;
+using API.Data.Models;
 using API.DataTransferObjects;
 using API.Services;
 using API.Validators;
@@ -26,14 +27,19 @@ namespace API.Controllers
         public IProductService ProductService { get; }
 
         [HttpGet]
-        public async Task<ActionResult<APIResponse>> ListProducts()
+        public async Task<ActionResult<APIResponse>> ListProducts([FromQuery] FilterProductDTO data)
         {
-            List<Product> list = await this._productService.ListProduct().ToListAsync();
+            ProductFilters filter = this._mapper.Map<FilterProductDTO, ProductFilters>(data);
+            List<Product> list = await this._productService.ListProducts(filter)
+                                    .OrderBy(p => p.Name)
+                                    .ThenBy(p => p.Price)
+                                    .ToListAsync();
 
-            APIResponse response = new APIResponse()
+            APIResponse response = new()
             {
-                Data = list.Select(P => this._mapper.Map<Product, GetProductDTO>(P))
+                Data = list.Select(p => this._mapper.Map<Product, GetProductDTO>(p))
             };
+
             return response;
         }
 

@@ -1,4 +1,5 @@
 ﻿using API.Data;
+using API.Data.Filters;
 using API.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,17 +13,27 @@ namespace API.Services
             this._database = database;
         }
         public StoreDB Database { get; }
-        public IQueryable<Product> ListProduct()
+
+        public IQueryable<Product> ListProducts(ProductFilters? filter = null)
         {
-            return this._database.Product;
+            filter ??= new ProductFilters();
+
+            return this._database
+                    .Product
+                    .Where(p => (string.IsNullOrWhiteSpace(filter.Name) || p.Name.Contains(filter.Name))
+                    && (!filter.MinPrice.HasValue || p.Price >= filter.MinPrice.Value)
+                    && (!filter.MaxPrice.HasValue || p.Price <= filter.MaxPrice.Value)
+                    && (!filter.IdCategory.HasValue || p.IdCategory == filter.IdCategory.Value)
+                    && (!filter.IdStatus.HasValue || p.IdStatusNavigation.Id == filter.IdStatus.Value)
+);
         }
 
         public async Task<Product?> FindProduct(int id)
         {
             return await this._database
-                .Product
-                .Where(p => p.Id == id)
-                .FirstOrDefaultAsync();
+                            .Product
+                            .Where(p => p.Id == id)
+                            .FirstOrDefaultAsync();
         }
 
         public async Task InsertProduct(Product entity)
