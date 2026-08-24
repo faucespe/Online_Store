@@ -1,14 +1,22 @@
 using API;
 using API.Data;
 using API.Services;
-using API.Services.PurchaseOrderProductService;
 using API.Validators;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using API.Validators.ProductValidator;
-using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        //JSON responses for model validation errors
+        options.SuppressMapClientErrors = true;
+        options.InvalidModelStateResponseFactory = context =>
+        {
+            return HttpErrors.BadRequest(data: "Invalid data model");
+        };
+    });
 
 builder.Services.AddControllers();
 
@@ -20,15 +28,7 @@ builder.Services.AddAutoMapper(cfg =>
 });
 builder.Services.AddDbContext<StoreDB>();
 
-// Model Validation Errors
-builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
-{
-    options.InvalidModelStateResponseFactory = context =>
-    {
-        var response = HttpErrors.HandleModelState(context.ModelState);
-        return new BadRequestObjectResult(response);
-    };
-});
+
 
 
 //Services
