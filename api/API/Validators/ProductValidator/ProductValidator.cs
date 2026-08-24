@@ -52,7 +52,7 @@ namespace API.Validators
             }
 
             // IdCategory
-            if (data.IdCategory <= 0)
+            if (data.IdCategory < 0)
             {
                 innerMessages.Add("Category is required");
             }
@@ -62,7 +62,7 @@ namespace API.Validators
             }
 
             // IdStatus
-            if (data.IdStatus <= 0)
+            if (data.IdStatus < 0)
             {
                 innerMessages.Add("Status is required");
             }
