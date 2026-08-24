@@ -24,11 +24,11 @@ namespace API.Controllers
         public ICategoryService CategoryService { get; }
 
         [HttpGet]
-        public async Task<ActionResult<APIResponse>> ListCategories()
+        public async Task<ActionResult<ApiResponse>> ListCategories()
         {
            List<Category> list = await this._categoryService.ListCategory().ToListAsync();
 
-            APIResponse response = new APIResponse()
+            ApiResponse response = new ApiResponse()
             {
                 Data = list.Select(C => this._mapper.Map<Category, GetCategoryDTO>(C) )
             };

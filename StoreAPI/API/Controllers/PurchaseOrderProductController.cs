@@ -24,10 +24,10 @@ namespace API.Controllers
         public IPurchaseOrderProductService PurchaseOrderProductService { get; }
 
         [HttpGet]
-        public async Task<ActionResult<APIResponse>> ListPurchaseOrderProducts()
+        public async Task<ActionResult<ApiResponse>> ListPurchaseOrderProducts()
         {
             List<PurchaseOrderProduct> list = await this._purchaseOrderProductService.ListPurchaseOrderProducts().ToListAsync();
-            APIResponse response = new APIResponse()
+            ApiResponse response = new ApiResponse()
             {
                 Data = list.Select(CS => this._mapper.Map<PurchaseOrderProduct, GetPurchaseOrderProductDTO>(CS))
             };

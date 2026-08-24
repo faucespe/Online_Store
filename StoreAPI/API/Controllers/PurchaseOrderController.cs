@@ -21,11 +21,11 @@ namespace API.Controllers
             this._purchaseOrderService = purchaseOrderService;
         }
         [HttpGet]
-        public async Task<ActionResult<APIResponse>> ListPurchaseOrders()
+        public async Task<ActionResult<ApiResponse>> ListPurchaseOrders()
         {
             List<PurchaseOrder> list = await this._purchaseOrderService.ListPurchaseOrders().ToListAsync();
 
-            APIResponse response = new APIResponse()
+            ApiResponse response = new ApiResponse()
             {
                 Data = list.Select(PO => this._mapper.Map<PurchaseOrder, GetPurchaseOrderDTO>(PO))
             };
