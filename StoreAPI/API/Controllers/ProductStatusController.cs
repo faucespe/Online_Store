@@ -23,10 +23,10 @@ namespace API.Controllers
         public IProductStatusService ProductStatusService { get; }
 
         [HttpGet]
-        public async Task<ActionResult<APIResponse>> ListProductStatus()
+        public async Task<ActionResult<ApiResponse>> ListProductStatus()
         {
             List<ProductStatus> list = await this._productStatusService.ListProductStatus().ToListAsync();
-            APIResponse response = new APIResponse()
+            ApiResponse response = new ApiResponse()
             {
                 Data = list.Select(PS => this._mapper.Map<ProductStatus, GetProductStatusDTO>(PS))
             };

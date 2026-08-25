@@ -24,10 +24,10 @@ namespace API.Controllers
         public ICategoryStatusService CategoryStatusService { get; }
 
         [HttpGet]
-        public async Task<ActionResult<APIResponse>> ListCategoryStatus()
+        public async Task<ActionResult<ApiResponse>> ListCategoryStatus()
         {
             List<CategoryStatus> list = await this._categoryStatusService.ListCategoryStatus().ToListAsync();
-            APIResponse response = new APIResponse()
+            ApiResponse response = new ApiResponse()
             {
                 Data = list.Select(CS => this._mapper.Map<CategoryStatus, GetCategoryStatusDTO>(CS))
             };
