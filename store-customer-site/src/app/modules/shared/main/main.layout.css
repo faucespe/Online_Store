@@ -1,0 +1,16 @@
+.main-toolbar {
+  padding: 0 10rem;
+}
+
+.main-toolbar__logo {
+  width: 9rem;
+  cursor: pointer;
+}
+
+.main-toolbar__spacer {
+  flex: 1 1 auto;
+}
+
+main {
+  padding: 2rem;
+}
