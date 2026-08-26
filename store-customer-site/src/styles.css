@@ -1,9 +1,6 @@
 @import './styles/reset.css';
 @import './styles/theme-light.css';
 
-/* Angular Material Overrides */
-@import './styles/overrides/index.css';
-
 html {
    font-size: 10px;
    height: 100%;

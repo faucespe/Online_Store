@@ -1,9 +1,0 @@
-button.mat-mdc-mini-fab {
-    box-shadow: none;
-    border-radius: 50%;
-}
-
-.mat-mdc-mini-fab:active,
-.mat-mdc-mini-fab:hover {
-    box-shadow: none !important;
-}

@@ -1,4 +1,4 @@
-<mat-toolbar class="main-toolbar">
+<header>
   <figure>
     <a routerLink="/">
       <img class="main-toolbar__logo" src="/img/logo.svg" alt="QuickBuy logo">
@@ -7,10 +7,10 @@
 
   <span class="main-toolbar__spacer"></span>
 
-  <button routerLink="/shopping-cart" mat-mini-fab color="primary" aria-label="Carrito de compras">
-    <mat-icon>shopping_cart</mat-icon>
+  <button routerLink="/shopping-cart" aria-label="Carrito de compras">
+    shopping_cart icon
   </button>
-</mat-toolbar>
+</header>
 <main>
   <router-outlet />
 </main>
