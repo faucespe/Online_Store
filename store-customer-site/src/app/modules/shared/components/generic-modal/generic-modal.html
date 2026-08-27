@@ -1,0 +1,19 @@
+@if (showModal()) {
+    <div class="modal-overlay">
+        <article class="modal">
+            <header class="modal__header">
+                <span class="modal__header-label">{{ title() }}</span>
+                <app-store-btn color="secondary" icon="close" shape="rounded" (click)="showModal.set(!showModal)" />
+            </header>
+            <main class="modal__main">
+                <ng-content></ng-content>
+            </main>
+            @if (showConfirmButton() || showCancelButton()) {
+                <footer class="modal__footer">
+                    <app-store-btn color="secondary" [label]="cancelLabel()" (click)="showModal.set(!showModal)" />
+                    <app-store-btn color="primary" [label]="confirmLabel()" (click)="handleConfirmation()" />
+                </footer>
+            }
+        </article>
+    </div>
+}
