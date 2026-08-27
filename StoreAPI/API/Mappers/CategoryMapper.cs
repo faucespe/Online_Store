@@ -1,4 +1,5 @@
-﻿using API.Data.Models;
+﻿using API.Data.Filters;
+using API.Data.Models;
 using API.DataTransferObjects;
 using AutoMapper;
 
@@ -8,7 +9,12 @@ namespace API.Mapper
     {
         public CategoryMapper() 
         {
-           CreateMap<Category, GetCategoryDTO>();
+            CreateMap<Category, GetCategoryDTO>()
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.IdStatusNavigation));
+            CreateMap<Category, CreateUpdateCategoryDTO>();
+            CreateMap<CreateUpdateCategoryDTO, Category>();
+            CreateMap<CategoryStatus, GetCategoryStatusDTO>();
+            CreateMap<CategoryFiltersDTO, CategoryFilters>();
         }
     }
 }

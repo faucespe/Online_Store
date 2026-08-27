@@ -41,6 +41,7 @@ builder.Services.AddScoped<IPurchaseOrderProductService, PurchaseOrderProductSer
 
 //Validators
 builder.Services.AddScoped<IProductValidator, ProductValidator>();
+builder.Services.AddScoped<ICategoryValidator, CategoryValidator>();
 
 var app = builder.Build();
 
