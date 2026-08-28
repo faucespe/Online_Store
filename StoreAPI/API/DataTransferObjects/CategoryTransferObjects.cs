@@ -17,7 +17,6 @@ namespace API.DataTransferObjects
     public class CategoryFiltersDTO
     {
         public string? Name { get; set; }
-        public string? Status { get; set; }
         public int? IdStatus { get; set; }
     }
 }
