@@ -1,14 +1,19 @@
-.main-toolbar {
-  padding: 0 10rem;
-}
-
-.main-toolbar__logo {
-  width: 9rem;
+.main__header-logo {
+  width: 4.2rem;
   cursor: pointer;
+  border-radius: 10px;
+  margin: 10px 0;
+  background-color: white;
 }
 
-.main-toolbar__spacer {
-  flex: 1 1 auto;
+.main__header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 2rem;
+  max-height: 4rem;
+  overflow: hidden;
+  background-color: var(--top-bar-background);
 }
 
 main {
