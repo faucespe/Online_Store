@@ -1,0 +1,19 @@
+<main class="main-container">
+    <app-store-btn label="Open Modal" (click)="isActive.set(!isActive())" />
+
+    <app-generic-modal title="Modal Generico de Pruebas" (onConfirm)="handleConfirmation()" [(showModal)]="isActive">
+        <h2 style="font-size: 2rem;">Demo botones y modal</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 2em; margin-top: 2rem">
+            <app-store-btn icon="close" label="Cerrar"></app-store-btn>
+            <app-store-btn icon="close" shape="rounded"></app-store-btn>
+            
+            <app-store-btn color="secondary" icon="close" label="Cerrar"></app-store-btn>
+            <app-store-btn color="secondary" icon="close" shape="rounded"></app-store-btn>
+
+            <app-store-btn icon="home" shape="rounded"></app-store-btn>
+            <app-store-btn color="secondary" icon="add" shape="rounded"></app-store-btn>
+            <app-store-btn icon="remove" shape="rounded"></app-store-btn>
+            <app-store-btn color="secondary" icon="shopping_cart" shape="rounded"></app-store-btn>
+        </div>
+    </app-generic-modal>
+</main>

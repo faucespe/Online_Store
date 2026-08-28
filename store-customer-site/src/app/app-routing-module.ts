@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayout } from '@shared/main/main.layout';
+import { TestsPage } from './modules/shared/test-page/tests.page'
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
         loadChildren: () => import('@products/products-module').then(m => m.ProductsModule)
       }
     ]
+  },
+  {
+    path: 'tests',
+    component: TestsPage,
   }
 ];
 
