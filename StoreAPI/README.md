@@ -5,6 +5,7 @@ La API requiere de las siguientes dependecias:
 	Microsoft.EntityFrameworkCore.Desing - 10.0.11
 	Microsoft.EntityFrameworkCore.SqlServer - 10.0.11
 	AutoMapper - 16.2.0
+  swashbuckle.aspnetcore - 10.2.3
 
 ## Conexión a la Base de datos
 La conexión se configura mediante appsettings.json utilizando la sección ConnectionStrings:
@@ -28,3 +29,18 @@ La API es capas de leer la LicenseKey desde el .appsettings utilizando la secci�
    "LicenseKey": "Inserte la LicenseKey Aquí"
  }	
  ```
+
+## Utilización de Swagger
+
+Para poder utilizar la funcionalidad, con el programa en ejecución e ir a la siguiente URL https://localhost:XXXX/swagger/index.html 
+Cambiar las XXXX por el localhost que se genera en la terminal 
+
+ej 
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: https://localhost:7044
+
+Swagger se encarga de generar automáticamente nuevos CRUDs agregados a la API
+
+Para Solicitar un CRUD
+Seleccionar la Categoría deseada, después se hace click en el tipo de respuesta que se quiere solicitar para abrir el panel del request
+Después click en "Try it Out" se colocan los parámetros requeridos y después click en "Execute"

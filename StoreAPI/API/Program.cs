@@ -18,18 +18,12 @@ builder.Services.AddControllers()
         };
     });
 
-builder.Services.AddControllers();
-
-
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.LicenseKey = builder.Configuration["AutoMapper:LicenseKey"];
     cfg.AddMaps(typeof(Program));
 });
 builder.Services.AddDbContext<StoreDB>();
-
-
-
 
 //Services
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -43,7 +37,17 @@ builder.Services.AddScoped<IPurchaseOrderProductService, PurchaseOrderProductSer
 builder.Services.AddScoped<IProductValidator, ProductValidator>();
 builder.Services.AddScoped<ICategoryValidator, CategoryValidator>();
 
+//Swagger/OpenApi
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
+
+if(app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 app.UseCors(options => 
