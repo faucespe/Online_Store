@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Net;
 
 namespace API.Controllers
@@ -8,6 +10,13 @@ namespace API.Controllers
     [ApiController]
     public class ErrorController : ControllerBase
     {
+        private IWebHostEnvironment _env;
+
+        public ErrorController(IWebHostEnvironment env)
+        {
+            this._env = env;
+        }
+
         [Route("{StatusCode}")]
         public ObjectResult HandleStatus(HttpStatusCode statusCode)
         {
@@ -16,6 +25,29 @@ namespace API.Controllers
                 statusCode = statusCode,
                 Success = false
             };
+
+            switch (response.statusCode)
+            {
+                case HttpStatusCode.InternalServerError:
+                    response.Messages.Add("An unexpected error occurred on the server.");
+
+                    if (this._env.IsDevelopment())
+                    {
+                        Exception? ex = HttpContext.Features.Get<IExceptionHandlerPathFeature>()?.Error;
+                        if (ex != null)
+                        {
+                            response.Data = new
+                            {
+                                ex.Message,
+                                ex.StackTrace,
+                                InnerExpection = ex.InnerException?.Message,
+                                ex.Source,
+                                ex.HResult
+                            };
+                        }
+                    }
+                    break;
+            }
 
             ObjectResult result = new ObjectResult(response);
             result.StatusCode = (int)statusCode;
