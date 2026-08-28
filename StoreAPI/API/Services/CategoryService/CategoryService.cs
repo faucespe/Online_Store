@@ -23,7 +23,6 @@ namespace API.Services
             return this._database.Category
                             .Include(c => c.IdStatusNavigation)
                             .Where(c => (string.IsNullOrEmpty(filter.Name) || c.Name.Contains(filter.Name))
-                                && (string.IsNullOrEmpty(filter.Status) || c.IdStatusNavigation.Status.Contains(filter.Status))
                                 && (!filter.IdStatus.HasValue || c.IdStatus == filter.IdStatus));
         }
 
