@@ -1,15 +1,13 @@
-<header>
+<header class="main__header">
   <figure>
     <a routerLink="/">
-      <img class="main-toolbar__logo" src="/img/logo.svg" alt="QuickBuy logo">
+      <img class="main__header-logo" src="/img/logo.svg" alt="QuickBuy logo">
     </a>
   </figure>
 
-  <span class="main-toolbar__spacer"></span>
-
-  <button routerLink="/shopping-cart" aria-label="Carrito de compras">
-    shopping_cart icon
-  </button>
+  <div>
+    <app-store-btn routerLink="/shopping-cart" color="secondary" icon="shopping_cart" shape="rounded" />
+  </div>
 </header>
 <main>
   <router-outlet />

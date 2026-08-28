@@ -19,22 +19,27 @@
     border-radius: 50%;
 }
 
+.primary,
+.secondary {
+    transition: all 300ms;
+}
+
 .primary {
-    background-color: rgba(0, 17, 255);
+    background-color: var(--primary);
     color: white;
 }
 
 .primary:hover {
-    background-color: rgb(1, 15, 207);
-    color: rgb(208, 208, 208)
+    background-color: #007fe7;
+    color: #e9e9e9
 }
 
 .secondary {
-    border: 1px solid rgb(46, 46, 46);
-    color: rgb(46, 46, 46);
-    background-color: transparent;
+    color: rgb(--main-text-color);
+    background-color: var(--secondary);
 }
 
 .secondary:hover {
-    color: rgba(0, 0, 0);
+    color: rgb(35, 35, 35);
+    background-color: var(--secondary-hover);
 }
