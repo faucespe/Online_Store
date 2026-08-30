@@ -21,16 +21,16 @@ namespace API.Services
             filter ??= new CategoryFilters();
 
             return this._database.Category
-                            .Include(c => c.IdStatusNavigation)
+                            .Include(c => c.CategoryStatus)
                             .Where(c => (string.IsNullOrEmpty(filter.Name) || c.Name.Contains(filter.Name))
-                                && (!filter.IdStatus.HasValue || c.IdStatus == filter.IdStatus));
+                                && (!filter.CategoryStatusId.HasValue || c.CategoryStatusId == filter.CategoryStatusId.Value));
         }
 
         public async Task<Category?> GetCategory(int id)
         {
             return await this._database
                             .Category
-                            .Include(c => c.IdStatusNavigation)
+                            .Include(c => c.CategoryStatus)
                             .Where(c => c.Id == id)
                             .FirstOrDefaultAsync();
         }
@@ -39,14 +39,14 @@ namespace API.Services
         {
             this._database.Category.Add(category);
             await this._database.SaveChangesAsync();
-            await this._database.Entry(category).Reference(c => c.IdStatusNavigation).LoadAsync();
+            await this._database.Entry(category).Reference(c => c.CategoryStatus).LoadAsync();
         }
 
         public async Task UpdateCategory(Category category)
         {
             this._database.Category.Update(category);
             await this._database.SaveChangesAsync();
-            await this._database.Entry(category).Reference(c => c.IdStatusNavigation).LoadAsync();
+            await this._database.Entry(category).Reference(c => c.CategoryStatus).LoadAsync();
         }
     }
 }

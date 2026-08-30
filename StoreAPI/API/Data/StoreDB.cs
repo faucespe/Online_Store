@@ -39,8 +39,8 @@ public partial class StoreDB : DbContext
                 .HasMaxLength(60)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.IdStatusNavigation).WithMany(p => p.Category)
-                .HasForeignKey(d => d.IdStatus)
+            entity.HasOne(d => d.CategoryStatus).WithMany(p => p.Category)
+                .HasForeignKey(d => d.CategoryStatusId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_CategoryStatus_Category");
         });
@@ -50,7 +50,7 @@ public partial class StoreDB : DbContext
             entity.HasKey(e => e.Id).HasName("PK_CategoryStatusId");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Status)
+            entity.Property(e => e.Name)
                 .HasMaxLength(15)
                 .IsUnicode(false);
         });
@@ -66,13 +66,12 @@ public partial class StoreDB : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
 
-            entity.HasOne(d => d.IdCategoryNavigation).WithMany(p => p.Product)
-                .HasForeignKey(d => d.IdCategory)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+            entity.HasOne(d => d.Category).WithMany(p => p.Product)
+                .HasForeignKey(d => d.CategoryId)
                 .HasConstraintName("FK_Category_Product");
 
-            entity.HasOne(d => d.IdStatusNavigation).WithMany(p => p.Product)
-                .HasForeignKey(d => d.IdStatus)
+            entity.HasOne(d => d.ProductStatus).WithMany(p => p.Product)
+                .HasForeignKey(d => d.ProductStatusId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ProductStatus_Product");
         });
@@ -82,7 +81,7 @@ public partial class StoreDB : DbContext
             entity.HasKey(e => e.Id).HasName("PK_ProductStatusId");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Status)
+            entity.Property(e => e.Name)
                 .HasMaxLength(15)
                 .IsUnicode(false);
         });
@@ -108,13 +107,13 @@ public partial class StoreDB : DbContext
         {
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
 
-            entity.HasOne(d => d.IdProductNavigation).WithMany(p => p.PurchaseOrderProduct)
-                .HasForeignKey(d => d.IdProduct)
+            entity.HasOne(d => d.Product).WithMany(p => p.PurchaseOrderProduct)
+                .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Product_PurchaseOrderProduct");
 
-            entity.HasOne(d => d.IdPurchaseOrderNavigation).WithMany(p => p.PurchaseOrderProduct)
-                .HasForeignKey(d => d.IdPurchaseOrder)
+            entity.HasOne(d => d.PurchaseOrder).WithMany(p => p.PurchaseOrderProduct)
+                .HasForeignKey(d => d.PurchaseOrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PurchaseOrder_PurchaseOrderProduct");
         });
