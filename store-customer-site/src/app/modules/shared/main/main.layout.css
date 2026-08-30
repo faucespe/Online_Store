@@ -1,9 +1,14 @@
 .main__header-logo {
-  width: 4.2rem;
-  cursor: pointer;
-  border-radius: 10px;
-  margin: 10px 0;
-  background-color: white;
+  display: none;
+  
+  @media  screen and (min-width: 600px) {
+    display: block;
+    width: 4.2rem;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 10px 0;
+    background-color: var(--color-background-secondary);
+  }
 }
 
 .main__header{
@@ -12,8 +17,8 @@
   align-items: center;
   padding: 2.5rem 2rem;
   max-height: 4rem;
-  overflow: hidden;
-  background-color: var(--top-bar-background);
+  gap: 1rem;
+  background-color: var(--color-background-topbar);
 }
 
 main {

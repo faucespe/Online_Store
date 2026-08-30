@@ -1,4 +1,4 @@
-import { Component, signal, model } from '@angular/core';
+import { Component, signal, model, effect } from '@angular/core';
 
 @Component({
   selector: 'app-tests',
@@ -8,8 +8,19 @@ import { Component, signal, model } from '@angular/core';
 })
 export class TestsPage {
   isActive = model<boolean>(false);
+  receivedSearchingText = signal<string>('');
 
   handleConfirmation() {
     alert('hola');
+  }
+
+  onFilterClick() {
+    alert(`click on filter`)
+  }
+
+  constructor() {
+    effect(() => {
+      console.log(this.receivedSearchingText())
+    })
   }
 }

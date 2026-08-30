@@ -5,6 +5,12 @@
     </a>
   </figure>
 
+  @if(hasFilters()) {
+    <app-store-filters>
+      filtros!
+    </app-store-filters>
+  }
+
   <div>
     <app-store-btn routerLink="/shopping-cart" color="secondary" icon="shopping_cart" shape="rounded" />
   </div>

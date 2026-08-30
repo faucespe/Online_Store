@@ -1,0 +1,32 @@
+.store-filter {
+    position: relative;
+}
+
+.store-filter__container {
+    display: flex;
+    gap: 1rem;
+}
+
+.store-filter__search-bar {
+    border-radius: 2rem;
+    outline: none;
+    padding: 0 2rem;
+    border: 1px solid var(--color-text-primary);
+}
+
+.store-filter__popover {
+    position: absolute;
+    top: 4rem;
+    width: 25rem;
+    min-height: 2rem;
+    border-radius: .5rem;
+    background-color: var(--color-background-secondary);
+    padding: 1rem;
+    box-shadow: 3px 3px 6px var(--color-primary-shadow);
+}
+
+.store-filter__popover-actions {
+    margin-top: 2rem;
+    justify-content: space-between;
+    display: flex;
+}

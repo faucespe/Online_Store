@@ -1,13 +1,13 @@
 import { Component, output, input, model } from '@angular/core';
 
 @Component({
-  selector: 'app-generic-modal',
+  selector: 'app-store-modal',
   standalone: false,
-  templateUrl: './generic-modal.html',
-  styleUrl: './generic-modal.css',
+  templateUrl: './store-modal.html',
+  styleUrl: './store-modal.css',
 })
-export class GenericModal {
-  public readonly title = input.required<string>(); 
+export class StoreModal {
+  public readonly modalTitle = input.required<string>(); 
   public readonly showConfirmButton = input<boolean>(true);
   public readonly showCancelButton = input<boolean>(true);
   public readonly confirmLabel = input<string>('Confirm');
