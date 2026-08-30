@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { Product } from '../../../../../services/product/product.model';
-import { ApiResponse } from '../../../../../services/http/http.types';
-import { ProductService } from '../../../../../services/product/product.service';
+import { ApiResponse } from '../../../../models/http.types';
+import { Product } from '../../../../models/product.model';
+import { ProductService } from '../../../../services/product/product.service';
 
 @Component({
   selector: 'app-products',

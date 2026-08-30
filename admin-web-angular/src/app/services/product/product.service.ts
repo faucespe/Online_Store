@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { ApiResponse } from './../http/http.types';
+import { ApiResponse } from '../../models/http.types';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../http/environment';
