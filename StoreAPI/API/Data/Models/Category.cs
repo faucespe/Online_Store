@@ -9,9 +9,9 @@ public partial class Category
 
     public string Name { get; set; } = null!;
 
-    public int IdStatus { get; set; }
+    public int CategoryStatusId { get; set; }
 
-    public virtual CategoryStatus IdStatusNavigation { get; set; } = null!;
+    public virtual CategoryStatus CategoryStatus { get; set; } = null!;
 
     public virtual ICollection<Product> Product { get; set; } = new List<Product>();
 }

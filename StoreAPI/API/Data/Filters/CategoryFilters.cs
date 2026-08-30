@@ -3,6 +3,6 @@
     public class CategoryFilters
     {
         public string? Name { get; set; }
-        public int? IdStatus { get; set; }
+        public int? CategoryStatusId { get; set; }
     }
 }

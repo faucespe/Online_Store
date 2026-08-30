@@ -51,22 +51,22 @@ namespace API.Validators
                 innerMessages.Add("Price must be greater than 0");
             }
 
-            // IdCategory
-            if (data.IdCategory < 0)
+            // CategoryId
+            if (data.CategoryId < 0)
             {
                 innerMessages.Add("Category is required");
             }
-            else if (!this._database.Category.Any(c => c.Id == data.IdCategory))
+            else if (!this._database.Category.Any(c => c.Id == data.CategoryId))
             {
                 innerMessages.Add("Category does not exist, you need to select a valid category");
             }
 
             // IdStatus
-            if (data.IdStatus < 0)
+            if (data.ProductStatusId < 0)
             {
                 innerMessages.Add("Status is required");
             }
-            else if (!this._database.ProductStatus.Any(s => s.Id == data.IdStatus))
+            else if (!this._database.ProductStatus.Any(s => s.Id == data.ProductStatusId))
             {
                 innerMessages.Add("Status does not exist, you need to select a valid status");
             }

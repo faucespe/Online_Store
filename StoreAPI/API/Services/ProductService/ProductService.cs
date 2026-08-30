@@ -23,8 +23,8 @@ namespace API.Services
                     .Where(p => (string.IsNullOrWhiteSpace(filter.Name) || p.Name.Contains(filter.Name))
                     && (!filter.MinPrice.HasValue || p.Price >= filter.MinPrice.Value)
                     && (!filter.MaxPrice.HasValue || p.Price <= filter.MaxPrice.Value)
-                    && (!filter.IdCategory.HasValue || p.IdCategory == filter.IdCategory.Value)
-                    && (!filter.IdStatus.HasValue || p.IdStatus == filter.IdStatus.Value)
+                    && (!filter.CategoryId.HasValue || p.CategoryId == filter.CategoryId.Value)
+                    && (!filter.ProductStatusId.HasValue || p.ProductStatusId == filter.ProductStatusId.Value)
                     );
         }
 

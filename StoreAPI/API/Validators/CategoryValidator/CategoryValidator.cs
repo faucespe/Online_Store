@@ -27,11 +27,11 @@ namespace API.Validators
             }
 
             //Status
-            if (!data.IdStatus.HasValue)
+            if (!data.CategoryStatusId.HasValue)
             {
                 innerMessages.Add("Status is required.");
             }
-            else if (!this._Database.CategoryStatus.Any(s => s.Id == data.IdStatus))
+            else if (!this._Database.CategoryStatus.Any(s => s.Id == data.CategoryStatusId))
             {
                 innerMessages.Add("Invalid status provided.");
             }

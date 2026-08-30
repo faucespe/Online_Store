@@ -15,9 +15,9 @@ public partial class Product
 
     public decimal Price { get; set; }
 
-    public int IdCategory { get; set; }
+    public int? CategoryId { get; set; }
 
-    public int IdStatus { get; set; }
+    public int ProductStatusId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
@@ -25,9 +25,9 @@ public partial class Product
 
     public int Stock { get; set; }
 
-    public virtual Category IdCategoryNavigation { get; set; } = null!;
+    public virtual Category? Category { get; set; }
 
-    public virtual ProductStatus IdStatusNavigation { get; set; } = null!;
+    public virtual ProductStatus ProductStatus { get; set; } = null!;
 
     public virtual ICollection<PurchaseOrderProduct> PurchaseOrderProduct { get; set; } = new List<PurchaseOrderProduct>();
 }

@@ -9,8 +9,7 @@ namespace API.Mapper
     {
         public CategoryMapper() 
         {
-            CreateMap<Category, GetCategoryDTO>()
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.IdStatusNavigation));
+            CreateMap<Category, GetCategoryDTO>();
             CreateMap<Category, CreateUpdateCategoryDTO>();
             CreateMap<CreateUpdateCategoryDTO, Category>();
             CreateMap<CategoryFiltersDTO, CategoryFilters>();

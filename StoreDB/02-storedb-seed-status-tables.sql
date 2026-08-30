@@ -2,12 +2,12 @@ USE StoreDB;
 GO
 
 -- INSERT DATA: CategoryStatus
-INSERT INTO CategoryStatus (Id, [Status])
-SELECT V.Id, V.[Status]
+INSERT INTO CategoryStatus (Id, [Name])
+SELECT V.Id, V.[Name]
 FROM (VALUES
-    (0, 'Inactive'),
-    (1, 'Active')
-) AS V(Id, [Status])
+    (1, 'Inactive'),
+    (2, 'Active')
+) AS V(Id, [Name])
 WHERE NOT EXISTS (
     SELECT 1
     FROM CategoryStatus CS
@@ -16,12 +16,12 @@ WHERE NOT EXISTS (
 GO
 
 -- INSERT DATA: ProductStatus
-INSERT INTO ProductStatus (Id, [Status])
-SELECT V.Id, V.[Status]
+INSERT INTO ProductStatus (Id, [Name])
+SELECT V.Id, V.[Name]
 FROM (VALUES
-    (0, 'Inactive'),
-    (1, 'Active')
-) AS V(Id, [Status])
+    (1, 'Inactive'),
+    (2, 'Active')
+) AS V(Id, [Name])
 WHERE NOT EXISTS (
     SELECT 1
     FROM ProductStatus PS

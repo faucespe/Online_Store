@@ -4,15 +4,15 @@ GO
 -- Ejecutar primero "status-tables.sql"
 
 -- INSERT DATA: Category
-INSERT INTO Category ([Name], IdStatus)
-SELECT V.[Name], V.IdStatus
+INSERT INTO Category ([Name], CategoryStatusId)
+SELECT V.[Name], V.CategoryStatusId
 FROM (VALUES
     ('Computadoras', 1),
     ('Periféricos', 1),
     ('Monitores', 1),
     ('Componentes', 1),
     ('Accesorios', 1)
-) AS V([Name], IdStatus)
+) AS V([Name], CategoryStatusId)
 WHERE NOT EXISTS (
     SELECT 1
     FROM Category C
@@ -26,8 +26,8 @@ INSERT INTO Product
     [Name],
     [Description],
     Price,
-    IdCategory,
-    IdStatus,
+    CategoryId,
+    ProductStatusId,
     CreatedAt,
     UpdatedAt,
     Stock
@@ -37,7 +37,7 @@ SELECT
     V.[Description],
     V.Price,
     C.Id,
-    V.IdStatus,
+    V.ProductStatusId,
     GETDATE(),
     NULL,
     V.Stock
@@ -56,13 +56,13 @@ FROM (VALUES
     ('Base para Laptop', 'Base ajustable para laptops', 28000.00, 'Accesorios', 1, 14),
     ('Teclado de Oficina', 'Teclado estándar para uso empresarial', 15000.00, 'Periféricos', 1, 35),
     ('Monitor Curvo 32"', 'Monitor curvo de 32 pulgadas para entretenimiento', 210000.00, 'Monitores', 1, 7),
-    ('Tarjeta Madre B650', 'Tarjeta madre compatible con procesadores AMD', 145000.00, 'Componentes', 0, 0)
+    ('Tarjeta Madre B650', 'Tarjeta madre compatible con procesadores AMD', 145000.00, 'Componentes', 1, 0)
 ) AS V(
     [Name],
     [Description],
     Price,
     CategoryName,
-    IdStatus,
+    ProductStatusId,
     Stock
 )
 INNER JOIN Category C
@@ -140,8 +140,8 @@ GO
 -- INSERT DATA: PurchaseOrderProduct
 INSERT INTO PurchaseOrderProduct
 (
-    IdProduct,
-    IdPurchaseOrder,
+    ProductId,
+    PurchaseOrderId,
     ProductQuantity,
     Price
 )
@@ -239,7 +239,7 @@ INNER JOIN Product P
 WHERE NOT EXISTS (
     SELECT 1
     FROM PurchaseOrderProduct POP
-    WHERE POP.IdProduct = P.Id
-      AND POP.IdPurchaseOrder = PO.Id
+    WHERE POP.ProductId = P.Id
+      AND POP.PurchaseOrderId = PO.Id
 );
 GO
