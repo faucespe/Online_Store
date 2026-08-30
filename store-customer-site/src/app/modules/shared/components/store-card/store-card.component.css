@@ -1,0 +1,35 @@
+.card {
+  display: flex;
+  align-items: start;
+  min-height: 17.5rem;
+  border-radius: .5rem;
+  box-shadow: 0 0 .1rem var(--color-primary-shadow);
+  background-color: var(--color-background-secondary);
+  overflow: hidden;
+  max-height: 10rem;
+}
+
+.card__image-container {
+  width: 20%;
+  overflow: hidden;
+}
+
+.card__image {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+@media (max-width: 840px) {
+  .card {
+    flex-direction: column;
+  }
+
+  .card__image-container {
+    width: 100%;
+  }
+}

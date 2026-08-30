@@ -2,7 +2,7 @@
     <div class="modal-overlay">
         <article class="modal">
             <header class="modal__header">
-                <span class="modal__header-label">{{ title() }}</span>
+                <h2 class="modal__header-label">{{ modalTitle() }}</h2>
                 <app-store-btn color="secondary" icon="close" shape="rounded" (click)="showModal.set(!showModal)" />
             </header>
             <main class="modal__main">
@@ -10,8 +10,8 @@
             </main>
             @if (showConfirmButton() || showCancelButton()) {
                 <footer class="modal__footer">
-                    <app-store-btn color="secondary" [label]="cancelLabel()" (click)="showModal.set(!showModal)" />
-                    <app-store-btn color="primary" [label]="confirmLabel()" (click)="handleConfirmation()" />
+                    <app-store-btn color="secondary" [buttonText]="cancelLabel()" (click)="showModal.set(!showModal)" />
+                    <app-store-btn color="primary" [buttonText]="confirmLabel()" (click)="handleConfirmation()" />
                 </footer>
             }
         </article>

@@ -1,13 +1,21 @@
 <main class="main-container">
-    <app-store-btn label="Open Modal" (click)="isActive.set(!isActive())" />
+    <app-store-btn buttonText="Open Modal" (click)="isActive.set(!isActive())" />
 
-    <app-generic-modal title="Modal Generico de Pruebas" (onConfirm)="handleConfirmation()" [(showModal)]="isActive">
-        <h2 style="font-size: 2rem;">Demo botones y modal</h2>
-        <div style="display: flex; flex-wrap: wrap; gap: 2em; margin-top: 2rem">
-            <app-store-btn icon="close" label="Cerrar"></app-store-btn>
+    <app-store-modal [modalTitle]="'Modal Generico de Pruebas'" (onConfirm)="handleConfirmation()" [(showModal)]="isActive">
+        <h2 style="font-size: 2rem; margin-bottom: 2rem;">Demo botones y modal</h2>
+
+        <app-store-filters
+            (onFilter)="onFilterClick()"
+            [(searchingText)]="receivedSearchingText"
+        >
+            _Esto es un ng-content, aqui van a meter los filtros que necesiten_
+        </app-store-filters>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 2em; margin: 2rem 0; border-bottom: 1px solid black;">
+            <app-store-btn icon="close" buttonText="Cerrar"></app-store-btn>
             <app-store-btn icon="close" shape="rounded"></app-store-btn>
             
-            <app-store-btn color="secondary" icon="close" label="Cerrar"></app-store-btn>
+            <app-store-btn color="secondary" icon="close" buttonText="Cerrar"></app-store-btn>
             <app-store-btn color="secondary" icon="close" shape="rounded"></app-store-btn>
 
             <app-store-btn icon="home" shape="rounded"></app-store-btn>
@@ -15,5 +23,14 @@
             <app-store-btn icon="remove" shape="rounded"></app-store-btn>
             <app-store-btn color="secondary" icon="shopping_cart" shape="rounded"></app-store-btn>
         </div>
-    </app-generic-modal>
+        <p>{{ receivedSearchingText() }}</p>
+    </app-store-modal>
+
+
+    <app-store-card imageUrl="https://images.pexels.com/photos/10430978/pexels-photo-10430978.jpeg">
+        <div>contenido</div>
+    </app-store-card>
+    <app-store-card>
+        <div>contenido</div>
+    </app-store-card>
 </main>

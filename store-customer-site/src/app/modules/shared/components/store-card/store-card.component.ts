@@ -1,0 +1,24 @@
+import { Component, input, computed, effect } from '@angular/core';
+
+type imageExtensions = 'jpg' | 'jpeg' | 'png';
+
+@Component({
+  selector: 'app-store-card',
+  standalone: false,
+  templateUrl: './store-card.component.html',
+  styleUrl: './store-card.component.css',
+})
+export class StoreCard {
+  public readonly imageUrl = input<string>('');
+  public readonly imageDescription = input<string>('Item image');
+
+  private readonly defaultImageUrl = 'https://images.pexels.com/photos/5779618/pexels-photo-5779618.jpeg';
+  private readonly validExtensions: imageExtensions[] = ['jpg', 'jpeg', 'png'];
+
+  //Validate image format
+  protected imageSrc = computed(() => {
+    const imageUrl: string = this.imageUrl();
+    const isValidExtension = this.validExtensions.find((e) => imageUrl.endsWith(e));
+    return isValidExtension ? imageUrl : this.defaultImageUrl;
+  })
+}
