@@ -1,0 +1,34 @@
+<p>products works!</p>
+@for (product of products(); track product.id) {
+  <app-card>
+    <div card-image>
+      FOTO
+    </div>
+    <div card-info>
+      <p class="product-name">
+        {{ product.name }}
+      </p>
+      <p>
+        Descripción: {{ product.description }}
+      </p>
+      <p>
+        Categoría: {{ product.idCategory }}
+      </p>
+      <p>
+        Estado: {{ product.idStatus }}
+      </p>
+      <p>
+        Stock: {{ product.stock }}
+      </p>
+      <p class="product-price">
+        Precio: ₡{{ product.price }}
+      </p>
+    </div>
+    <div card-actions>
+      <button>Editar</button>
+      <button>Desactivar</button>
+    </div>
+  </app-card>
+} @empty {
+  <p>No result found</p>
+}
