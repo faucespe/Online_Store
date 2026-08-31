@@ -1,7 +1,7 @@
-.navbar {
+.menu {
 
   width: 100%;
-  border-radius: 12px;
+  border-radius: 1.2rem;
   z-index: 100;
   padding: 1px 1px;
 
@@ -20,8 +20,8 @@
   align-items: center;
   justify-content: center;
 
-  width: 55px;
-  height: 55px;
+  width: 3.2rem;
+  height: 3.2rem;
   border: 1px solid #ccc;
   border-radius: 10px;
   margin-left: 0.2rem;
@@ -30,19 +30,19 @@
 /* Botón */
 .menu-button {
   margin-right: 0.2rem;
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
 
   cursor: pointer;
 }
 
 .menu-options {
    z-index: 999;
-  border-radius: 10px;
+  border-radius: 1rem;
   top: 100%;
   right: 1rem;
-  gap: 8px;
-  padding: 10px;
+  gap: 0.8rem;
+  padding: 1rem;
 
   background: white;
   border: 1px solid #ddd;
@@ -54,9 +54,9 @@
 }
 
 .menu-options a {
-  border-radius: 8px;
+  border-radius: 0.8rem;
   width: 100%;
-  padding: 10px;
+  padding: 1rem;
   display: block;
 
   box-sizing: border-box;
