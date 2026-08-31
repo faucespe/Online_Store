@@ -1,0 +1,16 @@
+<nav class="navbar">
+  <div class="logo">
+    LOGO
+  </div>
+  
+  <h1>Administration Web</h1>
+
+  <button class="menu-button" (click)="toggleMenu()">☰</button>
+
+  <div class="menu-options" *ngIf="menuOpen">
+    <a routerLink="/orders">Órdenes de compra</a>
+    <a routerLink="/products">Productos</a>
+    <a routerLink="/categories">Categorías</a>
+  </div>
+
+</nav>
