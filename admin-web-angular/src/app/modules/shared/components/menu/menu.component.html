@@ -7,12 +7,13 @@
 
   <button class="menu-button" (click)="toggleMenu()">☰</button>
 
-  @if (menuOpen) {
-  <div class="menu-options">
-    <a routerLink="/orders">Órdenes de compra</a>
-    <a routerLink="/products">Productos</a>
-    <a routerLink="/categories">Categorías</a>
-  </div>
-}
+  @if (menuOpen()) {
+    <div class="menu-options">
+      <a routerLink="/orders">Órdenes de compra</a>
+      <a routerLink="/products">Productos</a>
+      <a routerLink="/categories">Categorías</a>
+    </div>
+  }
+
 
 </nav><p>menu works!</p>

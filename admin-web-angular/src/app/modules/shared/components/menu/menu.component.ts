@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './menu.component.css',
 })
 export class MenuComponent {
-  menuOpen = false;
+  menuOpen = signal(false);
 
   toggleMenu(): void {
-    this.menuOpen = !this.menuOpen;
+    this.menuOpen.update(value => !value);
   }
 }
