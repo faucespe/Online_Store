@@ -20,6 +20,9 @@ namespace API.Services
 
             return this._database
                     .Product
+                    .Include(p => p.Category)
+                        .ThenInclude(c => c.CategoryStatus)
+                    .Include(p => p.ProductStatus)
                     .Where(p => (string.IsNullOrWhiteSpace(filter.Name) || p.Name.Contains(filter.Name))
                     && (!filter.MinPrice.HasValue || p.Price >= filter.MinPrice.Value)
                     && (!filter.MaxPrice.HasValue || p.Price <= filter.MaxPrice.Value)
@@ -31,9 +34,12 @@ namespace API.Services
         public async Task<Product?> FindProduct(int id)
         {
             return await this._database
-                            .Product
-                            .Where(p => p.Id == id)
-                            .FirstOrDefaultAsync();
+                .Product
+                .Include(p => p.Category)
+                    .ThenInclude(c => c.CategoryStatus)
+                .Include(p => p.ProductStatus)
+                .Where(p => p.Id == id)
+                .FirstOrDefaultAsync();
         }
 
         public async Task InsertProduct(Product entity)
