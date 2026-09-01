@@ -8,10 +8,9 @@ import { StoreModal } from './components/store-modal/store-modal';
 import { StoreBtn } from './components/store-btn/store-btn';
 import { StoreFilters } from './components/store-filters/store-filters';
 import { StoreCard } from './components/store-card/store-card.component';
-import { Table } from './components/table/table';
 
 @NgModule({
-  declarations: [MainLayout, StoreModal, TestsPage, StoreBtn, StoreFilters, StoreCard, Table],
+  declarations: [MainLayout, StoreModal, TestsPage, StoreBtn, StoreFilters, StoreCard],
   imports: [CommonModule, RouterLink, RouterModule],
 })
 export class SharedModule {}
