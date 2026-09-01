@@ -9,8 +9,8 @@ namespace API.DataTransferObjects
         public string Description { get; set; } = null!;
         public string? ImageUrl { get; set; }
         public decimal Price { get; set; }
-        public int CategoryId { get; set; }
-        public int ProductStatusId { get; set; }
+        public GetCategoryDTO? Category { get; set; }
+        public GetProductStatusDTO ProductStatus { get; set; } = null!;
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public int Stock { get; set; }

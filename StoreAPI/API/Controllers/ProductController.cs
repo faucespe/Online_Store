@@ -31,8 +31,8 @@ namespace API.Controllers
         {
             ProductFilters filter = this._mapper.Map<FilterProductDTO, ProductFilters>(data);
             List<Product> list = await this._productService.ListProducts(filter)
-                .OrderBy(p => p.Name)
-                .ThenBy(p => p.Price)
+                .OrderBy(p => p.Id)
+                .ThenBy(p => p.Name)
                 .ToListAsync();
 
             ApiResponse response = new()
