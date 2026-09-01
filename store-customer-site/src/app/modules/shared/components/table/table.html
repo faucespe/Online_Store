@@ -1,0 +1,24 @@
+<div class="table-frame">
+  @if (data() && data().length > 0) {
+    <table class="records-grid">
+      <thead>
+        <tr>
+          @for (column of columns(); track column.key) {
+            <th [class.numeric-col]="column.align === 'right'">{{ column.header }}</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of data(); track $index) {
+          <tr>
+            @for (column of columns(); track column.key) {
+              <td [class.numeric-col]="column.align === 'right'">{{ getCellValue(row, column.key) }}</td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <div class="no-records">{{ emptyMessage() }}</div>
+  }
+</div>
