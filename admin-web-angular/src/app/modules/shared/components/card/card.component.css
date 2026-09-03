@@ -24,9 +24,6 @@
   overflow: hidden;
 }
 
-
-
-
 @media (max-width: 600px) {
   .product-card {
     grid-template-columns: 100px minmax(0, 1fr);
