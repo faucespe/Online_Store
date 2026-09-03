@@ -4,8 +4,8 @@ export interface Product {
     description: string;
     imageUrl?: string;
     price: number;
-    idCategory: number;
-    idStatus: number;
+    category: any;
+    productStatus: any;
     stock: number;
     createdAt?: string;
     updatedAt?: string;

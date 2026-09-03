@@ -1,0 +1,28 @@
+.cart-page {
+    padding: 0 5rem;
+}
+
+.cart-page__empty-card {
+    text-align: center;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.cart__additional-actions {
+    width: 50%;
+    margin: 0 auto;
+    border-radius: 1rem;
+    background-color: var(--color-background-secondary);
+    box-shadow: 0 0 1rem var(--color-primary-shadow);
+    margin-bottom: 2rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart__additional-actions-checkout {
+    text-align: center;
+    font-weight: 700;
+    color: var(--color-danger-secondary)
+}

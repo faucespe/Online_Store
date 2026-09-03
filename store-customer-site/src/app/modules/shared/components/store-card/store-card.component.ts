@@ -1,4 +1,4 @@
-import { Component, input, computed, effect } from '@angular/core';
+import { Component, input, computed } from '@angular/core';
 
 type imageExtensions = 'jpg' | 'jpeg' | 'png';
 
