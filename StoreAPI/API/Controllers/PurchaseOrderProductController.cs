@@ -22,8 +22,6 @@ namespace API.Controllers
             this._purchaseOrderProductService = purchaseOrderProductService;
         }
 
-        public IPurchaseOrderProductService PurchaseOrderProductService { get; }
-
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> ListPurchaseOrderProducts([FromQuery] FilterPurchaseOrderProductDTO data)
         {
