@@ -1,0 +1,33 @@
+<h2>Categorías</h2>
+
+<app-table 
+    [data]="categories()" 
+    [columns]="columns" 
+    [showActions]="true"
+    [actionLabel]="'Actualizar'"
+    (rowActions)="onEditCategory($any($event))"
+    emptyMessage="No hay categorías registradas" 
+/>
+
+<app-modal
+    modalTitle="Actualizar categoría"
+    [(showModal)]="showModal"
+    [confirmLabel]="'Actualizar'"
+    [cancelLabel]="'Cancelar'"
+    (onConfirm)="saveCategory()">
+
+    <label>
+        Nombre
+        <input type="text" [value]="editName()" (input)="editName.set($any($event.target).value)"/>
+    </label>
+
+    <label>
+        Estado
+        <select [value]="editStatusId()" (change)="editStatusId.set(+$any($event.target).value)">
+            <option value="" disabled selected>Seleccione un estado</option>
+            @for (status of statuses(); track status.id){
+                <option [value]="status.id">{{ status.name}}</option>
+            }
+        </select>
+    </label>
+</app-modal>

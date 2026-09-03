@@ -10,6 +10,12 @@ const routes: Routes = [
         .then(m => m.ProductsModule)
   },
   {
+    path: 'categories',
+    loadChildren: () =>
+      import('./modules/categories/categories-module')
+        .then(m => m.CategoriesModule)
+  },
+  {
     path: 'tests',
     component: TestPage
   }
