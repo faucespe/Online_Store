@@ -1,4 +1,7 @@
-<h2>Categorías</h2>
+<div class="category-header">
+  <h2>Categorías</h2>
+  <app-button color="primary" buttonText="Crear categoría" (click)="openCreateModal()" />
+</div>
 
 <app-table 
     [data]="categories()" 
@@ -10,9 +13,9 @@
 />
 
 <app-modal
-    modalTitle="Actualizar categoría"
+    [modalTitle]="isEditMode() ? 'Actualizar categoría' : 'Crear categoría'"
     [(showModal)]="showModal"
-    [confirmLabel]="'Actualizar'"
+    [confirmLabel]="isEditMode() ? 'Actualizar' : 'Crear'"
     [cancelLabel]="'Cancelar'"
     (onConfirm)="saveCategory()">
 

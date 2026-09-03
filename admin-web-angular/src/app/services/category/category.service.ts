@@ -35,14 +35,21 @@ export class CategoryService {
       }
     });
   }
-
-
-public getCategoryStatuses(): Observable<ApiResponse<CategoryStatus[]>> {
-    return this.http.get<ApiResponse<CategoryStatus[]>>(environment.apiURL + '/category-status', {
+  
+  public createCategory(data: UpdateCategory): Observable<ApiResponse<Category>> {
+    return this.http.post<ApiResponse<Category>>(environment.apiURL + '/categories', data, {
       headers: {
         'Content-Type': 'application/json'
       }
     });
-  } 
+  }
+
+  public getCategoryStatuses(): Observable<ApiResponse<CategoryStatus[]>> {
+      return this.http.get<ApiResponse<CategoryStatus[]>>(environment.apiURL + '/category-status', {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    } 
 }
   
