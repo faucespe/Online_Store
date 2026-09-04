@@ -14,14 +14,21 @@ export class ProductService {
   private http = inject(HttpClient);
 
   public getProducts(filter?: FilterProductDTO): Observable<ApiResponse> {
-      return this.http.get<ApiResponse>(
-          environment.apiURL + '/products',
-          {
-              params: filter as any
-          }
-      );
-    }
-      public createProduct(product: Product): Observable<ApiResponse> {
+    const params = {
+        name: filter?.name ?? '',
+        minPrice: filter?.minPrice ?? '',
+        maxPrice: filter?.maxPrice ?? '',
+        categoryId: filter?.categoryId ?? '',
+        productStatusId: filter?.productStatusId ?? ''
+    };
+
+    return this.http.get<ApiResponse>(
+        environment.apiURL + '/products',
+        { params }
+    );
+  }
+
+  public createProduct(product: Product): Observable<ApiResponse> {
     const dto = new InsertUpdateProductDTO(product);
     return this.http.post<ApiResponse>(
         environment.apiURL + '/products',

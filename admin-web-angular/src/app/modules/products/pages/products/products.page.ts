@@ -33,6 +33,7 @@ export class ProductsPage implements OnInit {
 
   ngOnInit(): void {
     this.loadProducts();
+    // Reemplazar las categorías temporales por datos obtenidos desde el API.
     this.productStatusService.getProductStatuses().subscribe({
       next: (ApiResponse) => {
           console.log('Product Status:', ApiResponse.data);
@@ -74,11 +75,10 @@ export class ProductsPage implements OnInit {
   // Función para cargar los productos desde el servicio de productos, con la opción de aplicar un filtro
   public loadProducts(filter?: FilterProductDTO): void {
     this.productService.getProducts(filter).subscribe({
-        next: (ApiResponse) => {
-            this.products.set(ApiResponse.data);
+        next: (apiResponse) => {
+          this.products.set(apiResponse.data);
         },
         error: (error) => {
-            console.error('Error cargando productos:', error);
         }
     });
   }
@@ -89,10 +89,9 @@ export class ProductsPage implements OnInit {
   // pero demomento el filtro para poder ser aplicado, debe ser aplicado manualmente,
   // para que el cliente pueda ver los productos filtrados por medio del botón acción aplicar.
   public applyFilter(): void {
-    const filter = new FilterProductDTO(this.filter);
-    this.loadProducts(filter);
+      const filter = new FilterProductDTO(this.filter);
+      this.loadProducts(filter);
   }
-
   // Función para limpiar el filtro de productos (inputs y selects), y recargar los productos sin filtro
   public clearFilter(): void {
     this.filter = new FilterProductDTO();
@@ -106,6 +105,8 @@ export class ProductsPage implements OnInit {
     this.product = new Product();
   }
 
+
+  // Reemplazar las categorías temporales por datos obtenidos desde el API.
   //Datos temporales para simular la obtención de categorías desde un servicio,
   // ya que no se ha implementado el servicio de categorías.
   //En el futuro, se debe reemplazar este código por la obtención de categorías desde el servicio correspondiente

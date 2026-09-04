@@ -25,8 +25,8 @@
         </app-input>
     </div>
     <div class="filter-row">
-        <app-select name="category" label="Categoría" [options]="categories()" [(model)]="filter.categoryId"></app-select>
-        <app-select name="status"label="Estado" [options]="statuses()" [(model)]="filter.productStatusId"></app-select>
+        <app-select name="category" label="Categoría" [options]="categories()" [(model)]="filter.category"></app-select>
+        <app-select name="status"label="Estado" [options]="statuses()" [(model)]="filter.productStatus"></app-select>
     </div>
   </div>
 </div>

@@ -37,13 +37,17 @@ export class InsertUpdateProductDTO {
   }
 }
 
-// DTO para filtrar productos
+// Reemplazar las categorías temporales por datos obtenidos desde el API.
+// Evitar manejar Category como objeto e ID simultáneamente.
+// Actualmente se manejan Category y CategoryId por separado para compatibilidad con el API.
 export class FilterProductDTO {
   public name: string;
   public minPrice: number;
   public maxPrice: number;
-  public categoryId: number;
-  public productStatusId: number;
+  public category: Category | null;
+  public productStatus: ProductStatus | null;
+  public categoryId: number | string;
+  public productStatusId: number | string;
 
   constructor(data: any = null) {
     // Técnica de deep copy para eliminar referencias de memoria
@@ -61,7 +65,12 @@ export class FilterProductDTO {
 
     //De esta logramos mandar el id tanto de Category como de ProductStatus, que es el dato permitido por la API
     //para filtrar los datos
-    this.categoryId = data.category?.id ?? data.categoryId ?? '';
-    this.productStatusId = data.productStatus?.id ?? data.productStatusId ?? '';
+    // Se mantienen los objetos seleccionados para trabajar con los Select.
+    this.category = data.category ?? null;
+    this.productStatus = data.productStatus ?? null;
+
+    this.categoryId = data.category?.id ?? data.category ?? '';
+    this.productStatusId =
+        data.productStatus?.id ?? data.productStatus ?? '';
   }
 }
