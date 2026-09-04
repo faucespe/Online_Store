@@ -35,12 +35,18 @@
             <p>Unidades disponibles: <span class="products__product-info">{{ product.stock }}</span></p>
 
             <h3>Añadir al carrito</h3>
-            <div class="products__container-actions">
-                <app-store-btn color="secondary" [icon]="productCounter() === 1 ? 'delete' : 'remove'" shape="rounded" (click)="productCounter.set(productCounter() - 1)" />
-                <span>{{ productCounter() }}</span>
-                <app-store-btn color="secondary" icon="add" shape="rounded" (click)="productCounter.set(productCounter() + 1)" />
+            <div class="products__container-select">
+                <label for="selectQuantity">Seleccionar cantidad</label>
+                <select (change)="onSelectQuantity($event, product)" id="selectQuantity">
+                    @for (number of getStockNumbers(product.stock); track $index) {
+                        <option [value]="number">{{number}}</option>
+                    }
+                </select>
             </div>
-            <app-store-btn (click)="openModal(product.id)" color="secondary" buttonText="Ver detalles" />
+            <div class="products__container-actions">
+                <app-store-btn (click)="openModal(product.id)" color="secondary" buttonText="Detalles" />
+                <app-store-btn buttonText="Agregar" (click)="addProductTest(product)"></app-store-btn>
+            </div>
         </app-store-card>
     } @empty {
         <p>No se encontraron resultados</p>

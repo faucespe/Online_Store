@@ -10,11 +10,23 @@
     padding: 0 5rem;
 }
 
-.products__container-actions {
+.products__product-card-content {
+    margin: 0 auto;
+    border: 1px solid red;
+}
+
+.products__container-select {
     display: flex;
     justify-content: left;
     align-items: center;
     gap: 1rem;
+}
+
+.products__container-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem
 }
 
 .products__product-title {

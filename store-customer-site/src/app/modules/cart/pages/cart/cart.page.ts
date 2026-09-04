@@ -18,19 +18,6 @@ export class CartPage implements OnDestroy, OnInit {
 
   protected grandTotal = computed(() => this.cartProducts().reduce((total, product) => total + (product.price * product.quantity), 0))
 
-  protected addProductTest(): void {
-    const cartProduct: CartProduct =  {
-            id: 1,
-            name: 'postre',
-            imageUrl: 'sdf',
-            stock: 30,
-            price: 3000,
-            quantity: 2,
-    }
-
-    this.cartService.addProduct(cartProduct);
-  }
-
   protected increaseProductQuantityById(productId: number) {
     this.cartService.increaseProductQuantityById(productId);
   }

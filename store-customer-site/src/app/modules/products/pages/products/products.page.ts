@@ -1,6 +1,8 @@
 import { Component, OnInit, inject, signal, effect } from '@angular/core';
 import { Category } from '@models/category';
 import { Product } from '@models/product';
+import { CartService } from '@services/cart/cart.service';
+import { CartProduct } from '@services/cart/cart.types';
 import { CategoryService } from '@services/category/category.service';
 import { ProductService } from '@services/product/product.service';
 
@@ -21,9 +23,9 @@ export class ProductsPage implements OnInit {
   public products = signal<Product[]>([]);
   public categories = signal<Category[]>([]);
   public filteredProducts = signal<Product[]>([]);
-  protected productCounter = signal<number>(0);
   protected showDetailsModal = signal<boolean>(false);
 
+  //filters signals
   protected nameSearched = signal<string>('');
   protected minPrice = signal<number>(0);
   protected maxPrice = signal<number>(0);
@@ -31,19 +33,7 @@ export class ProductsPage implements OnInit {
 
   private productService = inject(ProductService);
   private categoryService = inject(CategoryService);
-
-  public ngOnInit(): void {
-    this.productService.getProducts().subscribe((apiResponse) => {
-      this.products.set(apiResponse.data);
-      this.filteredProducts.set(this.products());
-      this.maxPrice.set(Math.max(...this.products().map(product => product.price)));
-      this.minPrice.set(Math.min(...this.products().map(product => product.price)));
-    })
-
-    this.categoryService.getCategories().subscribe((apiResponse) => {
-      this.categories.set(apiResponse.data);
-    })
-  }
+  private cartService = inject(CartService);
 
   protected selectedProduct = signal<Product | undefined>(undefined);
   protected openModal(productId: number) {
@@ -93,6 +83,47 @@ export class ProductsPage implements OnInit {
         categoryId: this.categoryId(),
       })
       this.filterProducts(this.productFilters());
+    })
+  }
+
+  /*cart features*/
+  protected getStockNumbers(stock: number) {
+    return Array.from({length: stock}, (_, i) => i + 1);
+  }
+
+  onSelectQuantity(event: Event, product: Product): void {
+    const select = event.target as HTMLSelectElement;
+    const quantity: number = parseInt(select.value);
+    //product.stock -= quantity;
+    product.quantity = quantity;
+  }
+
+  protected addProductTest(selectedProduct: Product): void {
+    if (!selectedProduct.quantity || selectedProduct.quantity <= 0) return;
+    const cartProduct: CartProduct =  {
+            id: selectedProduct.id,
+            name: selectedProduct.name,
+            imageUrl: selectedProduct.imageUrl,
+            stock: selectedProduct.stock,
+            price: selectedProduct.price,
+            quantity: selectedProduct.quantity,
+    }
+    console.log(cartProduct)
+    this.cartService.addProduct(cartProduct);
+  }
+
+  /*hooks*/
+  public ngOnInit(): void {
+    this.productService.getProducts().subscribe((apiResponse) => {
+      const receivedProducts = apiResponse.data.map((product: Product) => ({...product, quantity: 1}));
+      this.products.set(receivedProducts);
+      this.filteredProducts.set(this.products());
+      this.maxPrice.set(Math.max(...this.products().map(product => product.price)));
+      this.minPrice.set(Math.min(...this.products().map(product => product.price)));
+    })
+
+    this.categoryService.getCategories().subscribe((apiResponse) => {
+      this.categories.set(apiResponse.data);
     })
   }
 }

@@ -1,7 +1,6 @@
-<div class="cart-page">
+<div class="cart">
     @if (cartProducts().length === 0) {
-        <p class="cart-page__empty-card">Su carrito está vacío.</p>
-        <app-store-btn buttonText="Agregar Producto" (click)="addProductTest()"></app-store-btn>
+        <p class="cart__empty-card">Su carrito está vacío.</p>
     } @else {
         <section class="cart__additional-actions">
             <app-store-btn color="secondary" buttonText="Vaciar Carrito" (click)="emptyCart()"></app-store-btn>
@@ -10,9 +9,9 @@
                 <app-store-btn buttonText="Continuar al checkout"></app-store-btn>
             </div>
         </section>
-        <section>
+        <section class="cart__products-container">
             @for (product of cartProducts(); track product.id) {
-                <app-store-card [imageUrl]="product.imageUrl ?? ''" [imageDescription]="product.name">
+                <app-store-card class="cart__products-container-item" [imageUrl]="product.imageUrl ?? ''" [imageDescription]="product.name">
                     <h2 class="products__product-title">{{ product.name }}</h2>
 
                     <p>Precio: <span class="products__product-info">₡{{ product.price }}</span></p>
@@ -26,9 +25,6 @@
                     </div>
                 </app-store-card>
             }
-
-            <app-store-btn buttonText="Agregar Producto" (click)="addProductTest()"></app-store-btn>
-            <app-store-btn buttonText="Eliminar Producto" (click)="removeProduct(1)"></app-store-btn>
         </section>
     }
 </div>

@@ -7,6 +7,7 @@ export interface Product {
     category: any;
     productStatus: any;
     stock: number;
+    quantity?: number;
     createdAt?: string;
     updatedAt?: string;
 }
