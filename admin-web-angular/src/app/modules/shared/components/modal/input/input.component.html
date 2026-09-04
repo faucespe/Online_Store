@@ -1,0 +1,14 @@
+<div class="input">
+  @if (label) {
+    <label [for]="name">
+      {{ label }}
+    </label>
+  }
+  <input
+    [id]="name"
+    [name]="name"
+    [type]="type"
+    [value]="model"
+    (input)="onModelChange($any($event.target).value)"
+  />
+</div>

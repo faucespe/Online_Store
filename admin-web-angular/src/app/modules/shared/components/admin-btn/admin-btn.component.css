@@ -1,0 +1,56 @@
+:host {
+    display: inline-block;
+    width: fit-content;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    user-select: none;
+
+    font-size: 1.65rem;
+    transition: background-color, color 500ms;
+}
+
+.default {
+    padding: .5rem 1rem;
+    border-radius: 2rem;
+}
+
+.rounded {
+    padding: .5rem;
+    border-radius: 50%;
+}
+
+.primary,
+.secondary {
+    transition: all 300ms;
+}
+
+.primary {
+    background-color: var(--color-primary);
+    color: var(--color-text-secondary)
+}
+
+.primary:hover {
+    background-color: var(--color-primary-hover);
+    color: var(--color-text-secondary-hover)
+}
+
+.secondary {
+    color: var(--color-text-primary);
+    background-color: var(--color-secondary);
+}
+
+.secondary:hover {
+    color: var(--color-text-primary-hover);
+    background-color: var(--color-secondary-hover);
+}
+
+:host(.create-product-btn) .button {
+    border: 1px solid #0f0f0f;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
