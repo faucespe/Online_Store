@@ -60,3 +60,14 @@
   align-items: end;
   gap: 1rem;
 }
+
+.products-container {
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.products-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
