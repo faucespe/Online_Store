@@ -1,22 +1,35 @@
 import { Observable }from 'rxjs';
 import { ApiResponse } from '../../models/http.types';
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../http/environment';
 import { Category, UpdateCategory } from '../../models/category.model';
 import { CategoryStatus } from '../../models/category-status.model';
+import { CategoryFilters } from '../../models/category-filters.model';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class CategoryService {
   private http = inject(HttpClient);
 
-  public getCategories(): Observable<ApiResponse<Category[]>> {
+  public getCategories(filters?: CategoryFilters): Observable<ApiResponse<Category[]>> {
+    let params = new HttpParams();
+
+    if (filters?.name) {
+      params = params.set('Name', filters.name);
+    }
+
+    if (filters?.categoryStatusId) {
+      params = params.set('CategoryStatusId', filters.categoryStatusId.toString());
+    }
+
     return this.http.get<ApiResponse<Category[]>>(environment.apiURL + '/categories', {
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      params
     });
   }
 
@@ -52,4 +65,3 @@ export class CategoryService {
       });
     } 
 }
-  
