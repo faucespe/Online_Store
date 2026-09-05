@@ -1,5 +1,7 @@
 ﻿using API.Data;
+using API.Data.Filters;
 using API.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
@@ -12,9 +14,22 @@ namespace API.Services
             this._database = database;
         }
         public StoreDB Database { get; }
-        public IQueryable<PurchaseOrderProduct> ListPurchaseOrderProducts()
+
+        public IQueryable<PurchaseOrderProduct> ListPurchaseOrderProducts(PurchaseOrderProductFilters? filter = null)
         {
-            return this._database.PurchaseOrderProduct;
+            filter ??= new PurchaseOrderProductFilters();
+
+            return this._database
+                .PurchaseOrderProduct
+                .Where(p => p.PurchaseOrderId == filter.PurchaseOrderId);
+        }
+
+        public async Task<PurchaseOrderProduct?> FindPurchaseOrderProduct(int id)
+        {
+            return await this._database
+                .PurchaseOrderProduct
+                .Where(p => p.Id == id)
+                .FirstOrDefaultAsync();
         }
     }
 }
