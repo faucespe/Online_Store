@@ -1,29 +1,25 @@
 <app-menu></app-menu>
-<app-card><app-card>
+<div class="products-container">
+  <div class="products-header">
+    <P>Productos</P>
+    <p>☷ Searching by Name</p>
+    </div>
+</div>
+<button>Agregar producto</button>
+
 @for (product of products(); track product.id) {
   <app-card>
     <div card-image>
       FOTO
     </div>
     <div card-info>
-      <p class="product-name">
-        {{ product.name }}
-      </p>
-      <p>
-        Descripción: {{ product.description }}
-      </p>
-      <p>
-        Categoría: {{ product.idCategory }}
-      </p>
-      <p>
-        Estado: {{ product.idStatus }}
-      </p>
-      <p>
-        Stock: {{ product.stock }}
-      </p>
-      <p class="product-price">
-        Precio: ₡{{ product.price }}
-      </p>
+      <p class="product-name">{{ product.name }}</p>
+      <p>Categoría: {{ product.category?.name }}</p>
+      <p>Estado: {{ product.productStatus.name }}</p>
+      <p>Stock: {{ product.stock }}</p>
+      <p>Creado: {{ product.createdAt }}</p>
+      <p>Actualizado: {{ product.updatedAt }}</p>
+      <p class="product-price">Precio: ₡{{ product.price }}</p>
     </div>
     <div card-actions>
       <button>Editar</button>

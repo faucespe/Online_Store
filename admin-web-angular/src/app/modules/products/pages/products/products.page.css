@@ -20,3 +20,14 @@
   width: 150px;
   padding: 8px;
 }
+
+.products-container {
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.products-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
