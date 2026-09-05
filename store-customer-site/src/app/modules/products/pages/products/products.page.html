@@ -1,7 +1,73 @@
-<h1>Catálogo de Productos</h1>
+<header class="products__header">
+    <h1 class="products__title">Productos</h1>
 
-@for (product of products(); track product.id) {
-    <p>{{product.name}} {{product.price}} stock: {{product.stock}}</p>
-} @empty {
-    <p>No result found</p>
-}
+    <app-store-filters confirmButtonText="Limpiar" [(searchingText)]="nameSearched" cancelButtonText="Cerrar" (onConfirm)="cleanFilters()">
+        <div class="products__filters">
+            <div>
+                <label for="minPrice">Precio mínimo</label>
+                <input [value]="minPrice() || 0" (change)="minPrice.set($event.target.valueAsNumber)" id="minPrice" type="number">
+            </div>
+            <div>
+                <label for="maxPrice">Precio máximo</label>
+                <input [value]="maxPrice() || 0" (change)="maxPrice.set($event.target.valueAsNumber)" id="maxPrice" type="number">
+            </div>
+            @if (categories()) {
+                <div>
+                    <label for="selectCategories">Categoría</label>
+                    <select [value]="categoryId()" (change)="onCategoryChange($event)" name="selectedCategory" id="selectCategories">
+                        <option value="0">Cualquiera</option>
+                        @for (category of categories(); track category.id) {
+                            <option [value]="category.id">{{ category.name }}</option>
+                        }
+                    </select>
+                </div>
+            }
+        </div>
+    </app-store-filters>
+</header>
+
+<section class="products__container">
+    @for (product of filteredProducts(); track product.id) {
+        <app-store-card [imageUrl]="product.imageUrl ?? ''" [imageDescription]="product.name">
+            <h2 class="products__product-title">{{ product.name }}</h2>
+
+            <p>Precio: <span class="products__product-info">₡{{ product.price }}</span></p>
+            <p>Unidades disponibles: <span class="products__product-info">{{ product.stock }}</span></p>
+
+            <h3>Añadir al carrito</h3>
+            <div class="products__container-select">
+                <label for="selectQuantity">Seleccionar cantidad</label>
+                <select (change)="onSelectQuantity($event, product)" id="selectQuantity">
+                    @for (number of getStockNumbers(product.stock); track $index) {
+                        <option [value]="number">{{number}}</option>
+                    }
+                </select>
+            </div>
+            <div class="products__container-actions">
+                <app-store-btn (click)="openModal(product.id)" color="secondary" buttonText="Detalles" />
+                <app-store-btn buttonText="Agregar" (click)="addProductTest(product)"></app-store-btn>
+            </div>
+        </app-store-card>
+    } @empty {
+        <p>No se encontraron resultados</p>
+    }
+
+    @if (selectedProduct(); as product) {
+        <app-store-modal 
+            [modalTitle]="product.name"
+            [(showModal)]="showDetailsModal"
+            [showConfirmButton]="false"
+            cancelLabel="Cerrar"
+        >
+            <h2>{{ product.name }}</h2>
+
+            <div>
+                <p>Descripción</p>
+                <p>{{ product.description }}</p>
+            </div>
+
+            <p>Precio: <span>₡{{ product.price }}</span></p>
+            <p>Unidades disponibles: <span>{{ product.stock }}</span></p>
+        </app-store-modal>
+    }
+</section>

@@ -1,6 +1,6 @@
-import { Component, input, computed, effect } from '@angular/core';
+import { Component, input, computed } from '@angular/core';
 
-type imageExtensions = 'jpg' | 'jpeg' | 'png';
+type imageExtensions = 'jpg' | 'jpeg' | 'png' | 'webp';
 
 @Component({
   selector: 'app-store-card',
@@ -12,8 +12,8 @@ export class StoreCard {
   public readonly imageUrl = input<string>('');
   public readonly imageDescription = input<string>('Item image');
 
-  private readonly defaultImageUrl = 'https://images.pexels.com/photos/5779618/pexels-photo-5779618.jpeg';
-  private readonly validExtensions: imageExtensions[] = ['jpg', 'jpeg', 'png'];
+  private readonly defaultImageUrl = 'https://www.gstatic.com/webp/gallery/4.webp';
+  private readonly validExtensions: imageExtensions[] = ['jpg', 'jpeg', 'png', 'webp'];
 
   //Validate image format
   protected imageSrc = computed(() => {

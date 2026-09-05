@@ -5,14 +5,11 @@
     </a>
   </figure>
 
-  @if(hasFilters()) {
-    <app-store-filters>
-      filtros!
-    </app-store-filters>
-  }
-
-  <div>
-    <app-store-btn routerLink="/shopping-cart" color="secondary" icon="shopping_cart" shape="rounded" />
+  <div class="main__actions-container">
+    <app-store-btn routerLink="/cart" color="secondary" icon="shopping_cart" shape="rounded" />
+    @if (cartProductCounter() > 0) {
+      <div class="main__actions-container-counter">{{ cartProductCounter() }}</div>
+    }
   </div>
 </header>
 <main>

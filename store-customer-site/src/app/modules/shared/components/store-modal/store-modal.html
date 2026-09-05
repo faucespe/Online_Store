@@ -10,8 +10,12 @@
             </main>
             @if (showConfirmButton() || showCancelButton()) {
                 <footer class="modal__footer">
-                    <app-store-btn color="secondary" [buttonText]="cancelLabel()" (click)="showModal.set(!showModal)" />
-                    <app-store-btn color="primary" [buttonText]="confirmLabel()" (click)="handleConfirmation()" />
+                    @if (showCancelButton()) {
+                        <app-store-btn color="secondary" [buttonText]="cancelLabel()" (click)="showModal.set(!showModal)" />
+                    }
+                    @if (showConfirmButton()) {
+                        <app-store-btn color="primary" [buttonText]="confirmLabel()" (click)="handleConfirmation()" />
+                    }
                 </footer>
             }
         </article>

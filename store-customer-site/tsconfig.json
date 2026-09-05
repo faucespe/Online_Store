@@ -19,7 +19,8 @@
       "@models/*": ["src/app/models/*"],
       "@services/*": ["src/app/services/*"],
       "@shared/*": ["src/app/modules/shared/*"],
-      "@products/*": ["src/app/modules/products/*"]
+      "@products/*": ["src/app/modules/products/*"],
+      "@cart/*": ["src/app/modules/cart/*"]
     }
   },
   "angularCompilerOptions": {

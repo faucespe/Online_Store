@@ -1,4 +1,4 @@
-import { Component, signal, output, model } from '@angular/core';
+import { Component, signal, output, model, input } from '@angular/core';
 
 @Component({
   selector: 'app-store-filters',
@@ -8,12 +8,15 @@ import { Component, signal, output, model } from '@angular/core';
 })
 export class StoreFilters {
   public readonly searchingText = model<string>('');
+  public readonly showonConfirmButton = input<boolean>(true);
+  public readonly cancelButtonText = input<string>('Cancelar');
+  public readonly confirmButtonText = input<string>('Confirmar');
   public showPopover = signal<boolean>(false);
 
-  onFilter = output<void>();
+  onConfirm = output<void>();
 
-  handleFilter() {
-    this.onFilter.emit();
+  handleConfirm() {
+    this.onConfirm.emit();
   }
 
   onInputText(event: Event) {

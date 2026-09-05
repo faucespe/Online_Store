@@ -12,5 +12,6 @@ import { StoreCard } from './components/store-card/store-card.component';
 @NgModule({
   declarations: [MainLayout, StoreModal, TestsPage, StoreBtn, StoreFilters, StoreCard],
   imports: [CommonModule, RouterLink, RouterModule],
+  exports: [StoreCard, StoreBtn, StoreModal, StoreFilters]
 })
 export class SharedModule {}
