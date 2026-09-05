@@ -56,3 +56,8 @@
   color: #6B7280;
   font-size: 14px;
 }
+
+.actions-cell {
+  display: flex;
+  justify-content: flex-end;
+}

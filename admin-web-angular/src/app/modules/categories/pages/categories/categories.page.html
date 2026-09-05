@@ -1,0 +1,66 @@
+<!-- Titulo de la pagina y boton de Crear categoria -->
+<div class="category-header">
+  <h2>Categorías</h2>
+  <app-button color="primary" buttonText="Crear categoría" (click)="openCreateModal()" />
+</div>
+
+<!-- Barra de filtros y estados -->
+<div class="filter-bar">
+    <input 
+        type="text" 
+        placeholder="Buscar por nombre" 
+        [value]="filterName()"
+        (input)="onNameFilterInput($any($event.target).value)"
+    />
+
+    <select [value]="filterStatusId() ?? ''" (change)="onStatusFilterChange(+$any($event.target).value)">
+        <option value="">Filtrar por estado</option>
+        @for (status of statuses(); track status.id){
+            <option [value]="status.id">{{ status.name }}</option>
+        }  
+    </select>
+</div>
+
+<!-- Tabla de categorias -->
+<app-table 
+    [data]="categories()" 
+    [columns]="columns" 
+    [showActions]="true"
+    [actionLabel]="'Actualizar'"
+    (rowActions)="onEditCategory($any($event))"
+    emptyMessage="No hay categorías registradas" 
+/>
+
+<!-- modal de crear y actualizar categoria-->
+<app-modal
+    [modalTitle]="editMode() ? 'Actualizar categoría' : 'Crear categoría'"
+    [(showModal)]="showModal"
+    [confirmLabel]="editMode() ? 'Actualizar' : 'Crear'"
+    [cancelLabel]="'Cancelar'"
+    (onConfirm)="saveCategory()">
+
+    @if (backendError()) {
+        <p class="backend-error">{{ backendError() }}</p>
+    }
+
+    <!-- espacio de nombre en el modal -->
+    <label>
+        Nombre
+        <input
+            type="text"
+            [value]="editName()"
+            (input)="editName.set($any($event.target).value)"
+        />
+    </label>
+    
+    <!-- espacio de Estado en el modal -->
+    <label>
+        Estado
+        <select [value]="editStatusId() ?? ''" (change)="editStatusId.set(+$any($event.target).value)">
+            <option value="" disabled>Seleccione un estado</option>
+            @for (status of statuses(); track status.id){
+                <option [value]="status.id">{{ status.name}}</option>
+            }
+        </select>
+    </label>
+</app-modal>

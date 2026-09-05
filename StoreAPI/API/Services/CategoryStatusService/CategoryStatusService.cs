@@ -10,7 +10,6 @@ namespace API.Services
         {
             this._database = database;
         }
-        public StoreDB Database { get; }
         public IQueryable<CategoryStatus> ListCategoryStatus()
         {
             return this._database.CategoryStatus;

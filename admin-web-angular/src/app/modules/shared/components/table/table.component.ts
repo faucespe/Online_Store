@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 export interface TableColumn<T = any> {
   key: string;
@@ -16,6 +16,11 @@ export class TableComponent<T = any> {
   data = input<T[]>([]);
   columns = input<TableColumn<T>[]>([]);
   emptyMessage = input<string>('No items available');
+
+  showActions = input<boolean>(false);
+  actionLabel = input<string>('Actualizar');
+
+  rowActions = output<T>();
 
   getCellValue(row: T, key: string): any {
     return key

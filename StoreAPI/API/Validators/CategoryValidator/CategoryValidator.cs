@@ -25,6 +25,10 @@ namespace API.Validators
             {
                 innerMessages.Add("Name must be less than or equal to 60 characters.");
             }
+            else if (this._Database.Category.Any(c => c.Name.ToLower() == data.Name.Trim().ToLower() && c.Id != id))
+            {
+                innerMessages.Add("A category with this name already exists.");
+            }
 
             //Status
             if (!data.CategoryStatusId.HasValue)
