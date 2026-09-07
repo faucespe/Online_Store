@@ -9,7 +9,7 @@ export class InsertUpdateProductDTO {
   public readonly description: string;
   public readonly imageUrl?: string;
   public readonly price: number;
-  public readonly categoryId: number;
+  public readonly categoryId: number | null;
   public readonly productStatusId: number;
   public readonly createdAt?: string;
   public readonly updatedAt?: string;
@@ -21,7 +21,7 @@ export class InsertUpdateProductDTO {
     this.description = data.description;
     this.imageUrl = data.imageUrl;
     this.price = Number(data.price);
-    this.categoryId = data.category!.id;
+    this.categoryId = data.category?.id ?? null;
     this.productStatusId = data.productStatus!.id;
 
     // FormatDate: Formatea la fecha al formato requerido por el API

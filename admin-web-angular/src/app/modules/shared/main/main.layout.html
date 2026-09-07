@@ -1,0 +1,26 @@
+<header class="main__header">
+  <figure>
+    <a routerLink="/">
+      <img class="main__header-logo" src="/public/img/logo.svg" alt="QuickBuy logo">
+    </a>
+  </figure>
+
+  <h1>Web de Administración</h1>
+  <div class="main__actions-container">
+    <app-button color="secondary" buttonText="☰" (click)="toggleMenu()"></app-button>
+
+    @if (menuOpen()) {
+      <nav class="menu-options">
+        <a routerLink="/orders">Página Principal</a>
+        <a routerLink="/products">Productos</a>
+        <a routerLink="/categories">Categorías</a>
+      </nav>
+    }
+  </div>
+  <app-button class="backbtn"color="secondary" buttonText="Volver" (click)="goBack()"></app-button>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+
+</main>

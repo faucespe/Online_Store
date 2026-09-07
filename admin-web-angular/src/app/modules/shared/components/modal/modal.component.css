@@ -59,3 +59,12 @@
   overflow-y: auto;
   max-height: 50vh;
 }
+
+.validation-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #d32f2f;
+  border-radius: 0.5rem;
+  color: #d32f2f;
+  background-color: #ffebee;
+}

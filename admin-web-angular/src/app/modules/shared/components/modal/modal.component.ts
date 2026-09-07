@@ -1,4 +1,4 @@
-import { Component, output, input, model } from '@angular/core';
+import { Component, output, input, model, Input } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -16,6 +16,9 @@ export class ModalComponent {
 
   onConfirm = output<void>();
   onClose = output<void>();
+
+  @Input()
+  public validationMessage: string = '';
 
   public handleConfirmation(): void {
     this.onConfirm.emit();

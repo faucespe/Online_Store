@@ -5,13 +5,15 @@ import { TableComponent } from './components/table/table.component';
 import { TestPage } from './test-page/tests.page';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { ButtonComponent } from './components/button/button.component';
 import { ModalComponent } from './components/modal/modal.component';
-import { AdminBtnComponent } from './components/admin-btn/admin-btn.component';
 import { InputComponent } from './components/modal/input/input.component';
 import { SelectComponent } from './components/modal/select/select.component';
+import { MainLayout } from './main/main.layout';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   declarations: [
     CardComponent,
     TableComponent,
@@ -19,9 +21,10 @@ import { SelectComponent } from './components/modal/select/select.component';
     TopbarComponent,
     MenuComponent,
     ModalComponent,
-    AdminBtnComponent,
     InputComponent,
     SelectComponent,
+    ButtonComponent,
+    MainLayout,
   ],
   exports: [
     CardComponent,
@@ -30,9 +33,9 @@ import { SelectComponent } from './components/modal/select/select.component';
     MenuComponent,
     TopbarComponent,
     ModalComponent,
-    AdminBtnComponent,
     InputComponent,
     SelectComponent,
+    ButtonComponent,
   ],
 })
 export class SharedModule {}

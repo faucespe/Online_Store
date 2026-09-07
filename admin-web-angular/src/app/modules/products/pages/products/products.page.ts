@@ -4,8 +4,10 @@ import { Product } from '../../../../models/product/product.model';
 import { ProductService } from '../../../../services/product/product.service';
 import { ProductStatusService } from '@services/product-status/product-status.service';
 import { ProductStatus } from '@models/productStatus.model';
+import { CategoryService } from '@services/category/category.service';
 import { Category } from '@models/category.model';
 import { FilterProductDTO } from '@models/product/product.dto';
+import { TableColumn } from '@shared/components/table/table.component';
 
 // CRÍTICA CONSTRUCTIVA:
 // ProductsPage está concentrando muchas responsabilidades relacionadas con las
@@ -26,61 +28,126 @@ export class ProductsPage implements OnInit {
   public product: Product = new Product();
   private productStatusService = inject(ProductStatusService);
   public statuses = signal<ProductStatus[]>([]);
+  private categoryService = inject(CategoryService);
+  public categories = signal<Category[]>([]);
   public showProductModal = false
   public filter = new FilterProductDTO();
   isActive = model<boolean>(false);
   receivedSearchingText = signal<string>('');
+  public filtersOpen = signal(false);
+  public validationMessage = signal('');
 
   ngOnInit(): void {
     this.loadProducts();
-    // Reemplazar las categorías temporales por datos obtenidos desde el API.
-    this.productStatusService.getProductStatuses().subscribe({
-      next: (ApiResponse) => {
-          console.log('Product Status:', ApiResponse.data);
-          this.statuses.set(ApiResponse.data);
-        },
-        error: (error) => {
-          console.error('Error Product Status:', error);
-        }
-      });
+    this.loadCategories();
+    this.loadProductStatuses();
+  }
+
+  public handleConfirmation(): void {
+    this.validationMessage.set('');
+    // Nombre obligatorio
+    if (!this.product.name?.trim()) {
+      this.showValidationMessage('El nombre es obligatorio.');
+      return;
     }
 
-    public handleConfirmation(): void {
+    // Descripción obligatoria
+    if (!this.product.description?.trim()) {
+      this.showValidationMessage('La descripción es obligatoria.');
+      return;
+    }
+
+    // Precio obligatorio y mayor que 0
+    if (this.product.price <= 0) {
+      this.showValidationMessage('El precio debe ser mayor que 0.');
+      return;
+    }
+
+    // Estado obligatorio
+    if (!this.product.productStatus) {
+      this.showValidationMessage('El estado es obligatorio.');
+      return;
+    }
+
+    // Stock obligatorio y mayor o igual a 0
+    if (this.product.stock < 0) {
+      this.showValidationMessage('El stock debe ser mayor o igual a 0.');
+      return;
+    }
+
       const request = this.product.id
-          ? this.productService.updateProduct(this.product)
-          : this.productService.createProduct(this.product);
+        ? this.productService.updateProduct(this.product)
+        : this.productService.createProduct(this.product);
 
       request.subscribe({
         next: () => {
-            this.isActive.set(false);
-            this.productService.getProducts().subscribe({
-                next: (ApiResponse) => {
-                    this.products.set(ApiResponse.data);
-                }
-            });
+          this.isActive.set(false);
+
+          this.productService.getProducts().subscribe({
+            next: (apiResponse) => {
+              this.products.set(apiResponse.data);
+            }
+          });
         },
         error: (error) => {
-            console.error(error);
+          console.error(error);
         }
-      }
-    );
+      });
+    }
+    // Función para cargar los productos desde el servicio de productos, con la opción de aplicar un filtro
+    public loadProducts(filter?: FilterProductDTO): void {
+      this.productService.getProducts(filter).subscribe({
+          next: (apiResponse) => {
+            this.products.set(apiResponse.data);
+          },
+          error: (error) => {
+          }
+      });
+    }
+
+  // Función para cargar los productos desde el servicio de categorias
+  private loadCategories(): void {
+    this.categoryService.getCategories({}).subscribe({
+      next: (response) => {
+        this.categories.set(response.data.flat());
+      },
+      error: (error) => console.error(error),
+    });
   }
+
+  // Función para cargar los producto de Estado desde el servicio de categorias
+  private loadProductStatuses(): void {
+    this.productStatusService.getProductStatuses().subscribe({
+      next: (response) => {
+        this.statuses.set(response.data);
+      },
+      error: (error) => {
+        console.error('Error Product Status:', error);
+      }
+    });
+  }
+
+  public productColumns: TableColumn<Product>[] = [
+    { key: 'name', header: 'Nombre' },
+    { key: 'description', header: 'Descripción' },
+    { key: 'category.name', header: 'Categoría' },
+    { key: 'productStatus.name', header: 'Estado' },
+    { key: 'price', header: 'Precio', align: 'right' },
+    { key: 'stock', header: 'Stock', align: 'right' }
+  ];
 
   public insertUpdate(data: unknown = null): void {
+
     this.product = new Product(data);
+
+    if (!this.product.id) {
+      this.product.productStatus = new ProductStatus({
+        id: 2,
+        name: 'Active'
+      });
+    }
+
     this.isActive.set(true);
-
-  }
-
-  // Función para cargar los productos desde el servicio de productos, con la opción de aplicar un filtro
-  public loadProducts(filter?: FilterProductDTO): void {
-    this.productService.getProducts(filter).subscribe({
-        next: (apiResponse) => {
-          this.products.set(apiResponse.data);
-        },
-        error: (error) => {
-        }
-    });
   }
 
   // Función para aplicar el filtro de productos
@@ -105,16 +172,16 @@ export class ProductsPage implements OnInit {
     this.product = new Product();
   }
 
+  //Mobile
+  public toggleFilters(): void {
+    this.filtersOpen.update(value => !value);
+  }
 
-  // Reemplazar las categorías temporales por datos obtenidos desde el API.
-  //Datos temporales para simular la obtención de categorías desde un servicio,
-  // ya que no se ha implementado el servicio de categorías.
-  //En el futuro, se debe reemplazar este código por la obtención de categorías desde el servicio correspondiente
-  public categories = signal<Category[]>([
-    new Category({ id: 3, name: 'Computadoras' }),
-    new Category({ id: 4, name: 'Periféricos' }),
-    new Category({ id: 5, name: 'Monitores' }),
-    new Category({ id: 6, name: 'Componentes' }),
-    new Category({ id: 7, name: 'Accesorios' })
-    ]);
+  private showValidationMessage(message: string): void {
+    this.validationMessage.set(message);
+
+    setTimeout(() => {
+      this.validationMessage.set('');
+    }, 6000);
+  }
 }

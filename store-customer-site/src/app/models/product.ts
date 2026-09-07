@@ -4,9 +4,10 @@ export interface Product {
     description: string;
     imageUrl?: string;
     price: number;
-    idCategory: number;
-    idStatus: number;
+    category: any;
+    productStatus: any;
     stock: number;
+    quantity?: number;
     createdAt?: string;
     updatedAt?: string;
 }

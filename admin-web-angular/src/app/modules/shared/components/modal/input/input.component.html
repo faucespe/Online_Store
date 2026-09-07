@@ -1,14 +1,29 @@
 <div class="input">
+
   @if (label) {
     <label [for]="name">
       {{ label }}
     </label>
   }
-  <input
-    [id]="name"
-    [name]="name"
-    [type]="type"
-    [value]="model"
-    (input)="onModelChange($any($event.target).value)"
-  />
+
+  @if (type === 'textarea') {
+    <textarea
+      [id]="name"
+      [name]="name"
+      [value]="model"
+      autocomplete="off"
+      rows="3"
+      (input)="onModelChange($any($event.target).value)">
+    </textarea>
+  } @else {
+    <input
+      [id]="name"
+      [name]="name"
+      [type]="type"
+      [value]="model"
+      [required]="required"
+      autocomplete="off"
+      (input)="onModelChange($any($event.target).value)"
+    />
+  }
 </div>

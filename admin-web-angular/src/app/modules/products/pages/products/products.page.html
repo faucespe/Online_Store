@@ -1,133 +1,115 @@
-<div class="filter-menu">
-  <app-menu></app-menu>
-</div>
-
 <!-- Filter de productos -->
 <div class="products-filter">
   <div class="filter-content">
     <div class="filter-row">
-        <app-input
-            name="name"
-            label="Nombre"
-            [(model)]="filter.name">
-        </app-input>
-        <app-input
-            name="minPrice"
-            type="number"
-            label="Precio mínimo"
-            [(model)]="filter.minPrice">
-        </app-input>
-        <app-input
-            name="maxPrice"
-            type="number"
-            label="Precio máximo"
-            [(model)]="filter.maxPrice">
-        </app-input>
+        <app-input name="name" label="Nombre" [(model)]="filter.name"></app-input>
+        <app-input name="minPrice" type="number" label="Precio mínimo" [min]="0" [(model)]="filter.minPrice"></app-input>
+        <app-input name="maxPrice" type="number" label="Precio máximo" [min]="0" [(model)]="filter.maxPrice"></app-input>
     </div>
     <div class="filter-row">
-        <app-select name="category" label="Categoría" [options]="categories()" [(model)]="filter.category"></app-select>
-        <app-select name="status"label="Estado" [options]="statuses()" [(model)]="filter.productStatus"></app-select>
+        <app-select name="category" label="Todas las categorías" [options]="categories()" [(model)]="filter.category"/>
+        <app-select name="status"label="Todos los estados" [options]="statuses()" [(model)]="filter.productStatus"/>
     </div>
+  </div>
+   <!-- Botón de aplicación de filtros -->
+  <div class="apply-filter">
+    <app-button color="secondary" buttonText="Aplicar" (click)="applyFilter()"/>
+    <app-button color="secondary" buttonText="Limpiar Filtro" (click)="clearFilter()"/>
+  </div>
+  <!-- Botón de creación de producto -->
+  <div class="create-product">
+      <app-button class="create-product-btn" color="primary" buttonText="Crear Producto" (click)="insertUpdate()"/>
   </div>
 </div>
 
- <!-- Botón de aplicación de filtros -->
-<div class="apply-filter">
-  <app-admin-btn color="secondary" buttonText="Aplicar" (click)="applyFilter()"></app-admin-btn>
-  <app-admin-btn color="secondary" buttonText="Limpiar Filtro" (click)="clearFilter()"></app-admin-btn>
-</div>
-
-<!-- Botón de creación de producto -->
-<div class="create-product">
-    <app-admin-btn class="create-product-btn"color="primary" buttonText="Crear Producto" (click)="insertUpdate()"></app-admin-btn>
-</div>
-
-<app-modal [modalTitle]="product.id ? 'Actualización de Producto' : 'Creación de Producto'"(onClose)="resetProduct()" (onConfirm)="handleConfirmation()" [(showModal)]="isActive">
+<app-modal [modalTitle]="product.id ?  'Actualización de Producto' : 'Creación de Producto'" [validationMessage]="validationMessage()" (onClose)="resetProduct()" (onConfirm)="handleConfirmation()" [(showModal)]="isActive">
   <div style="display: flex; flex-wrap: wrap; gap: 2em; margin: 2rem 0; border-bottom: 1px solid black;">
     <!-- Formulario del producto -->
     <!-- TODO: Agregar validación para evitar errores causados por una selección incompleta del usuario. -->
     <!-- Evitar depender de que el usuario seleccione una opción válida (error de capa 8) -->
-    <app-input
-      name="name"
-      label="Nombre"
-      type="text"
-      [(model)]="product.name">
-    </app-input>
-
-    <app-input
-      name="description"
-      label="Descripción"
-      type="text"
-      [(model)]="product.description">
-    </app-input>
-
-    <app-input
-      name="imageUrl"
-      label="Imagen"
-      type="text"
-      [(model)]="product.imageUrl">
-    </app-input>
-
-    <app-input
-      name="price"
-      label="Precio"
-      type="number"
-      [(model)]="product.price">
-    </app-input>
+    <app-input name="nameModal" label="Nombre" type="text" [required]="true" [(model)]="product.name"></app-input>
+    <app-input name="descriptionModal" label="Descripción" type="textarea"[(model)]="product.description"></app-input>
+    <app-input name="imageUrlModal" label="Imagen" type="text" [(model)]="product.imageUrl"></app-input>
+    <app-input name="priceModal" label="Precio" type="number" [min]="0" [(model)]="product.price"></app-input>
 
     <!-- Validar que se haya seleccionado una categoría antes de aplicar el filtro. -->
     <!-- Actualmente genera un error si no se selecciona una opción. -->
     <!-- Pendiente de corregir para evitar errores por selección incompleta del usuario. -->
-    <app-select
-      name="category"
-      label="Categoría"
-      [options]="categories()"
-      [(model)]="product.category">
-    </app-select>
+    <app-select name="categoryModal" label="Categoría" [options]="categories()" [(model)]="product.category"></app-select>
 
     <!-- Validar que se haya seleccionado el estado antes de aplicar el filtro. -->
     <!-- Actualmente genera un error si no se selecciona una opción. -->
     <!-- Pendiente de corregir para evitar errores por selección incompleta del usuario. -->
-    <app-select
-      name="status"
-      label="Estado"
-      [options]="statuses()"
-      [(model)]="product.productStatus">
-    </app-select>
-
-    <app-input
-      name="stock"
-      label="Stock"
-      type="number"
-      [(model)]="product.stock">
-    </app-input>
+    <app-select name="statusModal" label="Estado" [options]="statuses()" [(model)]="product.productStatus"></app-select>
+    <app-input name="stockModal" label="Stock" type="number" [min]="0" [(model)]="product.stock"></app-input>
   </div>
 </app-modal>
 
 <!-- Validar categoría y estado ademas de los otros datos,
 antes del insert para evitar errores por selección incompleta del usuario. -->
-<div class="products-grid">
+<div class="products-table">
+  <app-table
+    [data]="products()"
+    [columns]="productColumns"
+    [showActions]="true"
+    (rowActions)="insertUpdate($event)">
+  </app-table>
+</div>
+
+<!-- Mobile -->
+<div class="mobile-filter">
+  <app-input name="nameMobile" label="Nombre" [(model)]="filter.name"></app-input>
+  <app-button class="filter-toggle"
+    [buttonText]="filtersOpen() ? 'Filtros ▲' : 'Filtros ▼'"
+    (click)="toggleFilters()">
+  </app-button>
+
+  @if (filtersOpen()) {
+    <div class="advanced-filters">
+      <app-input name="minPriceMobile" type="number" label="Precio mínimo" [min]="0" [(model)]="filter.minPrice"></app-input>
+      <app-input name="maxPriceMobile" type="number" label="Precio máximo" [min]="0" [(model)]="filter.maxPrice"></app-input>
+      <app-select name="categoryMobile" label="Categoría" [options]="categories()" [(model)]="filter.category"></app-select>
+      <app-select name="statusMobile" label="Estado" [options]="statuses()" [(model)]="filter.productStatus"></app-select>
+    </div>
+  }
+
+  <div class="apply-filter">
+    <app-button color="secondary" buttonText="Aplicar" (click)="applyFilter()"></app-button>
+    <app-button color="secondary" buttonText="Limpiar Filtro" (click)="clearFilter()"></app-button>
+  </div>
+
+  <!-- Botón de creación de producto -->
+  <div class="create-product">
+    <app-button class="create-product-btn" color="primary" buttonText="Crear Producto"(click)="insertUpdate()"></app-button>
+  </div>
+</div>
+
+<div class="products-cards">
   @for (product of products(); track product.id) {
     <app-card>
-      <div card-image>
-        FOTO
-      </div>
       <div card-info>
-        <p class="product-name">{{ product.name }}</p>
-        <p>Descripción: {{ product.description }}</p>
-        <p>Categoría: {{ product.category?.name || 'Sin categoría' }}</p>
-        <p>Estado: {{ product.productStatus?.name }}</p>
-        <p>Día de creación: {{ product.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
-        <p>Día de actualización:{{ product.updatedAt ? (product.updatedAt | date:'dd/MM/yyyy HH:mm') : 'No actualizado' }}</p>
-        <p>Stock: {{ product.stock }}</p>
-        <p class="product-price">Precio: ₡{{ product.price }}</p>
+        <h4>{{ product.name }}</h4>
+        <p>{{ product.description }}</p>
+        <p>
+          <strong>Categoría:</strong>
+          {{ product.category?.name }}
+        </p>
+        <p>
+          <strong>Estado:</strong>
+          {{ product.productStatus?.name }}
+        </p>
+        <p>
+          <strong>Precio:</strong>
+          ₡{{ product.price }}
+        </p>
+        <p>
+          <strong>Stock:</strong>
+          {{ product.stock }}
+        </p>
       </div>
       <div card-actions>
-        <app-admin-btn color="primary" buttonText="Actualizar Producto" (click)="insertUpdate(product)"/>
-        <app-admin-btn color="secondary" buttonText="Desactivado" (onClose)="resetProduct()"/>
+        <app-button color="primary" buttonText="Actualizar" (click)="insertUpdate(product)"></app-button>
       </div>
     </app-card>
-  } @empty {
-    <p>No se encontraron productos</p>
   }
 </div>

@@ -1,9 +1,9 @@
 //Formato de Respuesta
-export interface ApiResponse<> {
+export interface ApiResponse<T = any> {
     httpStatusCode: number;
     success: boolean;
     messages: string[];
-    data: any[];
+    data: T[];
 }
 
 export interface QueryParams {
