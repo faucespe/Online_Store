@@ -1,24 +1,23 @@
 <!-- Filter de productos -->
-<div class="products-filter">
-  <div class="filter-content">
-    <div class="filter-row">
-        <app-input name="name" label="Nombre" [(model)]="filter.name"></app-input>
-        <app-input name="minPrice" type="number" label="Precio mínimo" [min]="0" [(model)]="filter.minPrice"></app-input>
-        <app-input name="maxPrice" type="number" label="Precio máximo" [min]="0" [(model)]="filter.maxPrice"></app-input>
-    </div>
-    <div class="filter-row">
+<div class="desktop-filter">
+  <app-filter
+    [(searchingText)]="filter.name"
+    (onApply)="applyFilter()"
+    (onClear)="clearFilter()">
+    <div class="filter-content">
+      <div class="filter-row">
+        <app-input name="minPrice" type="number" label="Precio mínimo" [min]="0"[(model)]="filter.minPrice"/>
+        <app-input name="maxPrice" type="number" label="Precio máximo" [min]="0"[(model)]="filter.maxPrice"/>
+      </div>
+      <div class="filter-row">
         <app-select name="category" label="Todas las categorías" [options]="categories()" [(model)]="filter.category"/>
-        <app-select name="status"label="Todos los estados" [options]="statuses()" [(model)]="filter.productStatus"/>
+        <app-select name="status" label="Todos los estados" [options]="statuses()" [(model)]="filter.productStatus"/>
+      </div>
     </div>
-  </div>
-   <!-- Botón de aplicación de filtros -->
-  <div class="apply-filter">
-    <app-button color="secondary" buttonText="Aplicar" (click)="applyFilter()"/>
-    <app-button color="secondary" buttonText="Limpiar Filtro" (click)="clearFilter()"/>
-  </div>
+  </app-filter>
   <!-- Botón de creación de producto -->
   <div class="create-product">
-      <app-button class="create-product-btn" color="primary" buttonText="Crear Producto" (click)="insertUpdate()"/>
+      <app-button color="primary" buttonText="Crear Producto" (click)="insertUpdate()"/>
   </div>
 </div>
 
@@ -45,71 +44,16 @@
   </div>
 </app-modal>
 
+
+
 <!-- Validar categoría y estado ademas de los otros datos,
 antes del insert para evitar errores por selección incompleta del usuario. -->
+<!-- Pantallas grandes -->
 <div class="products-table">
-  <app-table
-    [data]="products()"
-    [columns]="productColumns"
-    [showActions]="true"
-    (rowActions)="insertUpdate($event)">
-  </app-table>
+  <app-table [data]="products()" [columns]="productColumns" [showActions]="true" (rowActions)="insertUpdate($event)"/>
 </div>
 
-<!-- Mobile -->
-<div class="mobile-filter">
-  <app-input name="nameMobile" label="Nombre" [(model)]="filter.name"></app-input>
-  <app-button class="filter-toggle"
-    [buttonText]="filtersOpen() ? 'Filtros ▲' : 'Filtros ▼'"
-    (click)="toggleFilters()">
-  </app-button>
-
-  @if (filtersOpen()) {
-    <div class="advanced-filters">
-      <app-input name="minPriceMobile" type="number" label="Precio mínimo" [min]="0" [(model)]="filter.minPrice"></app-input>
-      <app-input name="maxPriceMobile" type="number" label="Precio máximo" [min]="0" [(model)]="filter.maxPrice"></app-input>
-      <app-select name="categoryMobile" label="Categoría" [options]="categories()" [(model)]="filter.category"></app-select>
-      <app-select name="statusMobile" label="Estado" [options]="statuses()" [(model)]="filter.productStatus"></app-select>
-    </div>
-  }
-
-  <div class="apply-filter">
-    <app-button color="secondary" buttonText="Aplicar" (click)="applyFilter()"></app-button>
-    <app-button color="secondary" buttonText="Limpiar Filtro" (click)="clearFilter()"></app-button>
-  </div>
-
-  <!-- Botón de creación de producto -->
-  <div class="create-product">
-    <app-button class="create-product-btn" color="primary" buttonText="Crear Producto"(click)="insertUpdate()"></app-button>
-  </div>
-</div>
-
-<div class="products-cards">
-  @for (product of products(); track product.id) {
-    <app-card>
-      <div card-info>
-        <h4>{{ product.name }}</h4>
-        <p>{{ product.description }}</p>
-        <p>
-          <strong>Categoría:</strong>
-          {{ product.category?.name }}
-        </p>
-        <p>
-          <strong>Estado:</strong>
-          {{ product.productStatus?.name }}
-        </p>
-        <p>
-          <strong>Precio:</strong>
-          ₡{{ product.price }}
-        </p>
-        <p>
-          <strong>Stock:</strong>
-          {{ product.stock }}
-        </p>
-      </div>
-      <div card-actions>
-        <app-button color="primary" buttonText="Actualizar" (click)="insertUpdate(product)"></app-button>
-      </div>
-    </app-card>
-  }
+<!-- Móvil -->
+<div class="products-table-mobile">
+  <app-table [data]="products()" [columns]="mobileProductColumns" [showActions]="true" actionIcon="edit" (rowActions)="insertUpdate($event)"/>
 </div>

@@ -127,6 +127,7 @@ export class ProductsPage implements OnInit {
     });
   }
 
+  //Desglose de datos de tabla para insertar los datos de los productos
   public productColumns: TableColumn<Product>[] = [
     { key: 'name', header: 'Nombre' },
     { key: 'description', header: 'Descripción' },
@@ -136,10 +137,16 @@ export class ProductsPage implements OnInit {
     { key: 'stock', header: 'Stock', align: 'right' }
   ];
 
+  //Moviles
+  public mobileProductColumns: TableColumn<Product>[] = [
+    { key: 'name', header: 'Nombre' },
+    { key: 'category.name', header: 'Categoría' },
+    { key: 'productStatus.name', header: 'Estado' }
+  ];
+
+  //Función para insertar o actualizar un dato producto, con el set de productStatus como activo
   public insertUpdate(data: unknown = null): void {
-
     this.product = new Product(data);
-
     if (!this.product.id) {
       this.product.productStatus = new ProductStatus({
         id: 2,
@@ -153,12 +160,12 @@ export class ProductsPage implements OnInit {
   // Función para aplicar el filtro de productos
   // Por Experiencia del Cliente seria bueno que una vez limpiado el input de busqueda, se recarguen los productos sin filtro,
   // para que el cliente pueda ver todos los productos nuevamente
-  // pero demomento el filtro para poder ser aplicado, debe ser aplicado manualmente,
   // para que el cliente pueda ver los productos filtrados por medio del botón acción aplicar.
   public applyFilter(): void {
       const filter = new FilterProductDTO(this.filter);
       this.loadProducts(filter);
   }
+
   // Función para limpiar el filtro de productos (inputs y selects), y recargar los productos sin filtro
   public clearFilter(): void {
     this.filter = new FilterProductDTO();
@@ -172,11 +179,7 @@ export class ProductsPage implements OnInit {
     this.product = new Product();
   }
 
-  //Mobile
-  public toggleFilters(): void {
-    this.filtersOpen.update(value => !value);
-  }
-
+  // Función para mostrar mensajes de inserción de datos erronea
   private showValidationMessage(message: string): void {
     this.validationMessage.set(message);
 

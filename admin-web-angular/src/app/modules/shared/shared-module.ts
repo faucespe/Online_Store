@@ -11,6 +11,7 @@ import { InputComponent } from './components/modal/input/input.component';
 import { SelectComponent } from './components/modal/select/select.component';
 import { MainLayout } from './main/main.layout';
 import { RouterModule } from '@angular/router';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule],
@@ -25,6 +26,7 @@ import { RouterModule } from '@angular/router';
     SelectComponent,
     ButtonComponent,
     MainLayout,
+    FilterComponent,
   ],
   exports: [
     CardComponent,
@@ -36,6 +38,7 @@ import { RouterModule } from '@angular/router';
     InputComponent,
     SelectComponent,
     ButtonComponent,
+    FilterComponent,
   ],
 })
 export class SharedModule {}
