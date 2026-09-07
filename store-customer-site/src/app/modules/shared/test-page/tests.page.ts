@@ -18,10 +18,4 @@ export class TestsPage {
   onFilterClick() {
     alert(`click on filter`)
   }
-
-  constructor() {
-    effect(() => {
-      console.log(this.receivedSearchingText())
-    })
-  }
 }

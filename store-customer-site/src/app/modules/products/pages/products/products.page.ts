@@ -108,7 +108,6 @@ export class ProductsPage implements OnInit {
             price: selectedProduct.price,
             quantity: selectedProduct.quantity,
     }
-    console.log(cartProduct)
     this.cartService.addProduct(cartProduct);
   }
 
