@@ -1,0 +1,17 @@
+<section>
+    <header>
+        <h1>Checkout</h1>
+    </header>
+    <main class="form__container">
+        <label for="customerName">Ingrese su Nombre</label>
+        <input id="customerName" type="text" [formField]="checkoutForm.customerName" />
+        <label for="customerEmail">Ingrese su email</label>
+        <input id="customerEmail" type="email" [formField]="checkoutForm.customerEmail" />
+        <label for="customerPhoneNumber">Ingrese su número telefónico</label>
+        <input id="customerPhoneNumber" type="text" [formField]="checkoutForm.customerPhoneNumber" />
+        <label for="customerAddress">Ingrese su dirección</label>
+        <input id="customerAddress" type="text" [formField]="checkoutForm.customerAddress" />
+        
+        <app-store-btn buttonText="hola"></app-store-btn>
+    </main>
+</section>

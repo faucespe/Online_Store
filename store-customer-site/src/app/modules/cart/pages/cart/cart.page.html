@@ -6,7 +6,7 @@
             <app-store-btn color="secondary" buttonText="Vaciar Carrito" (click)="emptyCart()"></app-store-btn>
             <div class="cart__additional-actions-checkout">
                 <p>Subtotal ({{ cartTotalItemsCounter() }} Items): ₡{{ grandTotal() }}</p>
-                <app-store-btn buttonText="Continuar al checkout"></app-store-btn>
+                <app-store-btn routerLink="/checkout" buttonText="Continuar al checkout"></app-store-btn>
             </div>
         </section>
         <section class="cart__products-container">

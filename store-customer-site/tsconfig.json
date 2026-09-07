@@ -20,7 +20,8 @@
       "@services/*": ["src/app/services/*"],
       "@shared/*": ["src/app/modules/shared/*"],
       "@products/*": ["src/app/modules/products/*"],
-      "@cart/*": ["src/app/modules/cart/*"]
+      "@cart/*": ["src/app/modules/cart/*"],
+      "@checkout/*": ["src/app/modules/checkout/*"]
     }
   },
   "angularCompilerOptions": {

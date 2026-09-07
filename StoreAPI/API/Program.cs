@@ -36,6 +36,7 @@ builder.Services.AddScoped<IPurchaseOrderProductService, PurchaseOrderProductSer
 //Validators
 builder.Services.AddScoped<IProductValidator, ProductValidator>();
 builder.Services.AddScoped<ICategoryValidator, CategoryValidator>();
+builder.Services.AddScoped<IPurchaseOrderValidator, PurchaseOrderValidator>();
 
 //Swagger/OpenApi
 builder.Services.AddEndpointsApiExplorer();

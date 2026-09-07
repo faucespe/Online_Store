@@ -1,4 +1,4 @@
-﻿using API.Data.Models;
+using API.Data.Models;
 
 namespace API.DataTransferObjects
 {
@@ -15,14 +15,19 @@ namespace API.DataTransferObjects
         
     }
 
-    public class InsertPurchaseOrderDTO
+    public class CartProduct
+    {
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
+    }
+
+    public class CreateUpdatePurchaseOrderDTO
     {
         public string CustomerName { get; set; } = null!;
         public string CustomerPhoneNumber { get; set; } = null!;
         public string CustomerEmail { get; set; } = null!;
         public string CustomerAddress { get; set; } = null!;
-        public DateTime PurchaseDate { get; set; }
-        public decimal GrandTotal { get; set; }
+        public List<CartProduct> CartProducts { get; set; } = new();
     }
 
     public class FilterPurchaseOrderDTO
