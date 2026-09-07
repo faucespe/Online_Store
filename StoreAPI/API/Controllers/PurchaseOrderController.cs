@@ -2,6 +2,7 @@
 using API.Data.Models;
 using API.DataTransferObjects;
 using API.Services;
+using API.Validators;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,13 @@ namespace API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IPurchaseOrderService _purchaseOrderService;
+        private readonly IPurchaseOrderValidator _purchaseOrderValidator;
 
-        public PurchaseOrderController(IMapper mapper,      IPurchaseOrderService purchaseOrderService)
+        public PurchaseOrderController(IMapper mapper, IPurchaseOrderService purchaseOrderService, IPurchaseOrderValidator purchaseOrderValidator)
         {
             this._mapper = mapper;
             this._purchaseOrderService = purchaseOrderService;
+            this._purchaseOrderValidator = purchaseOrderValidator;
         }
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> ListPurchaseOrders([FromQuery] FilterPurchaseOrderDTO data)
@@ -49,6 +52,33 @@ namespace API.Controllers
             {
                 Data = this._mapper.Map<PurchaseOrder, GetPurchaseOrderDTO>(purchaseOrder)
             };
+            return response;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ApiResponse>> InsertPurchaseOrder(CreateUpdatePurchaseOrderDTO data)
+        {
+            ApiResponse response = new ApiResponse();
+            response.Success = this._purchaseOrderValidator.ValidateCreateUpdatePurchaseOrder(null, data, response.Messages);
+
+            List<CartProduct> cartProducts = data.CartProducts;
+
+            if (response.Success)
+            {
+                try
+                {
+                    PurchaseOrder purchaseOrder = this._mapper.Map<CreateUpdatePurchaseOrderDTO, PurchaseOrder>(data);
+                    await this._purchaseOrderService.InsertPurchaseOrder(purchaseOrder, cartProducts);
+                    response.Data = this._mapper.Map<PurchaseOrder, GetPurchaseOrderDTO>(purchaseOrder);
+                    response.Messages.Add("PurchaseOrder has been inserted");
+                }
+                catch (Exception ex)
+                {
+                    response.Success = false;
+                    response.Messages.Add(ex.Message);
+                }
+            }
+
             return response;
         }
     }
