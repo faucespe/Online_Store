@@ -1,7 +1,19 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal , model } from '@angular/core';
 import { ApiResponse } from '../../../../models/http.types';
-import { Product } from '../../../../models/product.model';
+import { Product } from '../../../../models/product/product.model';
 import { ProductService } from '../../../../services/product/product.service';
+import { ProductStatusService } from '@services/product-status/product-status.service';
+import { ProductStatus } from '@models/productStatus.model';
+import { CategoryService } from '@services/category/category.service';
+import { Category } from '@models/category.model';
+import { FilterProductDTO } from '@models/product/product.dto';
+import { TableColumn } from '@shared/components/table/table.component';
+
+// CRÍTICA CONSTRUCTIVA:
+// ProductsPage está concentrando muchas responsabilidades relacionadas con las
+// solicitudes al API. Es una idea recomendable, centralizar estas funcionalidades en
+// una capa o servicio dedicado al manejo de las operaciones con el API
+// y dejar product.page.ts centrado en ui
 
 @Component({
   selector: 'app-products',
@@ -13,15 +25,166 @@ export class ProductsPage implements OnInit {
 
   private productService = inject(ProductService);
   public products = signal<Product[]>([]);
+  public product: Product = new Product();
+  private productStatusService = inject(ProductStatusService);
+  public statuses = signal<ProductStatus[]>([]);
+  private categoryService = inject(CategoryService);
+  public categories = signal<Category[]>([]);
+  public showProductModal = false
+  public filter = new FilterProductDTO();
+  isActive = model<boolean>(false);
+  receivedSearchingText = signal<string>('');
+  public filtersOpen = signal(false);
+  public validationMessage = signal('');
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe({
-      next: (apiResponse) => {
-        this.products.set(apiResponse.data);
+    this.loadProducts();
+    this.loadCategories();
+    this.loadProductStatuses();
+  }
+
+  public handleConfirmation(): void {
+    this.validationMessage.set('');
+    // Nombre obligatorio
+    if (!this.product.name?.trim()) {
+      this.showValidationMessage('El nombre es obligatorio.');
+      return;
+    }
+
+    // Descripción obligatoria
+    if (!this.product.description?.trim()) {
+      this.showValidationMessage('La descripción es obligatoria.');
+      return;
+    }
+
+    // Precio obligatorio y mayor que 0
+    if (this.product.price <= 0) {
+      this.showValidationMessage('El precio debe ser mayor que 0.');
+      return;
+    }
+
+    // Estado obligatorio
+    if (!this.product.productStatus) {
+      this.showValidationMessage('El estado es obligatorio.');
+      return;
+    }
+
+    // Stock obligatorio y mayor o igual a 0
+    if (this.product.stock < 0) {
+      this.showValidationMessage('El stock debe ser mayor o igual a 0.');
+      return;
+    }
+
+      const request = this.product.id
+        ? this.productService.updateProduct(this.product)
+        : this.productService.createProduct(this.product);
+
+      request.subscribe({
+        next: () => {
+          this.isActive.set(false);
+
+          this.productService.getProducts().subscribe({
+            next: (apiResponse) => {
+              this.products.set(apiResponse.data);
+            }
+          });
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
+    }
+    // Función para cargar los productos desde el servicio de productos, con la opción de aplicar un filtro
+    public loadProducts(filter?: FilterProductDTO): void {
+      this.productService.getProducts(filter).subscribe({
+          next: (apiResponse) => {
+            this.products.set(apiResponse.data);
+          },
+          error: (error) => {
+          }
+      });
+    }
+
+  // Función para cargar los productos desde el servicio de categorias
+  private loadCategories(): void {
+    this.categoryService.getCategories({}).subscribe({
+      next: (response) => {
+        this.categories.set(response.data.flat());
+      },
+      error: (error) => console.error(error),
+    });
+  }
+
+  // Función para cargar los producto de Estado desde el servicio de categorias
+  private loadProductStatuses(): void {
+    this.productStatusService.getProductStatuses().subscribe({
+      next: (response) => {
+        this.statuses.set(response.data);
       },
       error: (error) => {
-        console.error(error);
+        console.error('Error Product Status:', error);
       }
     });
+  }
+
+  //Desglose de datos de tabla para insertar los datos de los productos
+  public productColumns: TableColumn<Product>[] = [
+    { key: 'name', header: 'Nombre' },
+    { key: 'description', header: 'Descripción' },
+    { key: 'category.name', header: 'Categoría' },
+    { key: 'productStatus.name', header: 'Estado' },
+    { key: 'price', header: 'Precio', align: 'right' },
+    { key: 'stock', header: 'Stock', align: 'right' }
+  ];
+
+  //Moviles
+  public mobileProductColumns: TableColumn<Product>[] = [
+    { key: 'name', header: 'Nombre' },
+    { key: 'category.name', header: 'Categoría' },
+    { key: 'productStatus.name', header: 'Estado' }
+  ];
+
+  //Función para insertar o actualizar un dato producto, con el set de productStatus como activo
+  public insertUpdate(data: unknown = null): void {
+    this.product = new Product(data);
+    if (!this.product.id) {
+      this.product.productStatus = new ProductStatus({
+        id: 2,
+        name: 'Active'
+      });
+    }
+
+    this.isActive.set(true);
+  }
+
+  // Función para aplicar el filtro de productos
+  // Por Experiencia del Cliente seria bueno que una vez limpiado el input de busqueda, se recarguen los productos sin filtro,
+  // para que el cliente pueda ver todos los productos nuevamente
+  // para que el cliente pueda ver los productos filtrados por medio del botón acción aplicar.
+  public applyFilter(): void {
+      const filter = new FilterProductDTO(this.filter);
+      this.loadProducts(filter);
+  }
+
+  // Función para limpiar el filtro de productos (inputs y selects), y recargar los productos sin filtro
+  public clearFilter(): void {
+    this.filter = new FilterProductDTO();
+    this.loadProducts();
+  }
+
+  // Función para resetear el producto actual cada vez que se cierra el modal, para evitar que se mantenga la información del producto anterior
+  // Ya que se esta utilizando el mismo modal para crear y actualizar productos, si no se resetea el producto, al abrir el modal para crear un nuevo producto,
+  // se mostrará la información del producto anterior
+  public resetProduct(): void {
+    this.product = new Product();
+  }
+
+  // Función para mostrar mensajes de inserción de datos erronea
+  private showValidationMessage(message: string): void {
+    this.validationMessage.set(message);
+
+    setTimeout(() => {
+      this.validationMessage.set('');
+    }, 6000);
   }
 }

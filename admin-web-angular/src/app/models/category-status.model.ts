@@ -1,4 +1,3 @@
-
 export class CategoryStatus {
   id: number;
   name: string

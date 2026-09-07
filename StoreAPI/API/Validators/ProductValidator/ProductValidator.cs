@@ -52,13 +52,16 @@ namespace API.Validators
             }
 
             // CategoryId
-            if (data.CategoryId < 0)
+            if (data.CategoryId.HasValue)
             {
-                innerMessages.Add("Category is required");
-            }
-            else if (!this._database.Category.Any(c => c.Id == data.CategoryId))
-            {
-                innerMessages.Add("Category does not exist, you need to select a valid category");
+                if (data.CategoryId.Value <= 0)
+                {
+                    innerMessages.Add("Category must be a valid category");
+                }
+                else if (!this._database.Category.Any(c => c.Id == data.CategoryId.Value))
+                {
+                    innerMessages.Add("Category does not exist, you need to select a valid category");
+                }
             }
 
             // IdStatus
@@ -72,7 +75,7 @@ namespace API.Validators
             }
 
             // Stock
-            if (data.Stock <= 0)
+            if (data.Stock < 0)
             {
                 innerMessages.Add("Stock must be greater than or equal to 0");
             }

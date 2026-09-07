@@ -16,10 +16,11 @@ export class TableComponent<T = any> {
   data = input<T[]>([]);
   columns = input<TableColumn<T>[]>([]);
   emptyMessage = input<string>('No items available');
-
   showActions = input<boolean>(false);
   actionLabel = input<string>('Actualizar');
+  actionIcon = input<string>('');
 
+  rowDeactivate = output<T>();
   rowActions = output<T>();
 
   getCellValue(row: T, key: string): any {

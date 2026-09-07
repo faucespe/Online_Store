@@ -1,7 +1,7 @@
 .button {
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     border: none;
     user-select: none;
 
@@ -42,4 +42,10 @@
 .secondary:hover {
     color: var(--color-text-primary-hover);
     background-color: var(--color-secondary-hover);
+}
+
+:host(.create-product-btn) .button {
+    border: 1px solid #0f0f0f;
+    cursor: pointer;
+    margin-bottom: 1rem;
 }

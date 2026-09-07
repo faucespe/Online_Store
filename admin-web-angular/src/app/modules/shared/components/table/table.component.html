@@ -4,7 +4,9 @@
       <thead>
         <tr>
           @for (column of columns(); track column.key) {
-            <th [class.numeric]="column.align === 'right'">{{ column.header }}</th>
+            <th [class.numeric]="column.align === 'right'">
+              {{ column.header }}
+            </th>
           }
           @if (showActions()) {
             <th class="actions-col"></th>
@@ -15,12 +17,19 @@
         @for (row of data(); track $index) {
           <tr>
             @for (column of columns(); track column.key) {
-              <td [class.numeric]="column.align === 'right'">{{ getCellValue(row, column.key) }}</td>
+              <td [class.numeric]="column.align === 'right'">
+                {{ getCellValue(row, column.key) }}
+              </td>
             }
             @if (showActions()) {
               <td class="actions-col">
                 <div class="actions-cell">
-                  <app-button color="primary" [buttonText]="actionLabel()" (click)="rowActions.emit(row)" />
+                  <app-button
+                    color="primary"
+                    icon="edit"
+                    shape="rounded"
+                    (click)="rowActions.emit(row)">
+                  </app-button>
                 </div>
               </td>
             }
@@ -29,6 +38,8 @@
       </tbody>
     </table>
   } @else {
-    <div class="empty-state">{{ emptyMessage() }}</div>
+    <div class="empty-state">
+      {{ emptyMessage() }}
+    </div>
   }
 </div>

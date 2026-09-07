@@ -1,4 +1,4 @@
-import { Component, output, input, model } from '@angular/core';
+import { Component, output, input, model, Input } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -7,7 +7,7 @@ import { Component, output, input, model } from '@angular/core';
   styleUrl: './modal.component.css',
 })
 export class ModalComponent {
-  public readonly modalTitle = input.required<string>(); 
+  public readonly modalTitle = input.required<string>();
   public readonly showConfirmButton = input<boolean>(true);
   public readonly showCancelButton = input<boolean>(true);
   public readonly confirmLabel = input<string>('Confirm');
@@ -15,8 +15,17 @@ export class ModalComponent {
   public readonly showModal = model<boolean>(false);
 
   onConfirm = output<void>();
+  onClose = output<void>();
 
-  handleConfirmation() {
+  @Input()
+  public validationMessage: string = '';
+
+  public handleConfirmation(): void {
     this.onConfirm.emit();
+  }
+
+  public handleClose(): void {
+    this.showModal.set(false);
+    this.onClose.emit();
   }
 }
