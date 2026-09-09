@@ -54,7 +54,7 @@ BEGIN
 		Price DECIMAL(10,2) NOT NULL,
 		CategoryId INT NULL,
 		ProductStatusId INT NOT NULL,
-	CreatedAt DATETIME2 (7),
+		CreatedAt DATETIME2 (7),
 		UpdatedAt DATETIME2 (7),
 		Stock INT NOT NULL,
 		CONSTRAINT PK_Product PRIMARY KEY (Id),
