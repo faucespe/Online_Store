@@ -1,5 +1,5 @@
 <!-- Filter de productos -->
-<div class="desktop-filter">
+<div class="filter">
   <app-filter
     [(searchingText)]="filter.name"
     (onApply)="applyFilter()"
@@ -16,9 +16,7 @@
     </div>
   </app-filter>
   <!-- Botón de creación de producto -->
-  <div class="create-product">
-      <app-button color="primary" icon="add" buttonText="" (click)="insertUpdate()"/>
-  </div>
+  <app-button color="primary" icon="add" shape="rounded" buttonText="Agregar" (click)="insertUpdate()"/>
 </div>
 
 <app-modal [modalTitle]="product.id ?  'Actualización de Producto' : 'Creación de Producto'" [validationMessage]="validationMessage()" (onClose)="resetProduct()" (onConfirm)="handleConfirmation()" [(showModal)]="isActive">
