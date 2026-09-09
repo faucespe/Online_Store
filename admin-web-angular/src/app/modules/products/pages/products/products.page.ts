@@ -29,12 +29,9 @@ export class ProductsPage implements OnInit {
   private productStatusService = inject(ProductStatusService);
   public statuses = signal<ProductStatus[]>([]);
   private categoryService = inject(CategoryService);
-  public categories = signal<Category[]>([]);
-  public showProductModal = false
+  public categories = signal<Category[]>([]);;
   public filter = new FilterProductDTO();
   isActive = model<boolean>(false);
-  receivedSearchingText = signal<string>('');
-  public filtersOpen = signal(false);
   public validationMessage = signal('');
 
   ngOnInit(): void {
@@ -133,15 +130,17 @@ export class ProductsPage implements OnInit {
     { key: 'description', header: 'Descripción' },
     { key: 'category.name', header: 'Categoría' },
     { key: 'productStatus.name', header: 'Estado' },
-    { key: 'price', header: 'Precio', align: 'right' },
-    { key: 'stock', header: 'Stock', align: 'right' }
+    { key: 'price', header: 'Precio' },
+    { key: 'stock', header: 'Stock'}
   ];
 
   //Moviles
   public mobileProductColumns: TableColumn<Product>[] = [
     { key: 'name', header: 'Nombre' },
     { key: 'category.name', header: 'Categoría' },
-    { key: 'productStatus.name', header: 'Estado' }
+    { key: 'productStatus.name', header: 'Estado' },
+    { key: 'price', header: 'Precio' },
+    { key: 'stock', header: 'Stock' }
   ];
 
   //Función para insertar o actualizar un dato producto, con el set de productStatus como activo

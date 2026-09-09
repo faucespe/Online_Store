@@ -9,7 +9,7 @@
       (input)="onInputText($event)"
     />
     @if (showonConfirmButton()) {
-      <app-button [buttonText]="confirmButtonText()" (click)="applyFilter()"/>
+      <app-button icon="search" (click)="applyFilter()"/>
     }
   </div>
 

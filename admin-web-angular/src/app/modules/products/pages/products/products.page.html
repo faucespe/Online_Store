@@ -17,7 +17,7 @@
   </app-filter>
   <!-- Botón de creación de producto -->
   <div class="create-product">
-      <app-button color="primary" buttonText="Crear Producto" (click)="insertUpdate()"/>
+      <app-button color="primary" icon="add" buttonText="" (click)="insertUpdate()"/>
   </div>
 </div>
 
@@ -51,9 +51,4 @@ antes del insert para evitar errores por selección incompleta del usuario. -->
 <!-- Pantallas grandes -->
 <div class="products-table">
   <app-table [data]="products()" [columns]="productColumns" [showActions]="true" (rowActions)="insertUpdate($event)"/>
-</div>
-
-<!-- Móvil -->
-<div class="products-table-mobile">
-  <app-table [data]="products()" [columns]="mobileProductColumns" [showActions]="true" actionIcon="edit" (rowActions)="insertUpdate($event)"/>
 </div>
