@@ -21,6 +21,7 @@ namespace API.Services
 
             return this._database
                 .PurchaseOrderProduct
+                .Include(p => p.Product)
                 .Where(p => p.PurchaseOrderId == filter.PurchaseOrderId);
         }
 
