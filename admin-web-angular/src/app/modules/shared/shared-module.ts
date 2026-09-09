@@ -13,6 +13,7 @@ import { MainLayout } from './main/main.layout';
 import { RouterModule } from '@angular/router';
 import { FilterComponent } from './components/filter/filter.component';
 
+
 @NgModule({
   imports: [CommonModule, RouterModule],
   declarations: [
