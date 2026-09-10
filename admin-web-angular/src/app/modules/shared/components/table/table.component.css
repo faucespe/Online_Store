@@ -31,6 +31,11 @@
   color: #1F2937;
 }
 
+.data-table thead th {
+  background-color: var(--color-dark-background-secundary);
+  color: #fff;
+}
+
 .data-table tbody tr:nth-child(odd) {
   background-color: var(--color-background-primary);
 }
@@ -70,6 +75,7 @@
 }
 
 @media screen and (max-width: 600px) {
+
   .data-table {
     table-layout: fixed;
     width: 100%;

@@ -12,9 +12,13 @@ body.light {
   --color-text-secondary-hover: rgb(207, 206, 206);
   --color-primary-shadow: #888;
   --color-app-overlay: rgba(102, 123, 233, .7);
+  --color-shadow-dark: #1d1d1d;
 
   /* LAYOUT */
   --color-background-topbar: #3d3e45;
+  --color-sidenav-active: #3B7BD6;
+  --color-dark-background-primary: #1E63C7;
+  --color-dark-background-secundary: #0D47A1;
   --color-background-primary: #e3f0ff;
   --color-background-secondary: #f7f7f7;
 

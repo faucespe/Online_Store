@@ -6,9 +6,9 @@
   </figure>
 
   <h1>Web de Administración</h1>
-  <div class="main__actions-container">
+<div class="main__actions-container">
     <app-button color="secondary" icon="menu" (click)="toggleMenu()"></app-button>
-
+    
     @if (menuOpen()) {
       <nav class="menu-options">
         <a routerLink="/purchase-orders">Página Principal</a>
@@ -17,10 +17,35 @@
       </nav>
     }
   </div>
-  <app-button class="backbtn"color="secondary" buttonText="Volver" (click)="goBack()"></app-button>
 </header>
 
-<main>
+<section class="wrapper">
+    <nav class="sidenav">
+    <h3 class="category">Menú Principal</h3>
+    <ul class="list">
+      <li>
+        <a routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >Página Principal
+        </a>
+      </li>
+      <li>
+        <a routerLink="/products"
+          routerLinkActive="active"
+          >Productos</a>
+      </li>
+      <li> 
+        <a routerLink="/categories"
+        routerLinkActive="active"
+        >Categorías</a>
+      </li>
+    </ul>
+  </nav>
+
+  <main>
   <router-outlet></router-outlet>
 
-</main>
+  </main>
+</section>
+
