@@ -2,6 +2,12 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.21.
 
+the content of the StoreCustomerSite is two pages:
+
+Products - on this main page, customers can view cards with all the products that were created in the Admin Website and stored in the SQL database. On this page, the customer is able to see all products as presentation cards. if the customer clicks a product, they will be able to see a modal with additional informacion about the product. This page also allows adding products to the Shopping Cart.
+
+Shoppingg Cart - this is a section where customers can check all the products they added on the Products Page. It also shows the total number of products and the grand total for them. When the customer is ready to complete the purchase, the shopping cart will display a form where the customer needs to enter their information in order to create a record of the purchase in the database 
+
 ## Development server
 
 To start a local development server, run:

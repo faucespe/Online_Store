@@ -1,14 +1,14 @@
-## Dependecias
-La API requiere de las siguientes dependecias:
+## Dependencies
+The API requires the following dependencies:
 
 	Microsoft.EntityFrameworkCore.Tools - 10.0.11
-	Microsoft.EntityFrameworkCore.Desing - 10.0.11
+	Microsoft.EntityFrameworkCore.Design - 10.0.11
 	Microsoft.EntityFrameworkCore.SqlServer - 10.0.11
 	AutoMapper - 16.2.0
   swashbuckle.aspnetcore - 10.2.3
 
-## Conexión a la Base de datos
-La conexión se configura mediante appsettings.json utilizando la sección ConnectionStrings:
+## Database Connection
+the connection is configured via appsettings.json using the ConnectionStrings section:
 
   ```json
   "ConnectionStrings": {
@@ -16,31 +16,34 @@ La conexión se configura mediante appsettings.json utilizando la sección Conne
   }
   ```
 
-Se espera que la insntancia este disponible localmente
+The instance is expected to be available locally
 
-## Configuración de AutoMapper
+## AutoMapper Configuration
 
-Automapper 16.2.0 requiere de una licenseKey que se puede generar en el sitio web https://luckypennysoftware.com.
+Automapper 16.2.0 requires a licenseKey which can be generated on the website https://luckypennysoftware.com.
 
-La API es capas de leer la LicenseKey desde el .appsettings utilizando la sección AutoMapper
+The API is able to read the LicenseKey from the .appsettings file using the AutoMapper Section:
 
 ```json
  "AutoMapper": {
-   "LicenseKey": "Inserte la LicenseKey Aquí"
+   "LicenseKey": "Insert the licencekey here"
  }	
  ```
 
-## Utilización de Swagger
+## Using Swagger
 
-Para poder utilizar la funcionalidad, con el programa en ejecución e ir a la siguiente URL https://localhost:XXXX/swagger/index.html 
-Cambiar las XXXX por el localhost que se genera en la terminal 
+to access this functionality, with the program running, go to the following URL https://localhost:XXXX/swagger/index.html 
 
-ej 
+Replace the XXXX with the localhost port generated in the terminal
+
+e.g.
 info: Microsoft.Hosting.Lifetime[14]
       Now listening on: https://localhost:7044
 
-Swagger se encarga de generar automáticamente nuevos CRUDs agregados a la API
+Swagger automatically generates new CRUDs added to the API
 
-Para Solicitar un CRUD
-Seleccionar la Categoría deseada, después se hace click en el tipo de respuesta que se quiere solicitar para abrir el panel del request
-Después click en "Try it Out" se colocan los parámetros requeridos y después click en "Execute"
+To request a CRUD
+
+Select the desired Category, then click on the response type you want to request to open the request panel 
+
+Click on "Try it Out" fill in the required parameters, and click "Execute" to open the request 
