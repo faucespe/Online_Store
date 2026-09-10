@@ -1,9 +1,11 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
+import { CurrencyFormatPipe } from 'src/app/shared/pipes/currency-format-pipe';
 
 export interface TableColumn<T = any> {
   key: string;
   header: string;
   align?: 'left' | 'right';
+  format?: 'currency';
 }
 
 @Component({
@@ -13,6 +15,8 @@ export interface TableColumn<T = any> {
   styleUrl: './table.component.css',
 })
 export class TableComponent<T = any> {
+  private currencyFormatPipe = inject(CurrencyFormatPipe)
+
   data = input<T[]>([]);
   columns = input<TableColumn<T>[]>([]);
   emptyMessage = input<string>('No items available');
@@ -23,9 +27,15 @@ export class TableComponent<T = any> {
   rowDeactivate = output<T>();
   rowActions = output<T>();
 
-  getCellValue(row: T, key: string): any {
-    return key
+  getCellValue(row: T, column: TableColumn<T>): any {
+    const columValue = column.key
       .split('.')
       .reduce((value: any, part: string) => value?.[part], row);
+
+    if(column.format === 'currency') {
+      return this.currencyFormatPipe.transform(columValue)
+    }
+
+    return columValue
   }
 }

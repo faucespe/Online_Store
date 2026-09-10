@@ -30,7 +30,7 @@ export class PurchaseOrdersPage implements OnInit {
     { key: 'customerName', header: 'Cliente' },
     { key: 'customerPhoneNumber', header: 'Teléfono' },
     { key: 'purchaseDate', header: 'Fecha de Compra' },
-    { key: 'grandTotal', header: 'Total', align: 'right' },
+    { key: 'grandTotal', header: 'Total', align: 'right', format: 'currency' },
   ];
 
   ngOnInit(): void {

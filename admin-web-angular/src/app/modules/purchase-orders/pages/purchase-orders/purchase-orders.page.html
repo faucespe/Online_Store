@@ -62,7 +62,7 @@
           <tr>
             <td>{{ item.product.name }}</td>
             <td>{{ item.productQuantity }}</td>
-            <td>₡{{ item.price }}</td>
+            <td>{{ item.price | currencyFormat}}</td>
           </tr>
         }
       </tbody>
