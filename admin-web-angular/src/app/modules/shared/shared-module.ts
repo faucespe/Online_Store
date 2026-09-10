@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from './components/table/table.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
-import { MenuComponent } from './components/menu/menu.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { InputComponent } from './components/modal/input/input.component';
@@ -17,7 +16,6 @@ import { FilterComponent } from './components/filter/filter.component';
   declarations: [
     TableComponent,
     TopbarComponent,
-    MenuComponent,
     ModalComponent,
     InputComponent,
     SelectComponent,
@@ -27,7 +25,6 @@ import { FilterComponent } from './components/filter/filter.component';
   ],
   exports: [
     TableComponent,
-    MenuComponent,
     TopbarComponent,
     ModalComponent,
     InputComponent,

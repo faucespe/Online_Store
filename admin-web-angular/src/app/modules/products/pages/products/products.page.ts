@@ -33,6 +33,9 @@ export class ProductsPage implements OnInit {
   public filter = new FilterProductDTO();
   isActive = model<boolean>(false);
   public validationMessage = signal('');
+  public selectedProduct = signal<Product | null>(null);
+  public showProductInfoModal = signal(false);
+  public readonly defaultImageUrl = 'https://www.gstatic.com/webp/gallery/4.webp';
 
   ngOnInit(): void {
     this.loadProducts();
@@ -137,6 +140,7 @@ export class ProductsPage implements OnInit {
   //Moviles
   public mobileProductColumns: TableColumn<Product>[] = [
     { key: 'name', header: 'Nombre' },
+    { key: 'description', header: 'Descripción' },
     { key: 'category.name', header: 'Categoría' },
     { key: 'productStatus.name', header: 'Estado' },
     { key: 'price', header: 'Precio' },
@@ -145,6 +149,8 @@ export class ProductsPage implements OnInit {
 
   //Función para insertar o actualizar un dato producto, con el set de productStatus como activo
   public insertUpdate(data: unknown = null): void {
+    this.showProductInfoModal.set(false);
+    this.validationMessage.set('');
     this.product = new Product(data);
     if (!this.product.id) {
       this.product.productStatus = new ProductStatus({
@@ -185,5 +191,11 @@ export class ProductsPage implements OnInit {
     setTimeout(() => {
       this.validationMessage.set('');
     }, 6000);
+  }
+
+  public onViewProduct(product: Product): void {
+    this.isActive.set(false);
+    this.selectedProduct.set(product);
+    this.showProductInfoModal.set(true);
   }
 }

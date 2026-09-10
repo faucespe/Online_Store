@@ -8,12 +8,6 @@ const routes: Routes = [
     component: MainLayout,
     children: [
       {
-        path: 'pagina principal',
-        loadChildren: () =>
-          import('./modules/products/products-module')
-            .then(m => m.ProductsModule)
-      },
-      {
         path: 'products',
         loadChildren: () =>
           import('./modules/products/products-module')
@@ -23,7 +17,7 @@ const routes: Routes = [
         path: 'categories',
         loadChildren: () =>
           import('./modules/categories/categories-module')
-            .then(m => m.CategoriesModule)     
+            .then(m => m.CategoriesModule)
       },
       {
         path: '',

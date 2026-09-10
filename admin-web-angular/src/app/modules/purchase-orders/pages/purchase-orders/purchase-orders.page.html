@@ -1,43 +1,22 @@
-
 <app-filter
   [(searchingText)]="filterCustomerName"
   [showonConfirmButton]="true"
   confirmButtonText="Buscar"
   (onApply)="loadOrders()"
-  (onClear)="clearFilters()"
->
-  <label>
-    Código
-    <input type="number" [value]="filterId() ?? ''" (input)="filterId.set(+$any($event.target).value || null)" />
-  </label>
-  <label>
-    Teléfono
-    <input type="text" [value]="filterPhone()" (input)="filterPhone.set($any($event.target).value)" />
-  </label>
-  <label>
-    Fecha desde
-    <input type="date" [value]="filterDateFrom()" (input)="filterDateFrom.set($any($event.target).value)" />
-  </label>
-  <label>
-    Fecha hasta
-    <input type="date" [value]="filterDateTo()" (input)="filterDateTo.set($any($event.target).value)" />
-  </label>
-  <label>
-    Total mínimo
-    <input type="number" [value]="filterTotalFrom() ?? ''" (input)="filterTotalFrom.set(+$any($event.target).value || null)" />
-  </label>
-  <label>
-    Total máximo
-    <input type="number" [value]="filterTotalTo() ?? ''" (input)="filterTotalTo.set(+$any($event.target).value || null)" />
-  </label>
+  (onClear)="clearFilters()">
+  <input type="number" label="Código" [value]="filterId() ?? ''" (input)="filterId.set(+$any($event.target).value || null)" />
+  <input type="text" label="Cliente" [value]="filterPhone()" (input)="filterPhone.set($any($event.target).value)" />
+  <input type="date" label="Fecha desde" [value]="filterDateFrom()" (input)="filterDateFrom.set($any($event.target).value)" />
+  <input type="date" label="Fecha Hasta" [value]="filterDateTo()" (input)="filterDateTo.set($any($event.target).value)" />
+  <input type="number" label="Total mínimo" [value]="filterTotalFrom() ?? ''" (input)="filterTotalFrom.set(+$any($event.target).value || null)" />
+  <input type="number" label="Total máximo" [value]="filterTotalTo() ?? ''" (input)="filterTotalTo.set(+$any($event.target).value || null)" />
 </app-filter>
 
 <app-table
   [data]="orders()"
   [columns]="columns"
-  [showActions]="true"
-  actionLabel="Ver detalle"
-  (rowActions)="onViewOrder($event)"
+  [showInfo]="true"
+  (rowDeactivate)="onViewOrder($event)"
   emptyMessage="No hay órdenes registradas"
 />
 
@@ -45,8 +24,7 @@
   modalTitle="Detalle de la orden"
   [(showModal)]="showModal"
   [showConfirmButton]="false"
-  cancelLabel="Cerrar"
->
+  cancelLabel="Cerrar">
   @if (selectedOrder(); as order) {
     <p><strong>Cliente:</strong> {{ order.customerName }}</p>
     <p><strong>Teléfono:</strong> {{ order.customerPhoneNumber }}</p>
@@ -67,5 +45,6 @@
         }
       </tbody>
     </table>
+    <p><strong>Total de la compra:</strong> ₡{{ order.grandTotal }}</p>
   }
 </app-modal>
