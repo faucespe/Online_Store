@@ -21,7 +21,6 @@ export class Product {
     this.description = data?.description ?? '';
     this.imageUrl = data?.imageUrl ?? '';
     this.price = data?.price ?? 0;
-
     this.category = data?.category
       ? new Category(data.category)
       : undefined;

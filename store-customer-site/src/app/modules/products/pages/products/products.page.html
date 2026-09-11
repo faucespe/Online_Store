@@ -31,7 +31,7 @@
         <app-store-card [imageUrl]="product.imageUrl ?? ''" [imageDescription]="product.name">
             <h2 class="products__product-title">{{ product.name }}</h2>
 
-            <p>Precio: <span class="products__product-info">₡{{ product.price }}</span></p>
+            <p>Precio: <span class="products__product-info">{{ product.price | currencyFormat}}</span></p>
             <p>Unidades disponibles: <span class="products__product-info">{{ product.stock }}</span></p>
 
             <h3>Añadir al carrito</h3>
@@ -66,7 +66,7 @@
                 <p>{{ product.description }}</p>
             </div>
 
-            <p>Precio: <span>₡{{ product.price }}</span></p>
+            <p>Precio: <span>{{ product.price | currencyFormat}}</span></p>
             <p>Unidades disponibles: <span>{{ product.stock }}</span></p>
         </app-store-modal>
     }

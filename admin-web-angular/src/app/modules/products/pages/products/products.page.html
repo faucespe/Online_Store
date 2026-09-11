@@ -1,5 +1,5 @@
 <!-- Filter de productos -->
-<div class="desktop-filter">
+<div class="filter">
   <app-filter
     [(searchingText)]="filter.name"
     (onApply)="applyFilter()"
@@ -16,44 +16,69 @@
     </div>
   </app-filter>
   <!-- Botón de creación de producto -->
-  <div class="create-product">
-      <app-button color="primary" buttonText="Crear Producto" (click)="insertUpdate()"/>
-  </div>
+  <app-button color="primary" icon="add" shape="rounded" buttonText="Agregar" (click)="insertUpdate()"/>
 </div>
 
-<app-modal [modalTitle]="product.id ?  'Actualización de Producto' : 'Creación de Producto'" [validationMessage]="validationMessage()" (onClose)="resetProduct()" (onConfirm)="handleConfirmation()" [(showModal)]="isActive">
+<div class="products-table">
+  <app-table
+    [data]="products()"
+    [columns]="productColumns"
+    [showInfo]="true"
+    [showActions]="true"
+    (rowDeactivate)="onViewProduct($event)"
+    (rowActions)="insertUpdate($event)">
+  </app-table>
+</div>
+
+<app-modal [modalTitle]="product.id ?  'Actualización de Producto' : 'Creación de Producto'" [validationMessage]="validationMessage()" (onClose)="resetProduct()" (onConfirm)="handleConfirmation()" [(showModal)]="isActive" [showConfirmButton]="true" [showCancelButton]="true">
   <div style="display: flex; flex-wrap: wrap; gap: 2em; margin: 2rem 0; border-bottom: 1px solid black;">
-    <!-- Formulario del producto -->
-    <!-- TODO: Agregar validación para evitar errores causados por una selección incompleta del usuario. -->
-    <!-- Evitar depender de que el usuario seleccione una opción válida (error de capa 8) -->
     <app-input name="nameModal" label="Nombre" type="text" [required]="true" [(model)]="product.name"></app-input>
     <app-input name="descriptionModal" label="Descripción" type="textarea"[(model)]="product.description"></app-input>
     <app-input name="imageUrlModal" label="Imagen" type="text" [(model)]="product.imageUrl"></app-input>
     <app-input name="priceModal" label="Precio" type="number" [min]="0" [(model)]="product.price"></app-input>
-
-    <!-- Validar que se haya seleccionado una categoría antes de aplicar el filtro. -->
-    <!-- Actualmente genera un error si no se selecciona una opción. -->
-    <!-- Pendiente de corregir para evitar errores por selección incompleta del usuario. -->
     <app-select name="categoryModal" label="Categoría" [options]="categories()" [(model)]="product.category"></app-select>
-
-    <!-- Validar que se haya seleccionado el estado antes de aplicar el filtro. -->
-    <!-- Actualmente genera un error si no se selecciona una opción. -->
-    <!-- Pendiente de corregir para evitar errores por selección incompleta del usuario. -->
     <app-select name="statusModal" label="Estado" [options]="statuses()" [(model)]="product.productStatus"></app-select>
     <app-input name="stockModal" label="Stock" type="number" [min]="0" [(model)]="product.stock"></app-input>
   </div>
 </app-modal>
 
-
-
-<!-- Validar categoría y estado ademas de los otros datos,
-antes del insert para evitar errores por selección incompleta del usuario. -->
-<!-- Pantallas grandes -->
-<div class="products-table">
-  <app-table [data]="products()" [columns]="productColumns" [showActions]="true" (rowActions)="insertUpdate($event)"/>
-</div>
-
-<!-- Móvil -->
-<div class="products-table-mobile">
-  <app-table [data]="products()" [columns]="mobileProductColumns" [showActions]="true" actionIcon="edit" (rowActions)="insertUpdate($event)"/>
-</div>
+<app-modal
+modalTitle="Detalle del producto"
+[(showModal)]="showProductInfoModal"
+[showConfirmButton]="false"
+[showCancelButton]="false"
+cancelLabel="Cerrar">
+  @if (selectedProduct(); as product) {
+    <div class="product-info">
+      <div class="product-info__image">
+        <img
+          [src]="product.imageUrl || defaultImageUrl"
+          [alt]="product.name">
+      </div>
+      <div class="product-info__row">
+        <strong>Nombre:</strong>
+        <span>{{ product.name }}</span>
+      </div>
+      <div class="product-info__row">
+        <strong>Descripción:</strong>
+        <span>{{ product.description }}</span>
+      </div>
+      <div class="product-info__row">
+        <strong>Precio:</strong>
+        <span>₡{{ product.price }}</span>
+      </div>
+      <div class="product-info__row">
+        <strong>Stock:</strong>
+        <span>{{ product.stock }}</span>
+      </div>
+      <div class="product-info__row">
+        <strong>Categoría:</strong>
+        <span>{{ product.category?.name ?? 'Sin categoría' }}</span>
+      </div>
+      <div class="product-info__row">
+        <strong>Estado:</strong>
+        <span>{{ product.productStatus?.name }}</span>
+      </div>
+    </div>
+  }
+</app-modal>
