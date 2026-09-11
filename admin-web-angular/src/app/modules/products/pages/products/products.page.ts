@@ -35,6 +35,8 @@ export class ProductsPage implements OnInit {
   public validationMessage = signal('');
   public selectedProduct = signal<Product | null>(null);
   public showProductInfoModal = signal(false);
+
+  //imagen por default si una imagen no tiene una imagen de carga
   public readonly defaultImageUrl = 'https://www.gstatic.com/webp/gallery/4.webp';
 
   ngOnInit(): void {
@@ -75,37 +77,39 @@ export class ProductsPage implements OnInit {
       return;
     }
 
-      const request = this.product.id
-        ? this.productService.updateProduct(this.product)
-        : this.productService.createProduct(this.product);
+    //Inserción o Actualización de producto, acción validada por medio de un id existente
+    const request = this.product.id
+      ? this.productService.updateProduct(this.product)
+      : this.productService.createProduct(this.product);
 
-      request.subscribe({
-        next: () => {
-          this.isActive.set(false);
+    request.subscribe({
+      next: () => {
+        this.isActive.set(false);
 
-          this.productService.getProducts().subscribe({
-            next: (apiResponse) => {
-              this.products.set(apiResponse.data);
-            }
-          });
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
-    }
-    // Función para cargar los productos desde el servicio de productos, con la opción de aplicar un filtro
-    public loadProducts(filter?: FilterProductDTO): void {
-      this.productService.getProducts(filter).subscribe({
+        this.productService.getProducts().subscribe({
           next: (apiResponse) => {
             this.products.set(apiResponse.data);
-          },
-          error: (error) => {
           }
-      });
-    }
+        });
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
 
-  // Función para cargar los productos desde el servicio de categorias
+  // Función para cargar los productos desde el servicio de productos, con la opción de aplicar un filtro
+  public loadProducts(filter?: FilterProductDTO): void {
+    this.productService.getProducts(filter).subscribe({
+        next: (apiResponse) => {
+          this.products.set(apiResponse.data);
+        },
+        error: (error) => {
+        }
+    });
+  }
+
+  // Función para cargar los productos desde el servicio de categorias en el filtro
   private loadCategories(): void {
     this.categoryService.getCategories({}).subscribe({
       next: (response) => {
@@ -115,7 +119,7 @@ export class ProductsPage implements OnInit {
     });
   }
 
-  // Función para cargar los producto de Estado desde el servicio de categorias
+  // Función para cargar los producto de Estado desde el servicio de categorias en el filtro
   private loadProductStatuses(): void {
     this.productStatusService.getProductStatuses().subscribe({
       next: (response) => {
@@ -133,18 +137,8 @@ export class ProductsPage implements OnInit {
     { key: 'description', header: 'Descripción' },
     { key: 'category.name', header: 'Categoría' },
     { key: 'productStatus.name', header: 'Estado' },
-    { key: 'price', header: 'Precio' },
+    { key: 'price', header: 'Precio' + ' ₡' },
     { key: 'stock', header: 'Stock'}
-  ];
-
-  //Moviles
-  public mobileProductColumns: TableColumn<Product>[] = [
-    { key: 'name', header: 'Nombre' },
-    { key: 'description', header: 'Descripción' },
-    { key: 'category.name', header: 'Categoría' },
-    { key: 'productStatus.name', header: 'Estado' },
-    { key: 'price', header: 'Precio' },
-    { key: 'stock', header: 'Stock' }
   ];
 
   //Función para insertar o actualizar un dato producto, con el set de productStatus como activo
@@ -163,9 +157,6 @@ export class ProductsPage implements OnInit {
   }
 
   // Función para aplicar el filtro de productos
-  // Por Experiencia del Cliente seria bueno que una vez limpiado el input de busqueda, se recarguen los productos sin filtro,
-  // para que el cliente pueda ver todos los productos nuevamente
-  // para que el cliente pueda ver los productos filtrados por medio del botón acción aplicar.
   public applyFilter(): void {
       const filter = new FilterProductDTO(this.filter);
       this.loadProducts(filter);
@@ -188,11 +179,13 @@ export class ProductsPage implements OnInit {
   private showValidationMessage(message: string): void {
     this.validationMessage.set(message);
 
+    //Tiempo para que se quite el mensaje del modal
     setTimeout(() => {
       this.validationMessage.set('');
     }, 6000);
   }
 
+  //Función para ver la info de un producto
   public onViewProduct(product: Product): void {
     this.isActive.set(false);
     this.selectedProduct.set(product);

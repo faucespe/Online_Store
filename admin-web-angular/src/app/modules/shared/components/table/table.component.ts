@@ -24,6 +24,7 @@ export class TableComponent<T = any> {
   rowDeactivate = output<T>();
   rowActions = output<T>();
 
+  //Función para obtener el valor de una propiedad o objeto
   getCellValue(row: T, key: string): any {
     return key
       .split('.')
