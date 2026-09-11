@@ -68,7 +68,6 @@ export class FilterProductDTO {
     // Se mantienen los objetos seleccionados para trabajar con los Select.
     this.category = data.category ?? null;
     this.productStatus = data.productStatus ?? null;
-
     this.categoryId = data.category?.id ?? data.category ?? '';
     this.productStatusId =
         data.productStatus?.id ?? data.productStatus ?? '';

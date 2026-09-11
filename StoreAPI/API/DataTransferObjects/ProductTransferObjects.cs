@@ -11,8 +11,6 @@ namespace API.DataTransferObjects
         public decimal Price { get; set; }
         public GetCategoryDTO? Category { get; set; }
         public GetProductStatusDTO ProductStatus { get; set; } = null!;
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
         public int Stock { get; set; }
     }
 
