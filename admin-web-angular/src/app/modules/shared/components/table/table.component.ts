@@ -21,8 +21,9 @@ export class TableComponent<T = any> {
   columns = input<TableColumn<T>[]>([]);
   emptyMessage = input<string>('No items available');
   showActions = input<boolean>(false);
+  showInfo = input<boolean>(false);
   actionLabel = input<string>('Actualizar');
-  actionIcon = input<string>('');
+  actionIcon = input<string>('info');
 
   rowDeactivate = output<T>();
   rowActions = output<T>();

@@ -8,7 +8,7 @@
               {{ column.header }}
             </th>
           }
-          @if (showActions()) {
+          @if (showActions() || showInfo()) {
             <th class="actions-col"></th>
           }
         </tr>
@@ -18,18 +18,31 @@
           <tr>
             @for (column of columns(); track column.key) {
               <td [class.numeric]="column.align === 'right'">
+                <span class="mobile-label">
+                  {{ column.header }}
+                </span>
                 {{ getCellValue(row, column) }}
               </td>
             }
-            @if (showActions()) {
+            @if (showActions() || showInfo()) {
               <td class="actions-col">
                 <div class="actions-cell">
-                  <app-button
-                    color="primary"
-                    icon="edit"
-                    shape="rounded"
-                    (click)="rowActions.emit(row)">
-                  </app-button>
+                  @if (showInfo()) {
+                    <app-button
+                      color="primary"
+                      icon="info"
+                      shape="rounded"
+                      (click)="rowDeactivate.emit(row)">
+                    </app-button>
+                  }
+                  @if (showActions()) {
+                    <app-button
+                      color="primary"
+                      icon="edit"
+                      shape="rounded"
+                      (click)="rowActions.emit(row)">
+                    </app-button>
+                  }
                 </div>
               </td>
             }

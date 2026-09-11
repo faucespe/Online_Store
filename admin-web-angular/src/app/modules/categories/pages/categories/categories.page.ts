@@ -1,9 +1,9 @@
-// el Import traen codigo de archivos externos al componente actual 
+// el Import traen codigo de archivos externos al componente actual
 import { Component, OnInit, inject, signal } from '@angular/core'
 import { Category, UpdateCategory } from '@models/category.model';
 import { CategoryStatus } from '@models/category-status.model';
 import { CategoryFilters } from '@models/category-filters.model';
-import { CategoryService } from '@services/category/category.service';  
+import { CategoryService } from '@services/category/category.service';
 import { TableColumn } from '@shared/components/table/table.component';
 import { ApiResponse } from '@models/http.types';
 
@@ -23,7 +23,7 @@ export class CategoriesPage implements OnInit {
   private categoryService = inject(CategoryService);
 
 // signal es un estado reactivo parecido a las variables de un valor predefinido
-// que angular va a modificar automaticamente en pantalla 
+// que angular va a modificar automaticamente en pantalla
   public categories = signal<Category[]>([]);
   public statuses = signal<CategoryStatus[]>([]);
   public showModal = signal(false);
@@ -47,7 +47,7 @@ export class CategoriesPage implements OnInit {
     { key: 'categoryStatus.name', header: 'Estado' },
   ];
 
-  // ng: prefijo estandar de la libreria de Angular, que vincula la funcion con el 
+  // ng: prefijo estandar de la libreria de Angular, que vincula la funcion con el
   // implements OnInit de la class
   ngOnInit(): void {
     this.loadCategories();
@@ -55,7 +55,7 @@ export class CategoriesPage implements OnInit {
   }
 
   // carga las categorias segun la respuesta HTTP del category.service.ts
-  // ademas de aplicar los filtros si son solicitados 
+  // ademas de aplicar los filtros si son solicitados
   // la solicitud esta vinculada a Category del backend
   loadCategories(): void {
     const filters: CategoryFilters = {
@@ -103,8 +103,8 @@ export class CategoriesPage implements OnInit {
     this.filterStatusId.set(null);
     this.loadCategories();
   }
- 
-// diccionario que traduce los errores del backend al español en el front 
+
+// diccionario que traduce los errores del backend al español en el front
 private translateValidations(message: string): string {
   const translations: Record<string, string> = {
     'Name is required.': 'El nombre es obligatorio.',

@@ -25,6 +25,7 @@ export class PurchaseOrdersPage implements OnInit {
   public filterTotalFrom = signal<number | null>(null);
   public filterTotalTo = signal<number | null>(null);
 
+  //Formato de tabla de cargado de Purchase Orders
   public columns: TableColumn<PurchaseOrder>[] = [
     { key: 'id', header: 'Código' },
     { key: 'customerName', header: 'Cliente' },
@@ -37,6 +38,7 @@ export class PurchaseOrdersPage implements OnInit {
     this.loadOrders();
   }
 
+  //Filtro y Carga de Datos de Purchase Orders
   loadOrders(): void {
     const filters: PurchaseOrderFilters = {
       id: this.filterId() ?? undefined,
@@ -54,6 +56,7 @@ export class PurchaseOrdersPage implements OnInit {
     });
   }
 
+  //Función para limpiar los datos del filtro
   clearFilters(): void {
     this.filterCustomerName.set('');
     this.filterId.set(null);
