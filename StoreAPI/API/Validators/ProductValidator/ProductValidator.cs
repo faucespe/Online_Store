@@ -36,11 +36,6 @@ namespace API.Validators
                 innerMessages.Add("Description must be less than or equal to 500 characters");
             }
 
-            // ImageUrl
-            // - Optional
-            // - If provided, must be a valid URL
-            // - Maximum length according to database
-
             // Price
             if (data.Price == 0)
             {
@@ -80,24 +75,26 @@ namespace API.Validators
                 innerMessages.Add("Stock must be greater than or equal to 0");
             }
 
-            // CreatedAt
-            if (!data.CreatedAt.HasValue)
+            // CreatedAt Validations only for back end
+            if (data.CreatedAt.HasValue)
             {
-                innerMessages.Add("CreatedAt is required");
-            }
-            else if (data.CreatedAt > DateTime.Now)
-            {
-                innerMessages.Add("CreatedAt must be less than or equal to the current date/time");
+                if (data.CreatedAt > DateTime.Now)
+                {
+                    innerMessages.Add("CreatedAt must be less than or equal to the current date/time");
+                }
             }
 
-            // UpdatedAt
-            if (data.UpdatedAt > DateTime.Now)
+            // UpdatedAt, Validations only for back end
+            if (data.UpdatedAt.HasValue)
             {
-                innerMessages.Add("UpdatedAt must be less than or equal to the current date/time");
-            }
-            else if (data.UpdatedAt <= data.CreatedAt)
-            {
-                innerMessages.Add("UpdatedAt must be later than CreatedAt");
+                if (data.UpdatedAt > DateTime.Now)
+                {
+                    innerMessages.Add("UpdatedAt must be less than or equal to the current date/time");
+                }
+                else if (data.CreatedAt.HasValue && data.UpdatedAt <= data.CreatedAt)
+                {
+                    innerMessages.Add("UpdatedAt must be later than CreatedAt");
+                }
             }
 
             messages.AddRange(innerMessages);
