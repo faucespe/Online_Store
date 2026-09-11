@@ -5,6 +5,7 @@ import { CartService } from '@services/cart/cart.service';
 import { CartProduct } from '@services/cart/cart.types';
 import { CategoryService } from '@services/category/category.service';
 import { ProductService } from '@services/product/product.service';
+import { CategoryStatus } from '@models/categoryStatus';
 
 interface ProductFilters {
   name: string,
@@ -114,7 +115,9 @@ export class ProductsPage implements OnInit {
   /*hooks*/
   public ngOnInit(): void {
     this.productService.getProducts().subscribe((apiResponse) => {
-      const receivedProducts = apiResponse.data.map((product: Product) => ({...product, quantity: 1}));
+      const receivedProducts = apiResponse.data
+      .filter((product: Product) => product.productStatus.name === 'Activado')
+      .map((product: Product) => ({...product, quantity: 1}));
       this.products.set(receivedProducts);
       this.filteredProducts.set(this.products());
       this.maxPrice.set(Math.max(...this.products().map(product => product.price)));
@@ -122,7 +125,11 @@ export class ProductsPage implements OnInit {
     })
 
     this.categoryService.getCategories().subscribe((apiResponse) => {
-      this.categories.set(apiResponse.data);
+      const activeCategories = apiResponse.data.filter(
+        (category: Category) => category.categoryStatus.name === 'Activado'
+      );
+
+      this.categories.set(activeCategories);
     })
   }
 }

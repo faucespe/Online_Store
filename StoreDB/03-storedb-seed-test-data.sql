@@ -7,10 +7,10 @@ GO
 INSERT INTO Category ([Name], CategoryStatusId)
 SELECT V.[Name], V.CategoryStatusId
 FROM (VALUES
-    ('Computadoras', 1),
-    ('Periféricos', 1),
-    ('Monitores', 1),
-    ('Componentes', 1),
+    ('Computadoras', 2),
+    ('Periféricos', 2),
+    ('Monitores', 2),
+    ('Componentes', 2),
     ('Accesorios', 1)
 ) AS V([Name], CategoryStatusId)
 WHERE NOT EXISTS (
@@ -42,19 +42,19 @@ SELECT
     NULL,
     V.Stock
 FROM (VALUES
-    ('Laptop Lenovo IdeaPad', 'Laptop para uso académico y profesional', 450000.00, 'Computadoras', 1, 15),
-    ('Teclado Mecánico RGB', 'Teclado mecánico con iluminación RGB', 35000.00, 'Periféricos', 1, 30),
-    ('Monitor LG 27"', 'Monitor de 27 pulgadas Full HD', 125000.00, 'Monitores', 1, 10),
-    ('Memoria RAM 16GB DDR5', 'Memoria RAM DDR5 de 16GB', 45000.00, 'Componentes', 1, 25),
-    ('Mouse Gamer', 'Mouse óptico para gaming', 22000.00, 'Periféricos', 1, 40),
-    ('Tarjeta Gráfica RTX 4060', 'Tarjeta gráfica de 8GB', 280000.00, 'Componentes', 1, 8),
-    ('Webcam Full HD', 'Cámara web Full HD para videollamadas', 30000.00, 'Accesorios', 1, 20),
-    ('Audífonos Gamer', 'Audífonos con micrófono integrado', 55000.00, 'Accesorios', 1, 18),
-    ('SSD NVMe 1TB', 'Unidad de almacenamiento SSD NVMe de 1TB', 65000.00, 'Componentes', 1, 20),
-    ('Webcam Full HD 2', 'Cámara web Full HD para videollamadas', 30000.00, 'Accesorios', 1, 22),
-    ('Audífonos Gamer 2', 'Audífonos con micrófono integrado para videojuegos', 55000.00, 'Accesorios', 1, 18),
-    ('Base para Laptop', 'Base ajustable para laptops', 28000.00, 'Accesorios', 1, 14),
-    ('Teclado de Oficina', 'Teclado estándar para uso empresarial', 15000.00, 'Periféricos', 1, 35),
+    ('Laptop Lenovo IdeaPad', 'Laptop para uso académico y profesional', 450000.00, 'Computadoras', 2, 15),
+    ('Teclado Mecánico RGB', 'Teclado mecánico con iluminación RGB', 35000.00, 'Periféricos', 2, 30),
+    ('Monitor LG 27"', 'Monitor de 27 pulgadas Full HD', 125000.00, 'Monitores', 2, 10),
+    ('Memoria RAM 16GB DDR5', 'Memoria RAM DDR5 de 16GB', 45000.00, 'Componentes', 2, 25),
+    ('Mouse Gamer', 'Mouse óptico para gaming', 22000.00, 'Periféricos', 2, 40),
+    ('Tarjeta Gráfica RTX 4060', 'Tarjeta gráfica de 8GB', 280000.00, 'Componentes', 2, 8),
+    ('Webcam Full HD', 'Cámara web Full HD para videollamadas', 30000.00, 'Accesorios', 2, 20),
+    ('Audífonos Gamer', 'Audífonos con micrófono integrado', 55000.00, 'Accesorios', 2, 18),
+    ('SSD NVMe 1TB', 'Unidad de almacenamiento SSD NVMe de 1TB', 65000.00, 'Componentes', 2, 20),
+    ('Webcam Full HD 2', 'Cámara web Full HD para videollamadas', 30000.00, 'Accesorios', 2, 22),
+    ('Audífonos Gamer 2', 'Audífonos con micrófono integrado para videojuegos', 55000.00, 'Accesorios', 2, 18),
+    ('Base para Laptop', 'Base ajustable para laptops', 28000.00, 'Accesorios', 2, 14),
+    ('Teclado de Oficina', 'Teclado estándar para uso empresarial', 15000.00, 'Periféricos', 2, 35),
     ('Monitor Curvo 32"', 'Monitor curvo de 32 pulgadas para entretenimiento', 210000.00, 'Monitores', 1, 7),
     ('Tarjeta Madre B650', 'Tarjeta madre compatible con procesadores AMD', 145000.00, 'Componentes', 1, 0)
 ) AS V(
