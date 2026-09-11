@@ -12,7 +12,7 @@ import { SelectComponent } from './components/modal/select/select.component';
 import { MainLayout } from './main/main.layout';
 import { RouterModule } from '@angular/router';
 import { FilterComponent } from './components/filter/filter.component';
-import { CurrencyFormatPipe } from 'src/app/shared/pipes/currency-format-pipe';
+import { CurrencyFormatPipe } from '@shared/pipes/currency-format-pipe';
 
 
 @NgModule({

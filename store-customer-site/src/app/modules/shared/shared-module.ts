@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterModule } from '@angular/router';
-import { CurrencyFormatPipe } from 'src/app/shared/pipes/currency-format-pipe';
+import { CurrencyFormatPipe } from '@shared/pipes/currency-format-pipe';
 
 import { MainLayout } from './main/main.layout';
 import { TestsPage } from './test-page/tests.page';

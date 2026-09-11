@@ -1,5 +1,5 @@
 import { Component, inject, input, output } from '@angular/core';
-import { CurrencyFormatPipe } from 'src/app/shared/pipes/currency-format-pipe';
+import { CurrencyFormatPipe } from '@shared/pipes/currency-format-pipe';
 
 export interface TableColumn<T = any> {
   key: string;
