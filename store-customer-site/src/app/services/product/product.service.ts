@@ -1,7 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '@models/apiResponse';
+
+import { ApiResponse } from '@types';
+import { Product } from '@models/product'
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +11,8 @@ import { ApiResponse } from '@models/apiResponse';
 export class ProductService {
   private http = inject(HttpClient);
 
-  public getProducts(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>('https://localhost:7044/api/products', {
+  public getProducts(): Observable<ApiResponse<Product[]>> {
+    return this.http.get<ApiResponse<Product[]>>('https://localhost:7044/api/products', {
       headers: {
         'Content-Type': 'application/json'
       }

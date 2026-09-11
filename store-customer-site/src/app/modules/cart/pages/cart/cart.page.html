@@ -19,9 +19,12 @@
 
                     <h3>Añadir al carrito</h3>
                     <div class="products__container-actions">
-                        <app-store-btn color="secondary" [icon]="product.quantity === 1 ? 'delete' : 'remove'" shape="rounded" (click)="removeProduct(product.id)" />
+                        <app-store-btn color="secondary" [icon]="product.quantity === 1 ? 'delete' : 'remove'" shape="rounded" (click)="removeProduct(product.id, 1)" />
                         <span>{{ product.quantity }}</span>
                         <app-store-btn color="secondary" icon="add" shape="rounded" (click)="increaseProductQuantityById(product.id)" />
+                        @if (product.quantity > 1) {
+                            <app-store-btn color="secondary" icon="delete" shape="rounded" (click)="removeProduct(product.id, product.quantity)" />
+                        }
                     </div>
                 </app-store-card>
             }

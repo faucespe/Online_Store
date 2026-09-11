@@ -1,17 +1,46 @@
 <section>
-    <header>
-        <h1>Checkout</h1>
-    </header>
     <main class="form__container">
-        <label for="customerName">Ingrese su Nombre</label>
-        <input id="customerName" type="text" [formField]="checkoutForm.customerName" />
-        <label for="customerEmail">Ingrese su email</label>
-        <input id="customerEmail" type="email" [formField]="checkoutForm.customerEmail" />
-        <label for="customerPhoneNumber">Ingrese su número telefónico</label>
-        <input id="customerPhoneNumber" type="text" [formField]="checkoutForm.customerPhoneNumber" />
-        <label for="customerAddress">Ingrese su dirección</label>
-        <input id="customerAddress" type="text" [formField]="checkoutForm.customerAddress" />
+        <form class="form" (submit)="savePurchaseOrder($event)">
+            <h1 class="form__title">Confirme su compra</h1>
+            @if (messages()) {
+                <ul>
+                    @for (message of messages(); track $index) {
+                        <li class="validation-message">{{message}}</li>
+                    }
+                </ul>
+            }
+            <div>
+                <label for="customerName">Ingrese su Nombre</label>
+                <input [value]="customerName()" (input)="customerName.set($event.target.value)" id="customerName" type="text" />
+            </div>
+            <div>
+                <label for="customerEmail">Ingrese su email</label>
+                <input [value]="customerEmail()" (input)="customerEmail.set($event.target.value)" id="customerEmail" type="email" />
+            </div>
+            <div>
+                <label for="customerPhoneNumber">Ingrese su número telefónico</label>
+                <input [value]="customerPhoneNumber()" (input)="customerPhoneNumber.set($event.target.value)" id="customerPhoneNumber" type="text" />
+            </div>
+            <div>
+                <label for="customerAddress">Ingrese su dirección</label>
+                <input [value]="customerAddress()" (input)="customerAddress.set($event.target.value)" id="customerAddress" type="text" />
+            </div>
         
-        <app-store-btn buttonText="hola"></app-store-btn>
+            <div>
+                <app-store-btn type="submit" [isDisabled]="disableButton()" buttonText="Finalizar pedido"></app-store-btn>
+                <p class="form__grand-total">Total compra: {{ grandTotal() }}</p>
+            </div>
+        </form>
     </main>
+
+    <!-- Purchase Order creation success modal-->
+    <app-store-modal 
+        modalTitle="Orden enviada"
+        [(showModal)]="showPurhcaseOrderCreationModal"
+        [showCancelButton]="false"
+        confirmLabel="Aceptar"
+        (onConfirm)="this.router.navigate(['/'])"
+    >
+        <p>Su orden ha sido enviada exitosamente!</p>
+    </app-store-modal>
 </section>

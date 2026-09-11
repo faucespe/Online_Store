@@ -10,8 +10,8 @@ export class StoreModal {
   public readonly modalTitle = input.required<string>(); 
   public readonly showConfirmButton = input<boolean>(true);
   public readonly showCancelButton = input<boolean>(true);
-  public readonly confirmLabel = input<string>('Confirm');
-  public readonly cancelLabel = input<string>('Cancel');
+  public readonly confirmLabel = input<string>('Confirmar');
+  public readonly cancelLabel = input<string>('Cancelar');
   public readonly showModal = model<boolean>(false);
 
   onConfirm = output<void>();

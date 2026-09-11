@@ -8,6 +8,6 @@ namespace API.Services
     {
         IQueryable<PurchaseOrder> ListPurchaseOrders(PurchaseOrderFilters? filter = null);
         Task<PurchaseOrder?> FindPurchaseOrder(int id);
-        Task InsertPurchaseOrder(PurchaseOrder entity, List<CartProduct> cartProducts);
+        Task<PurchaseOrder> InsertPurchaseOrder(PurchaseOrderCustom entity);
     }
 }

@@ -1,6 +1,6 @@
-import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { CartService } from '@services/cart/cart.service';
-import { CartProduct } from '@services/cart/cart.types';
+import { CartProduct } from '@types';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -22,8 +22,8 @@ export class CartPage implements OnDestroy, OnInit {
     this.cartService.increaseProductQuantityById(productId);
   }
 
-  protected removeProduct(idProduct: number): void {
-    this.cartService.removeProduct(idProduct);
+  protected removeProduct(idProduct: number, quantityToRemove: number): void {
+    this.cartService.removeProduct(idProduct, quantityToRemove);
   }
 
   protected emptyCart(): void {

@@ -10,8 +10,9 @@ namespace API.Mapper
         public PurchaseOrderMapper()
         {
             CreateMap<PurchaseOrder, GetPurchaseOrderDTO>();
-            CreateMap<CreateUpdatePurchaseOrderDTO, PurchaseOrder>();
+            CreateMap<CreateUpdatePurchaseOrderDTO, PurchaseOrderCustom>();
             CreateMap<FilterPurchaseOrderDTO, PurchaseOrderFilters>();
+            CreateMap<PurchaseOrderCustom, PurchaseOrder>();
         }
     }
 }

@@ -12,6 +12,7 @@
     outline: none;
     padding: 0 2rem;
     border: 1px solid var(--color-text-primary);
+    max-width: 25rem;
 }
 
 .store-filter__popover {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { CartProduct } from './cart.types';
+import { CartProduct } from '../../types/cart.types';
 
 @Injectable({
   providedIn: 'root',
@@ -40,11 +40,11 @@ export class CartService {
     this.subjectCart.next(updatedCart);
   }
 
-  public removeProduct(idProduct: number): void {
+  public removeProduct(idProduct: number, quantityToRemove: number): void {
     const current = this.subjectCart.getValue();
 
     const updated = current
-      .map(item => item.id === idProduct ? { ...item, quantity: item.quantity - 1 } : item)
+      .map(item => item.id === idProduct ? { ...item, quantity: item.quantity - quantityToRemove } : item)
       .filter(item => item.quantity > 0);
 
     this.subjectCart.next(updated);

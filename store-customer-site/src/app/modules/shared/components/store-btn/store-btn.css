@@ -9,6 +9,11 @@
     transition: background-color, color 500ms;
 }
 
+.button:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
 .default {
     padding: .5rem 1rem;
     border-radius: 2rem;
