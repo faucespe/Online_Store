@@ -9,6 +9,7 @@ import { SelectComponent } from './components/modal/select/select.component';
 import { MainLayout } from './main/main.layout';
 import { RouterModule } from '@angular/router';
 import { FilterComponent } from './components/filter/filter.component';
+import { CurrencyFormatPipe } from '@shared/pipes/currency-format-pipe';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { FilterComponent } from './components/filter/filter.component';
     ButtonComponent,
     MainLayout,
     FilterComponent,
+    CurrencyFormatPipe,
   ],
   exports: [
     TableComponent,
@@ -31,6 +33,10 @@ import { FilterComponent } from './components/filter/filter.component';
     SelectComponent,
     ButtonComponent,
     FilterComponent,
+    CurrencyFormatPipe,
   ],
+  providers: [
+    CurrencyFormatPipe
+  ]
 })
 export class SharedModule {}

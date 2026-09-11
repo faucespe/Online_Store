@@ -133,8 +133,8 @@ export class ProductsPage implements OnInit {
     { key: 'description', header: 'Descripción' },
     { key: 'category.name', header: 'Categoría' },
     { key: 'productStatus.name', header: 'Estado' },
-    { key: 'price', header: 'Precio' },
-    { key: 'stock', header: 'Stock'}
+    { key: 'price', header: 'Precio', align: 'right', format: 'currency' },
+    { key: 'stock', header: 'Stock', align: 'right' }
   ];
 
   //Moviles
