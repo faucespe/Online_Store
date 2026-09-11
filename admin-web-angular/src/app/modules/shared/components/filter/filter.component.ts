@@ -12,6 +12,7 @@ export class FilterComponent {
   public readonly showonConfirmButton = input<boolean>(true);
   public readonly cancelButtonText = input<string>('Cancelar');
   public readonly confirmButtonText = input<string>('Buscar');
+  public readonly searchLabel = input<string>('');
   public showPopover = signal<boolean>(false);
   public onApply = output<void>();
   public onClear = output<void>();

@@ -1,21 +1,27 @@
 <!-- Barra de filtros y estados -->
-<app-filter
-  [(searchingText)]="filterName"
-  [showonConfirmButton]="true"
-  confirmButtonText="Buscar"
-  (onApply)="loadCategories()"
-  (onClear)="clearFilters()"
->
-  <select [value]="filterStatusId() ?? 2" (change)="filterStatusId.set(+$any($event.target).value)">
-    <option value="">Filtrar por estado</option>
-    @for (status of statuses(); track status.id) {
-      <option [value]="status.id">{{ status.name }}</option>
-    }
-  </select>
-</app-filter>
+ <div class="filter">
+  <app-filter
+    searchLabel="Buscar por Categoría"
+    [(searchingText)]="filterName"
+    [showonConfirmButton]="true"
+    confirmButtonText="Buscar"
+    (onApply)="loadCategories()"
+    (onClear)="clearFilters()"
+  >
+    <div class="categories__filters">
+      <div>
+        <label for="filterStatus">Estado</label>
+        <select id="filterStatus" [value]="filterStatusId() ?? 2" (change)="filterStatusId.set(+$any($event.target).value)">
+          <option value="">Cualquiera</option>
+          @for (status of statuses(); track status.id) {
+            <option [value]="status.id">{{ status.name }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </app-filter>
 
-<!-- Titulo de la pagina y boton de Crear categoria -->
-<div class="create-category">
+<!-- Boton de Crear categoria -->
   <app-button color="primary" icon="add" shape="rounded" (click)="openCreateModal()" />
 </div>
 

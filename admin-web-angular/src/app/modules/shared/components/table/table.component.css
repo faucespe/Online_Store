@@ -17,23 +17,23 @@
 
 .data-table thead th {
   text-align: left;
+  vertical-align: middle;
   padding: 14px 20px;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 1.3rem;
   color: #4B5563;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 0.2rem solid #ddd;
   white-space: nowrap;
+  background-color: var(--color-dark-background-secundary);
+  color: #fff;
 }
 
 .data-table tbody td {
+  vertical-align: middle;
+  text-align: left;
   padding: 14px 20px;
   border-bottom: 1px solid #eee;
   color: #1F2937;
-}
-
-.data-table thead th {
-  background-color: var(--color-dark-background-secundary);
-  color: #fff;
 }
 
 .data-table tbody tr:nth-child(odd) {
@@ -50,7 +50,7 @@
 
 .data-table td.numeric,
 .data-table th.numeric {
-  text-align: right;
+  text-align: left;
   font-variant-numeric: tabular-nums;
 }
 
@@ -75,7 +75,12 @@
   justify-content: flex-end;
 }
 
-@media screen and (max-width: 600px) {
+  .mobile-label {
+    display: none;
+
+  }
+
+@media screen and (max-width: 666px) {
 
   .data-table {
     min-width: 0;
