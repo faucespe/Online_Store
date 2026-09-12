@@ -27,6 +27,7 @@ namespace API.Services
 
             return this._database.PurchaseOrder
                 .Include(p => p.PurchaseOrderProduct)
+                .ThenInclude(p => p.Product)
                 .Where(p => (!filter.Id.HasValue || p.Id == filter.Id.Value)
                     && (string.IsNullOrEmpty(filter.CustomerName) || p.CustomerName.Contains(filter.CustomerName))
                     && (string.IsNullOrEmpty(filter.CustomerPhoneNumber) || p.CustomerPhoneNumber.Contains(filter.CustomerPhoneNumber))
@@ -41,6 +42,7 @@ namespace API.Services
         {
             return await this._database.PurchaseOrder
                 .Include(p => p.PurchaseOrderProduct)
+                .ThenInclude(p => p.Product)
                 .Where(p => p.Id == id)
                 .FirstOrDefaultAsync();
         }

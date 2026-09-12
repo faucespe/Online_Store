@@ -18,16 +18,11 @@ app-modal select{
     color: #1f2937;
 }
 
-/* Estilo Titulo de la pagina */
-.category-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    top: 0;
-    background-color: #f9fafb;
-    z-index: 10;
-    padding: 1rem;
+/* Crear Categoria */
+.create-category {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* Estilo de la barra busqueda y el select del filtro */
@@ -36,7 +31,6 @@ app-modal select{
     gap: 0.75rem;
     margin-bottom: 1rem;
 }
-
 
 .filter-bar input,
 .filter-bar select {
@@ -55,14 +49,4 @@ app-modal select{
 
 .filter-bar select {
     min-width: 100px;
-}
-
-/* Estilo de los errores del backend*/
-.backend-error {
-  color: #dc2626;
-  background-color: #fef2f2;
-  padding: 8px 12px;
-  border-radius: 6px;
-  margin-bottom: 14px;
-  font-size: 14px;
 }

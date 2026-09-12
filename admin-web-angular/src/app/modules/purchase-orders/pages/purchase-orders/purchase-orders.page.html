@@ -1,0 +1,50 @@
+<app-filter
+  [(searchingText)]="filterCustomerName"
+  [showonConfirmButton]="true"
+  confirmButtonText="Buscar"
+  (onApply)="loadOrders()"
+  (onClear)="clearFilters()">
+  <input type="number" label="Código" [value]="filterId() ?? ''" (input)="filterId.set(+$any($event.target).value || null)" />
+  <input type="text" label="Cliente" [value]="filterPhone()" (input)="filterPhone.set($any($event.target).value)" />
+  <input type="date" label="Fecha desde" [value]="filterDateFrom()" (input)="filterDateFrom.set($any($event.target).value)" />
+  <input type="date" label="Fecha Hasta" [value]="filterDateTo()" (input)="filterDateTo.set($any($event.target).value)" />
+  <input type="number" label="Total mínimo" [value]="filterTotalFrom() ?? ''" (input)="filterTotalFrom.set(+$any($event.target).value || null)" />
+  <input type="number" label="Total máximo" [value]="filterTotalTo() ?? ''" (input)="filterTotalTo.set(+$any($event.target).value || null)" />
+</app-filter>
+
+<app-table
+  [data]="orders()"
+  [columns]="columns"
+  [showInfo]="true"
+  (rowDeactivate)="onViewOrder($event)"
+  emptyMessage="No hay órdenes registradas"
+/>
+
+<app-modal
+  modalTitle="Detalle de la orden"
+  [(showModal)]="showModal"
+  [showConfirmButton]="false"
+  cancelLabel="Cerrar">
+  @if (selectedOrder(); as order) {
+    <p><strong>Cliente:</strong> {{ order.customerName }}</p>
+    <p><strong>Teléfono:</strong> {{ order.customerPhoneNumber }}</p>
+    <p><strong>Email:</strong> {{ order.customerEmail }}</p>
+    <p><strong>Dirección:</strong> {{ order.customerAddress }}</p>
+
+    <table>
+      <thead>
+        <tr><th>Producto</th><th>Cantidad</th><th>Precio</th></tr>
+      </thead>
+      <tbody>
+        @for (item of order.purchaseOrderProduct; track item.id) {
+          <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.productQuantity }}</td>
+            <td>{{ item.price | currencyFormat}}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <p><strong>Total de la compra:</strong> ₡{{ order.grandTotal }}</p>
+  }
+</app-modal>

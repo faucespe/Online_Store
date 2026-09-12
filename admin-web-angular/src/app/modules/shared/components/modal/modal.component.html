@@ -1,19 +1,24 @@
 @if (showModal()) {
-    <div class="modal-overlay">
-        <article class="modal">
-            <header class="modal__header">
-                <h2 class="modal__header-label">{{ modalTitle() }}</h2>
-                <app-button color="secondary" icon="close" shape="rounded" (click)="showModal.set(!showModal)" />
-            </header>
-            <main class="modal__main">
-                <ng-content></ng-content>
-            </main>
-            @if (showConfirmButton() || showCancelButton()) {
-                <footer class="modal__footer">
-                    <app-button color="secondary" [buttonText]="cancelLabel()" (click)="showModal.set(!showModal)" />
-                    <app-button color="primary" [buttonText]="confirmLabel()" (click)="handleConfirmation()" />
-                </footer>
-            }
-        </article>
-    </div>
+  <div class="modal-overlay">
+      <article class="modal">
+          <header class="modal__header">
+              <h2 class="modal__header-label">{{ modalTitle() }}</h2>
+              <app-button color="secondary" icon="close" shape="rounded" (click)="handleClose()" />
+          </header>
+          <main class="modal__main">
+              <ng-content></ng-content>
+          </main>
+          @if (validationMessage) {
+            <div class="validation-message">
+              {{ validationMessage }}
+            </div>
+          }
+          @if (showConfirmButton() || showCancelButton()) {
+              <footer class="modal__footer">
+                  <app-button color="secondary" icon="close" shape="rounded" (click)="handleClose()" />
+                  <app-button color="primary" icon="check" shape="rounded"  (click)="handleConfirmation()" />
+              </footer>
+          }
+      </article>
+  </div>
 }

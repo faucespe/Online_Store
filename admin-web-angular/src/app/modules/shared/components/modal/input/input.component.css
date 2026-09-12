@@ -1,0 +1,7 @@
+textarea {
+  min-height: 6rem;
+  width: 100%;
+  max-width: 100%;
+  resize: none;
+  box-sizing: border-box;
+}

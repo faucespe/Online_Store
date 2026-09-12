@@ -2,7 +2,7 @@ import { Observable }from 'rxjs';
 import { ApiResponse } from '../../models/http.types';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../http/environment';
+import { environment } from '../../../environments/environment';
 import { Category, UpdateCategory } from '../../models/category.model';
 import { CategoryStatus } from '../../models/category-status.model';
 import { CategoryFilters } from '../../models/category-filters.model';
@@ -33,9 +33,10 @@ export class CategoryService {
     });
   }
 
+  //Esta función se utiliza tanto para el despliegue de datos en categoria como tambien, para mostras las diferentes categorias en el filtro de producto
   public getCategory(id: number): Observable<ApiResponse<Category>> {
     return this.http.get<ApiResponse<Category>>(environment.apiURL + '/categories/' + id, {
-      headers: { 
+      headers: {
         'Content-Type': 'application/json'
       }
     });
@@ -48,7 +49,7 @@ export class CategoryService {
       }
     });
   }
-  
+
   public createCategory(data: UpdateCategory): Observable<ApiResponse<Category>> {
     return this.http.post<ApiResponse<Category>>(environment.apiURL + '/categories', data, {
       headers: {
@@ -63,5 +64,5 @@ export class CategoryService {
           'Content-Type': 'application/json'
         }
       });
-    } 
+    }
 }

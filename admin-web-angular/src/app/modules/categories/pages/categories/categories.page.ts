@@ -1,11 +1,9 @@
-// el Import traen codigo de archivos externos al componente actual 
+// el Import traen codigo de archivos externos al componente actual
 import { Component, OnInit, inject, signal } from '@angular/core'
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Category, UpdateCategory } from '@models/category.model';
 import { CategoryStatus } from '@models/category-status.model';
 import { CategoryFilters } from '@models/category-filters.model';
-import { CategoryService } from '@services/category/category.service';  
+import { CategoryService } from '@services/category/category.service';
 import { TableColumn } from '@shared/components/table/table.component';
 import { ApiResponse } from '@models/http.types';
 
@@ -25,7 +23,7 @@ export class CategoriesPage implements OnInit {
   private categoryService = inject(CategoryService);
 
 // signal es un estado reactivo parecido a las variables de un valor predefinido
-// que angular va a modificar automaticamente en pantalla 
+// que angular va a modificar automaticamente en pantalla
   public categories = signal<Category[]>([]);
   public statuses = signal<CategoryStatus[]>([]);
   public showModal = signal(false);
@@ -40,10 +38,6 @@ export class CategoriesPage implements OnInit {
   public filterStatusId = signal<number | null>(null);
   public backendError = signal<string |null>(null);
 
-  // subject es parecido a un event listener que va a funcionar segun se use
-  // next() para mandar informacion y el subcribe() para recibirla
-  public nameFilterChanged = new Subject<string>()
-
   // Arreglo que esta vinculado con el componente compartido de table,
   // que define la estructura que va tener la tabla que se va generar en
   // el HTML de categories.page
@@ -53,25 +47,15 @@ export class CategoriesPage implements OnInit {
     { key: 'categoryStatus.name', header: 'Estado' },
   ];
 
-  // ng: prefijo estandar de la libreria de Angular, que vincula la funcion con el 
+  // ng: prefijo estandar de la libreria de Angular, que vincula la funcion con el
   // implements OnInit de la class
   ngOnInit(): void {
     this.loadCategories();
     this.loadStatuses();
-
-    // este es el subject que se creo antes
-    this.nameFilterChanged
-      .pipe(                    // filtra el contenido antes de ejecutarlo
-        debounceTime(400),      
-        distinctUntilChanged()
-      )
-      .subscribe(() => {        // devuelve el contenido filtrado y lo agrega a loadCategories 
-        this.loadCategories();
-      });
   }
 
   // carga las categorias segun la respuesta HTTP del category.service.ts
-  // ademas de aplicar los filtros si son solicitados 
+  // ademas de aplicar los filtros si son solicitados
   // la solicitud esta vinculada a Category del backend
   loadCategories(): void {
     const filters: CategoryFilters = {
@@ -98,7 +82,7 @@ export class CategoriesPage implements OnInit {
   openCreateModal(): void {
     this.selectedCategoryId.set(null);
     this.editName.set('');
-    this.editStatusId.set(null);
+    this.editStatusId.set(2);
     this.editMode.set(false);
     this.showModal.set(true);
     this.backendError.set(null);
@@ -114,19 +98,13 @@ export class CategoriesPage implements OnInit {
     this.showModal.set(true);
   }
 
-  // Se llama en el HTML cuando se da clik en el buscador de categoria por nombre
-  onNameFilterInput(value: string): void {
-    this.filterName.set(value);
-    this.nameFilterChanged.next(value);
-  }
-
-  // Se llama en el HTML cuando se da clik selecionador del estado de categoria
-  onStatusFilterChange(value: number | null): void {
-    this.filterStatusId.set(value);
+  clearFilters(): void {
+    this.filterName.set('');
+    this.filterStatusId.set(null);
     this.loadCategories();
   }
 
-// diccionario que traduce los errores del backend al español en el front 
+// diccionario que traduce los errores del backend al español en el front
 private translateValidations(message: string): string {
   const translations: Record<string, string> = {
     'Name is required.': 'El nombre es obligatorio.',

@@ -1,10 +1,14 @@
 @if (canShowButton()) {
-    <button [class]="['button', shape(), color()]">
-        @if (icon()) {
-            <span class="material-icons button__icon">{{ icon() }}</span>
-        }
-        @if (canShowText()){
-            <span class="button__text">{{ buttonText() }}</span>
-        }
-    </button>
+  <button [class]="['button', shape(), color()]">
+    @if (icon()) {
+      <span class="material-icons button__icon">
+        {{ icon() }}
+      </span>
+    }
+    @if (canShowText()) {
+      <span class="button__text">
+        {{ buttonText() }}
+      </span>
+    }
+  </button>
 }

@@ -5,7 +5,7 @@
         <section class="cart__additional-actions">
             <app-store-btn color="secondary" buttonText="Vaciar Carrito" (click)="emptyCart()"></app-store-btn>
             <div class="cart__additional-actions-checkout">
-                <p>Subtotal ({{ cartTotalItemsCounter() }} Items): ₡{{ grandTotal() }}</p>
+                <p>Subtotal ({{ cartTotalItemsCounter() }} Items): {{ grandTotal() | currencyFormat }}</p>
                 <app-store-btn routerLink="/checkout" buttonText="Continuar al checkout"></app-store-btn>
             </div>
         </section>
@@ -14,7 +14,7 @@
                 <app-store-card class="cart__products-container-item" [imageUrl]="product.imageUrl ?? ''" [imageDescription]="product.name">
                     <h2 class="products__product-title">{{ product.name }}</h2>
 
-                    <p>Precio: <span class="products__product-info">₡{{ product.price }}</span></p>
+                    <p>Precio: <span class="products__product-info">{{ product.price | currencyFormat }}</span></p>
                     <p>Unidades disponibles: <span class="products__product-info">{{ product.stock }}</span></p>
 
                     <h3>Añadir al carrito</h3>

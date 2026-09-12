@@ -1,62 +1,76 @@
 .modal-overlay {
-    position: fixed;
-    left: 0;
-    top: 0;
-
-    width: 100%;
-    padding: 5rem 0;
-
-    background-color: var(--color-app-overlay);
-    min-height: 100vh;
-    animation: overlay 300ms ease-out;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 5rem 0;
+  background-color: var(--color-app-overlay);
+  min-height: 100vh;
+  animation: overlay 300ms ease-out;
 }
 
 @keyframes overlay {
-  from { opacity: .7; }
-  to { opacity: 1; }
+  from {
+    opacity: 0.7;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .modal {
-    max-width: 95%;
-    background-color: var(--color-background-secondary);
-    border-radius: 1rem;
-    margin: 0 auto;
-    animation: modal 300ms ease-out;
-    padding: 2rem;
-    max-height: 90vh;
+  background-color: #90CAF9;
+  border-radius: 1rem;
+  margin: 2rem auto 0;
+  padding: 2rem;
+  max-height: 90vh;
+  animation: modal 300ms ease-out;
 
-    @media screen and (min-width: 600px) {
-        width: 480px;
-    }
+  @media screen and (min-width: 600px) {
+    width: 480px;
+  }
 }
 
 @keyframes modal {
-  from { scale: .7; }
-  to { scale: 1; }
-}
+  from {
+    scale: 0.7;
+  }
 
-.modal__footer {
-    display: flex;
-    justify-content: end;
-    gap: 1rem;
-    border-top: 1px solid var(--color-text-primary);
-    padding-top: 2rem;
+  to {
+    scale: 1;
+  }
 }
 
 .modal__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .modal__header-label {
-    font-weight: 500;
-    font-size: 2rem;
+  font-weight: 500;
+  font-size: 2rem;
 }
 
 .modal__main {
-    margin: 2rem 0;
-    overflow-wrap: break-word;
-    overflow-y: auto;
-    max-height: 50vh;
+  margin: 2rem 0;
+  overflow-wrap: break-word;
+  max-height: none;
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+  padding-top: 2rem;
+}
+
+.validation-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #d32f2f;
+  border-radius: 0.5rem;
+  color: #d32f2f;
+  background-color: #ffebee;
 }

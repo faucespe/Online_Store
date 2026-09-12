@@ -5,8 +5,8 @@ GO
 INSERT INTO CategoryStatus (Id, [Name])
 SELECT V.Id, V.[Name]
 FROM (VALUES
-    (1, 'Inactive'),
-    (2, 'Active')
+    (1, 'Desactivado'),
+    (2, 'Activado')
 ) AS V(Id, [Name])
 WHERE NOT EXISTS (
     SELECT 1
@@ -19,8 +19,8 @@ GO
 INSERT INTO ProductStatus (Id, [Name])
 SELECT V.Id, V.[Name]
 FROM (VALUES
-    (1, 'Inactive'),
-    (2, 'Active')
+    (1, 'Desactivado'),
+    (2, 'Activado')
 ) AS V(Id, [Name])
 WHERE NOT EXISTS (
     SELECT 1

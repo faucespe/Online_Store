@@ -8,6 +8,8 @@ namespace API.DataTransferObjects
 
         public int ProductId { get; set; }
 
+        public GetProductDTO? Product { get; set; }
+
         public int PurchaseOrderId { get; set; }
 
         public int ProductQuantity { get; set; }
