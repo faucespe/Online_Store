@@ -27,6 +27,15 @@ body.light {
   --color-danger-primary: #f55757;
   --color-danger-secondary: #bb4242;
 
+  /*TABLE COLORS*/
+  --color-table-thead-text: #4B5563;
+  --color-table-element: #fff;
+  --color-table-border-bottom: #ddd;
+  --color-table-background-color: #dce8f5;
+  --color-table-tbody-text: #1F2937;
+
+
+
   /* MAIN COLORS
   --color-main: #5ccdcc;
   --color-text: #fff;

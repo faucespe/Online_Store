@@ -5,7 +5,7 @@
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-table-border-bottom);
   border-radius: 12px;
 }
 
@@ -21,19 +21,19 @@
   padding: 14px 20px;
   font-weight: 600;
   font-size: 1.3rem;
-  color: #4B5563;
-  border-bottom: 0.2rem solid #ddd;
+  color: var(--color-table-thead-text);
+  border-bottom: 0.2rem solid var(--color-table-border-bottom);
   white-space: nowrap;
   background-color: var(--color-dark-background-secundary);
-  color: #fff;
+  color: var(--color-table-element);
 }
 
 .data-table tbody td {
   vertical-align: middle;
   text-align: left;
   padding: 14px 20px;
-  border-bottom: 1px solid #eee;
-  color: #1F2937;
+  border-bottom: 1px solid var(--color-table-border-bottom);
+  color: var(--color-table-tbody-text)
 }
 
 .data-table tbody tr:nth-child(odd) {
@@ -45,7 +45,7 @@
 }
 
 .data-table tbody tr:hover {
-  background-color: #dce8f5;
+  background-color: var(--color-table-background-color);
 }
 
 .data-table td.numeric,
@@ -58,7 +58,7 @@
   min-height: 100px;
   padding: 15px;
   border-radius: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-table-border-bottom);
 
   display: flex;
   align-items: center;
