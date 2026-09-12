@@ -1,4 +1,8 @@
 <div class="filter">
+  @if (searchLabel()) {
+    <label class="filter__search-label">{{ searchLabel() }}</label>
+  }
+
   <div class="filter__container">
     <app-button icon="tune" shape="rounded" (click)="toggleFilter()"/>
     <input class="filter__search-bar" type="text" placeholder="Buscar" [value]="searchingText()" (input)="onInputText($event)"/>

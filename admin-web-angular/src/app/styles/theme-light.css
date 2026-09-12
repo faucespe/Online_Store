@@ -12,9 +12,13 @@ body.light {
   --color-text-secondary-hover: rgb(207, 206, 206);
   --color-primary-shadow: #888;
   --color-app-overlay: rgba(102, 123, 233, .7);
+  --color-shadow-dark: #1d1d1d;
 
   /* LAYOUT */
   --color-background-topbar: #3d3e45;
+  --color-sidenav-active: #3B7BD6;
+  --color-dark-background-primary: #1E63C7;
+  --color-dark-background-secundary: #0D47A1;
   --color-background-primary: #e3f0ff;
   --color-background-secondary: #f7f7f7;
 
@@ -22,6 +26,15 @@ body.light {
   /* ALERT COLORS */
   --color-danger-primary: #f55757;
   --color-danger-secondary: #bb4242;
+
+  /*TABLE COLORS*/
+  --color-table-thead-text: #4B5563;
+  --color-table-element: #fff;
+  --color-table-border-bottom: #ddd;
+  --color-table-background-color: #dce8f5;
+  --color-table-tbody-text: #1F2937;
+
+
 
   /* MAIN COLORS
   --color-main: #5ccdcc;
