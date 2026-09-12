@@ -19,7 +19,10 @@
       "@models/*": ["src/app/models/*"],
       "@services/*": ["src/app/services/*"],
       "@shared/*": ["src/app/modules/shared/*"],
-      "@products/*": ["src/app/modules/products/*"]
+      "@products/*": ["src/app/modules/products/*"],
+      "@categories": ["src/app/modules/categories/*"],
+      "@purchase-orders": ["src/app/modules/purchase-orders/*"]
+
     }
   },
   "angularCompilerOptions": {
