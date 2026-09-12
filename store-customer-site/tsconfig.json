@@ -17,6 +17,7 @@
     "module": "preserve",
     "paths": {
       "@models/*": ["src/app/models/*"],
+      "@types": ["src/app/types"],
       "@services/*": ["src/app/services/*"],
       "@shared/*": ["src/app/modules/shared/*"],
       "@products/*": ["src/app/modules/products/*"],

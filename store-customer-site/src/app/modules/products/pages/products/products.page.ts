@@ -2,7 +2,7 @@ import { Component, OnInit, inject, signal, effect } from '@angular/core';
 import { Category } from '@models/category';
 import { Product } from '@models/product';
 import { CartService } from '@services/cart/cart.service';
-import { CartProduct } from '@services/cart/cart.types';
+import { CartProduct } from '@types';
 import { CategoryService } from '@services/category/category.service';
 import { ProductService } from '@services/product/product.service';
 

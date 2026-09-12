@@ -11,6 +11,7 @@ export class StoreBtn {
   public readonly color = input<'primary' | 'secondary'>('primary');
   public readonly icon = input<string>();
   public readonly buttonText = input<string>();
+  public readonly isDisabled = input<boolean>(false);
 
   public readonly canShowText = computed(() => (this.buttonText() && this.shape() === 'default'))
   public readonly canShowButton = computed(() => (this.icon() || this.buttonText()))

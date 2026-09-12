@@ -1,18 +1,24 @@
 ﻿using API.Data;
+using API.Data.Models;
+using API.Services;
 using API.DataTransferObjects;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 namespace API.Validators
 {
     public class PurchaseOrderValidator : IPurchaseOrderValidator
     {
         private readonly StoreDB _Database;
+        private readonly IProductService _productService;
 
-        public PurchaseOrderValidator(StoreDB database)
+        public PurchaseOrderValidator(StoreDB database, IProductService productService)
         {
             this._Database = database;
+            this._productService = productService;
         }
 
-        public bool ValidateCreateUpdatePurchaseOrder(int? id, CreateUpdatePurchaseOrderDTO data, List<string> messages)
+        public async Task<bool> ValidateCreateUpdatePurchaseOrder(int? id, CreateUpdatePurchaseOrderDTO data, List<string> messages)
         {
             List<string> innerMessages = new();
 
@@ -54,6 +60,53 @@ namespace API.Validators
             else if (data.CustomerEmail.Trim().Length > 100)
             {
                 innerMessages.Add("CustomerEmail must be less than or equal to 100 characters.");
+            }
+
+            //CartProductList
+            List<Product> productList = await this._productService.ListProducts().OrderBy(p => p.Id).ToListAsync();
+
+            if (!data.CartProducts.Any())
+            {
+                innerMessages.Add("Cart products list can not be empty.");
+            }
+
+            bool hasDuplicatedProducts = data.CartProducts.DistinctBy(cp => cp.ProductId).Count() != data.CartProducts.Count;
+            if (hasDuplicatedProducts)
+            {
+                innerMessages.Add("Cart can't contain duplicated products.");
+            }
+
+            foreach (CartProduct cartProduct in data.CartProducts)
+            {
+                bool cartProductExist = false;
+                bool hasEnoughStock = true;
+                foreach (Product product in productList)
+                {
+                    // Check if the product exists
+                    if (product.Id != cartProduct.ProductId)
+                    {
+                        continue;
+                    }
+
+                    cartProductExist = true;
+
+                    // Check if the product has enough stock
+                    if (product.Stock < cartProduct.Quantity || cartProduct.Quantity <= 0)
+                    {
+                        hasEnoughStock = false;
+                        break;
+                    }
+
+                    break;
+                }
+                if (!cartProductExist)
+                {
+                    innerMessages.Add("There is a product that doesn't exist.");
+                }
+                if (!hasEnoughStock)
+                {
+                    innerMessages.Add("There is a product that doesn't have enough stock.");
+                }
             }
 
             messages.AddRange(innerMessages);

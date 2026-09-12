@@ -8,6 +8,4 @@ export interface Product {
     productStatus: any;
     stock: number;
     quantity?: number;
-    createdAt?: string;
-    updatedAt?: string;
 }

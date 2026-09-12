@@ -59,24 +59,15 @@ namespace API.Controllers
         public async Task<ActionResult<ApiResponse>> InsertPurchaseOrder(CreateUpdatePurchaseOrderDTO data)
         {
             ApiResponse response = new ApiResponse();
-            response.Success = this._purchaseOrderValidator.ValidateCreateUpdatePurchaseOrder(null, data, response.Messages);
-
-            List<CartProduct> cartProducts = data.CartProducts;
+            response.Success = await this._purchaseOrderValidator.ValidateCreateUpdatePurchaseOrder(null, data, response.Messages);
 
             if (response.Success)
             {
-                try
-                {
-                    PurchaseOrder purchaseOrder = this._mapper.Map<CreateUpdatePurchaseOrderDTO, PurchaseOrder>(data);
-                    await this._purchaseOrderService.InsertPurchaseOrder(purchaseOrder, cartProducts);
-                    response.Data = this._mapper.Map<PurchaseOrder, GetPurchaseOrderDTO>(purchaseOrder);
-                    response.Messages.Add("PurchaseOrder has been inserted");
-                }
-                catch (Exception ex)
-                {
-                    response.Success = false;
-                    response.Messages.Add(ex.Message);
-                }
+                PurchaseOrderCustom purchaseOrderCustom = this._mapper.Map<CreateUpdatePurchaseOrderDTO, PurchaseOrderCustom>(data);
+                PurchaseOrder purchaseOrder = await this._purchaseOrderService.InsertPurchaseOrder(purchaseOrderCustom);
+
+                response.Data = this._mapper.Map<PurchaseOrder, GetPurchaseOrderDTO>(purchaseOrder);
+                response.Messages.Add("PurchaseOrder has been inserted");
             }
 
             return response;

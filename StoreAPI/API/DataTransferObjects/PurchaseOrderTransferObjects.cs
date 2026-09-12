@@ -15,12 +15,6 @@ namespace API.DataTransferObjects
         
     }
 
-    public class CartProduct
-    {
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
-    }
-
     public class CreateUpdatePurchaseOrderDTO
     {
         public string CustomerName { get; set; } = null!;

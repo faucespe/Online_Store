@@ -1,13 +1,8 @@
-export interface CartProduct {
+export type CartProduct = {
     id: number,
     name: string,
     imageUrl?: string,
     stock: number,
     price: number,
     quantity: number,
-}
-
-export interface Cart {
-    products: CartProduct[],
-    grandTotal: number,
 }

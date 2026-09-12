@@ -1,9 +1,10 @@
 ﻿using API.Data;
-using API.Data.Models;
 using API.Data.Filters;
+using API.Data.Models;
+using API.DataTransferObjects;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using API.DataTransferObjects;
 using System.Net;
 
 namespace API.Services
@@ -12,13 +13,14 @@ namespace API.Services
     {
         private readonly StoreDB _database;
         private readonly IProductService _productService;
+        private readonly IMapper _mapper;
 
-        public PurchaseOrderService(StoreDB database, IProductService productService)
+        public PurchaseOrderService(StoreDB database, IProductService productService, IMapper mapper)
         {
             this._database = database;
             this._productService = productService;
+            this._mapper = mapper;
         }
-        public StoreDB Database { get; }
         public IQueryable<PurchaseOrder> ListPurchaseOrders(PurchaseOrderFilters? filter = null)
         {
             filter ??= new PurchaseOrderFilters();
@@ -43,82 +45,43 @@ namespace API.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task InsertPurchaseOrder(PurchaseOrder entity, List<CartProduct> cartProducts)
+        public async Task<PurchaseOrder> InsertPurchaseOrder(PurchaseOrderCustom entity)
         {
             List<Product> productList = await this._productService.ListProducts()
                 .OrderBy(p => p.Id)
                 .ToListAsync();
 
-            // Validations
-            bool hasDuplicatedProducts = cartProducts.DistinctBy(cp => cp.ProductId).Count() != cartProducts.Count;
-            if (hasDuplicatedProducts) throw new InvalidOperationException("Lo sentimos, algo salió mal.");
-
+            //Calculates GrandTotal
             entity.GrandTotal = 0;
-
-            foreach (CartProduct cartProduct in cartProducts)
+            foreach (CartProduct cartProduct in entity.CartProducts)
             {
-                bool cartProductExist = false;
-                bool hasEnoughStock = true;
-                foreach (Product product in productList)
-                {
-                    // Check if the product exists
-                    if (product.Id != cartProduct.ProductId)
-                    {
-                        continue;
-                    }
-                    
-                    cartProductExist = true;
-
-                    // Calculates GrandTotal
-                    entity.GrandTotal += cartProduct.Quantity * product.Price;
-
-                    // Check if the product has enough stock
-                    if (product.Stock < cartProduct.Quantity || cartProduct.Quantity <= 0)
-                    {
-                        hasEnoughStock = false;
-                        break;
-                    }
-
-                    break;
-                }
-                if (!cartProductExist || !hasEnoughStock)
-                {
-                    throw new InvalidOperationException("Lo sentimos, algo salió mal.");
-                }
+                Product product = productList.Find(p => p.Id == cartProduct.ProductId);
+                entity.GrandTotal += cartProduct.Quantity * product.Price;
             }
+
+            entity.PurchaseDate = DateTime.UtcNow;
+
+            //Mappings
+            PurchaseOrder purchaseOrder = this._mapper.Map<PurchaseOrderCustom, PurchaseOrder>(entity);
 
             //SQL Transaction
-            using IDbContextTransaction transaction = 
-            await this._database.Database.BeginTransactionAsync();
-
-            try
+            foreach (CartProduct cartProduct in entity.CartProducts)
             {
-                entity.PurchaseDate = DateTime.UtcNow;
-                this._database.PurchaseOrder.Add(entity);
-                await this._database.SaveChangesAsync();
+                Product product = productList.First(p => p.Id == cartProduct.ProductId);
+                product.Stock -= cartProduct.Quantity;
 
-                foreach (CartProduct cartProduct in cartProducts)
+                purchaseOrder.PurchaseOrderProduct.Add(new PurchaseOrderProduct
                 {
-                    Product product = productList.First(p => p.Id == cartProduct.ProductId);
-                    product.Stock -= cartProduct.Quantity;
-
-                    this._database.PurchaseOrderProduct.Add(new PurchaseOrderProduct
-                    {
-                        PurchaseOrderId = entity.Id,
-                        ProductId       = product.Id,
-                        ProductQuantity = cartProduct.Quantity,
-                        Price           = product.Price
-                    });
-                }
-
-                await this._database.SaveChangesAsync();
-                await transaction.CommitAsync();
+                    ProductId = product.Id,
+                    ProductQuantity = cartProduct.Quantity,
+                    Price = product.Price
+                });
             }
-            catch
-            {
-                await transaction.RollbackAsync();
-                throw new InvalidOperationException("Lo sentimos, algo salió mal.");
-            }
+
+            this._database.PurchaseOrder.Add(purchaseOrder);
+            await this._database.SaveChangesAsync();
+
+            return purchaseOrder;
         }
     }
 }
