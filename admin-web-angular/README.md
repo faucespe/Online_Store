@@ -2,6 +2,14 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.10.
 
+The content of the admin website project is three pages:
+
+Categories – where the user can create, update, or check all the existing categories in the database. Categories can be turned off and on when they are created or updated.
+
+Products – as with the categories section, the user is able to create, update, and check all the products in the database. The user is able to check several characteristics related to the product, such as date of creation, stock, description, category, or whether it is available to customers on the store website.
+
+Purchase Orders – in this section, the user is able to check a list of all purchases that have been created by customers who bought any amount of products in the web store.
+
 ## Development server
 
 To start a local development server, run:
@@ -10,7 +18,7 @@ To start a local development server, run:
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Once the server is running, open your browser and navigate to `http://localhost:4200/`, or any port that CLI shows. The application will automatically reload whenever you modify any of the source files.
 
 ## Code scaffolding
 
