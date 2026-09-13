@@ -1,19 +1,16 @@
 <!-- Filter de productos -->
 <div class="filter">
   <app-filter
+    searchLabel="Busqueda por nombre de producto"
     [(searchingText)]="filter.name"
     (onApply)="applyFilter()"
     (onClear)="clearFilter()">
     <div class="filter-content">
-      <div class="filter-row">
         <app-input name="minPrice" type="number" label="Precio mínimo" [min]="0"[(model)]="filter.minPrice"/>
         <app-input name="maxPrice" type="number" label="Precio máximo" [min]="0"[(model)]="filter.maxPrice"/>
+        <app-select name="category" label="Categoría" [options]="categories()" [(model)]="filter.category"/>
+        <app-select name="status" label="Estado" [options]="statuses()" [(model)]="filter.productStatus"/>
       </div>
-      <div class="filter-row">
-        <app-select name="category" label="Todas las categorías" [options]="categories()" [(model)]="filter.category"/>
-        <app-select name="status" label="Todos los estados" [options]="statuses()" [(model)]="filter.productStatus"/>
-      </div>
-    </div>
   </app-filter>
   <!-- Botón de creación de producto -->
   <app-button color="primary" icon="add" shape="rounded" buttonText="Agregar" (click)="insertUpdate()"/>

@@ -20,10 +20,12 @@ export class ModalComponent {
   @Input()
   public validationMessage: string = '';
 
+  //Botón de Confirmación
   public handleConfirmation(): void {
     this.onConfirm.emit();
   }
 
+  //Cerrar Modal
   public handleClose(): void {
     this.showModal.set(false);
     this.onClose.emit();

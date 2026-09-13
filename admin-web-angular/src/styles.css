@@ -7,6 +7,7 @@ html {
 }
 
 body {
+   height: 100%;
    font-family: 'Roboto', Helvetica, sans-serif;
    font-size: 1.4rem;   
    background: var(--color-background-primary);
@@ -42,12 +43,12 @@ h4 {
 
 /* Inputs, Selects and others... */
 
-/* Inputs tipo number */
 input[type="number"],
 input[type="text"],
+input[type="date"],
 input[type="email"] {
   padding: .8rem 1.2rem;
-  border: .1rem solid var(--color-background-secondary);
+  border: 1px solid var(--color-primary-shadow);
   border-radius: .6rem;
   font-size: 1.4rem;
   width: 100%;

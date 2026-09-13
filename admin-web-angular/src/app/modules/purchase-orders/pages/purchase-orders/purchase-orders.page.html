@@ -1,15 +1,41 @@
 <app-filter
+  searchLabel="Busqueda por nombre de cliente"
   [(searchingText)]="filterCustomerName"
   [showonConfirmButton]="true"
   confirmButtonText="Buscar"
   (onApply)="loadOrders()"
   (onClear)="clearFilters()">
-  <input type="number" label="Código" [value]="filterId() ?? ''" (input)="filterId.set(+$any($event.target).value || null)" />
-  <input type="text" label="Cliente" [value]="filterPhone()" (input)="filterPhone.set($any($event.target).value)" />
-  <input type="date" label="Fecha desde" [value]="filterDateFrom()" (input)="filterDateFrom.set($any($event.target).value)" />
-  <input type="date" label="Fecha Hasta" [value]="filterDateTo()" (input)="filterDateTo.set($any($event.target).value)" />
-  <input type="number" label="Total mínimo" [value]="filterTotalFrom() ?? ''" (input)="filterTotalFrom.set(+$any($event.target).value || null)" />
-  <input type="number" label="Total máximo" [value]="filterTotalTo() ?? ''" (input)="filterTotalTo.set(+$any($event.target).value || null)" />
+  <div class="purchase-orders__filters">
+    <div>
+      <label for="filterId">Código</label>
+      <input id="filterId" type="number" [value]="filterId() ?? ''" (input)="filterId.set(+$any($event.target).value || null)"> 
+    </div>
+
+    <div>
+      <label for="filterPhone">Teléfono</label>
+      <input id="filterPhone" type="text" [value]="filterPhone()" (input)="filterPhone.set($any($event.target).value)" />    
+    </div>
+
+    <div>
+      <label for="filterDateFrom">Fecha desde</label>
+      <input id="filterDateFrom" type="date" [value]="filterDateFrom()" (input)="filterDateFrom.set($any($event.target).value)" />    
+    </div>
+
+    <div>
+      <label for="filterDateTo">Fecha hasta</label>
+      <input id="filterDateTo" type="date" [value]="filterDateTo()" (input)="filterDateTo.set($any($event.target).value)" />    
+    </div>
+
+    <div>
+      <label for="filterTotalFrom">Precio mínimo</label>
+      <input id="filterTotalFrom" type="number" [value]="filterTotalFrom() ?? ''" (input)="filterTotalFrom.set(+$any($event.target).value || null)" />    
+    </div>
+
+    <div>
+      <label for="filterTotalTo">Precio máximo</label>
+      <input id="filterTotalTo" type="number" [value]="filterTotalTo() ?? ''" (input)="filterTotalTo.set(+$any($event.target).value || null)" />    
+    </div>
+  </div>
 </app-filter>
 
 <app-table
