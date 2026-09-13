@@ -23,15 +23,15 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiResponse>> ListPurchaseOrderProducts([FromQuery] FilterPurchaseOrderProductDTO data)
+        public async Task<ActionResult<ApiResponse>> ListPurchaseOrderProducts([FromQuery] FilterPurchaseOrderProductDto data)
         {
-            PurchaseOrderProductFilters filter = this._mapper.Map<FilterPurchaseOrderProductDTO, PurchaseOrderProductFilters>(data);
+            PurchaseOrderProductFilters filter = this._mapper.Map<FilterPurchaseOrderProductDto, PurchaseOrderProductFilters>(data);
             List<PurchaseOrderProduct> list = await this._purchaseOrderProductService.ListPurchaseOrderProducts(filter)
                 .OrderBy(p => p.Id)
                 .ToListAsync();
             ApiResponse response = new ApiResponse()
             {
-                Data = list.Select(CS => this._mapper.Map<PurchaseOrderProduct, GetPurchaseOrderProductDTO>(CS))
+                Data = list.Select(CS => this._mapper.Map<PurchaseOrderProduct, GetPurchaseOrderProductDto>(CS))
             };
             return response;
         }
@@ -48,7 +48,7 @@ namespace API.Controllers
 
             ApiResponse response = new ApiResponse()
             {
-                Data = this._mapper.Map<PurchaseOrderProduct, GetPurchaseOrderProductDTO>(purchaseOrderProduct)
+                Data = this._mapper.Map<PurchaseOrderProduct, GetPurchaseOrderProductDto>(purchaseOrderProduct)
             };
             return response;
         }

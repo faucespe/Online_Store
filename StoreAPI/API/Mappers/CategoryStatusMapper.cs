@@ -8,7 +8,7 @@ namespace API.Mapper
     {
         public CategoryStatusMapper()
         {
-            CreateMap<CategoryStatus, GetCategoryStatusDTO>();
+            CreateMap<CategoryStatus, GetCategoryStatusDto>();
         }
     }
 }

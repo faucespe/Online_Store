@@ -9,10 +9,10 @@ namespace API.Mapper
     {
         public CategoryMapper() 
         {
-            CreateMap<Category, GetCategoryDTO>();
-            CreateMap<Category, CreateUpdateCategoryDTO>();
-            CreateMap<CreateUpdateCategoryDTO, Category>();
-            CreateMap<CategoryFiltersDTO, CategoryFilters>();
+            CreateMap<Category, GetCategoryDto>();
+            CreateMap<Category, CreateUpdateCategoryDto>();
+            CreateMap<CreateUpdateCategoryDto, Category>();
+            CreateMap<CategoryFiltersDto, CategoryFilters>();
         }
     }
 }

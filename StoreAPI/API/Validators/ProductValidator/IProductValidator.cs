@@ -4,6 +4,6 @@ namespace API.Validators
 {
     public interface IProductValidator
     {
-        bool ValidateInsertUpdateProductDTO(int? id, InsertUpdateProductDTO data, List<string> messages);
+        bool ValidateInsertUpdateProductDto(int? id, InsertUpdateProductDto data, List<string> messages);
     }
 }
