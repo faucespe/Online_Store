@@ -22,7 +22,13 @@ body.light {
   --color-background-primary: #e3f0ff;
   --color-background-secondary: #f7f7f7;
 
+   /* ALERT COLORS */
+   --color-danger-primary: #f55757;
+   --color-danger-secondary: #bb4242;
 
+   /* other */
+   --color-scrollbar-thumb: #c1c1c1;
+   --color-scrollbar-thumb-hover: #a1a1a1;
   /* ALERT COLORS */
   --color-danger-primary: #f55757;
   --color-danger-secondary: #bb4242;
@@ -33,20 +39,6 @@ body.light {
   --color-table-border-bottom: #ddd;
   --color-table-background-color: #dce8f5;
   --color-table-tbody-text: #1F2937;
-
-
-
-  /* MAIN COLORS
-  --color-main: #5ccdcc;
-  --color-text: #fff;
-  --color-border: #515151;
-  --color-background: #363636;
-  --color-alternate-item-background: #454545;
-  --color-shadow-dark: #1d1d1d;
-  --color-shadow-light: #1d1d1d;
-  --color-scrollbar-dark: rgba(255, 255, 255, 0.1);
-  --color-scrollbar-light: rgba(255, 255, 255, 0.1);
-  */
 
   /* FORM COLORS */
   --color-background-modal: #90CAF9;
