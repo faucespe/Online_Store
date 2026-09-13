@@ -8,7 +8,7 @@ namespace API.Mapper
     {
         public ProductStatusMapper()
         {
-            CreateMap<ProductStatus, GetProductStatusDTO>();
+            CreateMap<ProductStatus, GetProductStatusDto>();
         }
     }
 }

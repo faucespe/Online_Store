@@ -9,9 +9,9 @@ namespace API.Mapper
     {
         public ProductMapper()
         {
-            CreateMap<Product, GetProductDTO>();
-            CreateMap<InsertUpdateProductDTO, Product>();
-            CreateMap<FilterProductDTO, ProductFilters>();
+            CreateMap<Product, GetProductDto>();
+            CreateMap<InsertUpdateProductDto, Product>();
+            CreateMap<FilterProductDto, ProductFilters>();
         }
     }
 }

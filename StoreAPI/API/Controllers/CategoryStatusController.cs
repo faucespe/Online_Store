@@ -27,7 +27,7 @@ namespace API.Controllers
             List<CategoryStatus> list = await this._categoryStatusService.ListCategoryStatus().ToListAsync();
             ApiResponse response = new ApiResponse()
             {
-                Data = list.Select(cs => this._mapper.Map<CategoryStatus, GetCategoryStatusDTO>(cs))
+                Data = list.Select(cs => this._mapper.Map<CategoryStatus, GetCategoryStatusDto>(cs))
             };
             return response;
         }

@@ -1,7 +1,7 @@
 import { Component, signal, inject, computed, OnInit, OnDestroy, effect } from '@angular/core';
 import { CartService } from '@services/cart/cart.service';
 import { PurchaseOrderService } from '@services/purchaseOrder/purchase-order.service';
-import { CartProduct, PurchaseOrderCartProduct, CreateUpdatePurchaseOrderDto } from '@types';
+import { CartProduct, CreatePurchaseOrderProductDto, CreatePurchaseOrderDto } from '@types';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -45,14 +45,14 @@ export class CheckoutPage implements OnDestroy, OnInit {
   protected async savePurchaseOrder(event: Event) {
     event.preventDefault();
 
-    let cartProductsList: PurchaseOrderCartProduct[] = this.cartProducts().map((cp: CartProduct) => ({productId: cp.id, quantity: cp.quantity}));
+    let cartProductsList: CreatePurchaseOrderProductDto[] = this.cartProducts().map((cp: CartProduct) => ({productId: cp.id, productQuantity: cp.quantity}));
 
-    let purchaseOrderDetails: CreateUpdatePurchaseOrderDto = {
+    let purchaseOrderDetails: CreatePurchaseOrderDto = {
       customerName: this.customerName(),
       customerPhoneNumber: this.customerPhoneNumber(),
       customerEmail: this.customerEmail(),
       customerAddress: this.customerAddress(),
-      cartProducts: cartProductsList,
+      purchaseOrderProduct: cartProductsList,
     }
 
     this.purchaseOrderService.createPurchaseOrder(purchaseOrderDetails).subscribe((apiResponse) => {

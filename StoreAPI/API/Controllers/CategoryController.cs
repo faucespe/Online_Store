@@ -27,14 +27,14 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiResponse>> ListCategories([FromQuery] CategoryFiltersDTO data)
+        public async Task<ActionResult<ApiResponse>> ListCategories([FromQuery] CategoryFiltersDto data)
         {
-            CategoryFilters filter = this._mapper.Map<CategoryFiltersDTO, CategoryFilters>(data);
+            CategoryFilters filter = this._mapper.Map<CategoryFiltersDto, CategoryFilters>(data);
             List<Category> list = await this._categoryService.ListCategories(filter).ToListAsync();
 
             ApiResponse response = new ApiResponse
             {
-                Data = list.Select(C => this._mapper.Map<Category, GetCategoryDTO>(C) )
+                Data = list.Select(C => this._mapper.Map<Category, GetCategoryDto>(C) )
             };
             
             return response;
@@ -52,23 +52,23 @@ namespace API.Controllers
 
             ApiResponse response = new ApiResponse
             {
-                Data = this._mapper.Map<Category?, GetCategoryDTO?>(category)
+                Data = this._mapper.Map<Category?, GetCategoryDto?>(category)
             };
             return response;
         }
 
 
         [HttpPost]
-         public async Task<ActionResult<ApiResponse>> CreateCategory(CreateUpdateCategoryDTO data)
+         public async Task<ActionResult<ApiResponse>> CreateCategory(CreateUpdateCategoryDto data)
          {
             ApiResponse response = new();
             response.Success = this._categoryValidator.ValidateCreateUpdateCategory(null, data, response.Messages);
 
             if (response.Success)
             {
-                Category category = this._mapper.Map<CreateUpdateCategoryDTO, Category>(data);
+                Category category = this._mapper.Map<CreateUpdateCategoryDto, Category>(data);
                 await this._categoryService.CreateCategory(category);
-                response.Data = this._mapper.Map<Category, CreateUpdateCategoryDTO>(category);
+                response.Data = this._mapper.Map<Category, CreateUpdateCategoryDto>(category);
                 response.Messages.Add("Category was created successfully");
             }
 
@@ -77,7 +77,7 @@ namespace API.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<ActionResult<ApiResponse>> UpdateCategory(int id, CreateUpdateCategoryDTO data)
+        public async Task<ActionResult<ApiResponse>> UpdateCategory(int id, CreateUpdateCategoryDto data)
         {
             Category?  category = await this._categoryService.GetCategory(id);
             if (category == null)
@@ -92,7 +92,7 @@ namespace API.Controllers
             {
                 this._mapper.Map(data, category);
                 await this._categoryService.UpdateCategory(category);
-                response.Data = this._mapper.Map<Category, CreateUpdateCategoryDTO>(category);
+                response.Data = this._mapper.Map<Category, CreateUpdateCategoryDto>(category);
                 response.Messages.Add("Category updated successfully");
 
             }

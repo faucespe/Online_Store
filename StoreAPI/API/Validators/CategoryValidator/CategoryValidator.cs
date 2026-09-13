@@ -12,7 +12,7 @@ namespace API.Validators
             this._Database = database;
         }
 
-        public bool ValidateCreateUpdateCategory(int? id, CreateUpdateCategoryDTO data, List<string> messages)
+        public bool ValidateCreateUpdateCategory(int? id, CreateUpdateCategoryDto data, List<string> messages)
         {
             List<string> innerMessages = new();
 

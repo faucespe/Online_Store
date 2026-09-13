@@ -21,7 +21,7 @@ namespace API.Services
             return this._database
                     .Product
                     .Include(p => p.Category)
-                        .ThenInclude(c => c.CategoryStatus)
+                    .ThenInclude(c => c.CategoryStatus)
                     .Include(p => p.ProductStatus)
                     .Where(p => (string.IsNullOrWhiteSpace(filter.Name) || p.Name.Contains(filter.Name))
                     && (!filter.MinPrice.HasValue || p.Price >= filter.MinPrice.Value)

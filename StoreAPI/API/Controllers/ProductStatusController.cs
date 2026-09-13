@@ -28,7 +28,7 @@ namespace API.Controllers
             List<ProductStatus> list = await this._productStatusService.ListProductStatus().ToListAsync();
             ApiResponse response = new ApiResponse()
             {
-                Data = list.Select(PS => this._mapper.Map<ProductStatus, GetProductStatusDTO>(PS))
+                Data = list.Select(PS => this._mapper.Map<ProductStatus, GetProductStatusDto>(PS))
             };
             return response;
         }
