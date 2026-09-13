@@ -4,7 +4,8 @@
     searchLabel="Busqueda por nombre de producto"
     [(searchingText)]="filter.name"
     (onApply)="applyFilter()"
-    (onClear)="clearFilter()">
+    (onClear)="clearFilter()"
+    (keydown.enter)="applyFilter()">
     <div class="filter-content">
         <app-input name="minPrice" type="number" label="Precio mínimo" [min]="0"[(model)]="filter.minPrice"/>
         <app-input name="maxPrice" type="number" label="Precio máximo" [min]="0"[(model)]="filter.maxPrice"/>

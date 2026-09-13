@@ -15,6 +15,7 @@
     <div class="filter__popover">
       <ng-content></ng-content>
       <div class="filter__popover-actions">
+        <app-button icon="search" shape="rounded" (click)="applyFilter()"/>
         <app-button color="secondary" icon="cleaning_services" shape="rounded" (click)="clearFilter()"/>
         <app-button color="secondary" icon="close" shape="rounded" (click)="showPopover.set(false)"/>
       </div>

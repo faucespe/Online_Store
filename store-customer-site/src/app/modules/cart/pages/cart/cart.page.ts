@@ -22,6 +22,10 @@ export class CartPage implements OnDestroy, OnInit {
     this.cartService.increaseProductQuantityById(productId);
   }
 
+  protected canIncreaseProductQuantity(item: CartProduct): boolean {
+    return item.quantity < item.stock;
+  }
+
   protected removeProduct(idProduct: number, quantityToRemove: number): void {
     this.cartService.removeProduct(idProduct, quantityToRemove);
   }
@@ -39,7 +43,7 @@ export class CartPage implements OnDestroy, OnInit {
     this.subscriptions.add(this.cartService.subjectCart.subscribe((cartProducts: CartProduct[]) => {
       this.cartProducts.set(cartProducts);
     }))
-    
+
     this.subscriptions.add(this.cartService.cartCount$.subscribe((cartProductCounter: number) => {
       this.cartTotalItemsCounter.set(cartProductCounter);
     }))
