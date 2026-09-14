@@ -8,3 +8,19 @@ app-filter {
     flex-direction: column;
     gap: 1rem;
 }
+
+.order-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.order-info__row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.order-info__row strong {
+  min-width: 15rem;
+}

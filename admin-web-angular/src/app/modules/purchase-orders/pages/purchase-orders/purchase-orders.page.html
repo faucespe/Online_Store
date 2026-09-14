@@ -52,25 +52,30 @@
   [showConfirmButton]="false"
   cancelLabel="Cerrar">
   @if (selectedOrder(); as order) {
-    <p><strong>Cliente:</strong> {{ order.customerName }}</p>
-    <p><strong>Teléfono:</strong> {{ order.customerPhoneNumber }}</p>
-    <p><strong>Email:</strong> {{ order.customerEmail }}</p>
-    <p><strong>Dirección:</strong> {{ order.customerAddress }}</p>
+    <div class="order-info">
+      <div class="order-info__row">
+        <strong>Cliente:</strong>
+        <span>{{ order.customerName }}</span>
+      </div>
+      <div class="order-info__row">
+        <strong>Teléfono:</strong>
+        <span>{{ order.customerPhoneNumber }}</span>
+      </div>     
+      <div class="order-info__row">
+        <strong>Email:</strong>
+        <span>{{ order.customerEmail }}</span>
+      </div>      
+      <div class="order-info__row">
+        <strong>Dirección:</strong>
+        <span>{{ order.customerAddress }}</span>
+      </div>
 
-    <table>
-      <thead>
-        <tr><th>Producto</th><th>Cantidad</th><th>Precio</th></tr>
-      </thead>
-      <tbody>
-        @for (item of order.purchaseOrderProduct; track item.id) {
-          <tr>
-            <td>{{ item.product.name }}</td>
-            <td>{{ item.productQuantity }}</td>
-            <td>{{ item.price | currencyFormat}}</td>
-          </tr>
-        }
-      </tbody>
-    </table>
-    <p><strong>Total de la compra:</strong> ₡{{ order.grandTotal }}</p>
+      <app-table
+      [data]="order.purchaseOrderProduct"
+      [columns]="orderProductColumns"
+      emptyMessage="Sin Productos"
+      />
+    </div>
+
   }
 </app-modal>

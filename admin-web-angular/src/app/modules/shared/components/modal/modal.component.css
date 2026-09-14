@@ -20,7 +20,7 @@
 }
 
 .modal {
-  background-color: #90CAF9;
+  background-color: var(--color-background-secondary);
   border-radius: 1rem;
   margin: 2rem auto 0;
   padding: 2rem;
@@ -28,7 +28,13 @@
   animation: modal 300ms ease-out;
 
   @media screen and (min-width: 600px) {
-    width: 480px;
+    width: fit-content;
+    min-width: 480px;
+    max-width: 95%;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 95%;
   }
 }
 

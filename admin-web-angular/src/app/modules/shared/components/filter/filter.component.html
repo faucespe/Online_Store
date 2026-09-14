@@ -4,8 +4,9 @@
   }
 
   <div class="filter__container">
-    <app-button icon="tune" shape="rounded" (click)="toggleFilter()"/>
     <input class="filter__search-bar" type="text" placeholder="Buscar" [value]="searchingText()" (input)="onInputText($event)"/>
+
+    <app-button icon="tune" shape="rounded" (click)="toggleFilter()"/>
     @if (showonConfirmButton()) {
       <app-button icon="search" shape="rounded" (click)="applyFilter()"/>
     }

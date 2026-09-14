@@ -53,21 +53,46 @@
     }
 
     @if (selectedProduct(); as product) {
-        <app-store-modal 
-            [modalTitle]="product.name"
-            [(showModal)]="showDetailsModal"
-            [showConfirmButton]="false"
-            cancelLabel="Cerrar"
+        <app-store-modal
+        modalTitle="Detalle del producto"
+        [(showModal)]="showDetailsModal"
+        [showConfirmButton]="false"
+        [showCancelButton]="false"
+        cancelLabel="Cerrar"
         >
-            <h2>{{ product.name }}</h2>
-
-            <div>
-                <p>Descripción</p>
-                <p>{{ product.description }}</p>
+            <div class="products__product-info-container">
+            <div class="products__product-info-image">
+                <img
+                    [src]="product.imageUrl || defaultImageUrl"
+                    [alt]="product.name">
             </div>
-
-            <p>Precio: <span>{{ product.price | currencyFormat}}</span></p>
-            <p>Unidades disponibles: <span>{{ product.stock }}</span></p>
+            <div class="products__product-info-details">
+                    <div class="products__product-info-row">
+                        <strong>Nombre:</strong>
+                        <span>{{ product.name }}</span>
+                    </div>
+                    <div class="products__product-info-row">
+                        <strong>Descripción:</strong>
+                        <span>{{ product.description }}</span>
+                    </div>
+                    <div class="products__product-info-row">
+                        <strong>Precio:</strong>
+                        <span>{{ product.price | currencyFormat}}</span>
+                    </div>
+                    <div class="products__product-info-row">
+                        <strong>Stock:</strong>
+                        <span>{{ product.stock }}</span>
+                    </div>
+                    <div class="products__product-info-row">
+                        <strong>Categoría:</strong>
+                        <span>{{ product.category?.name ?? 'Sin categoría' }}</span>
+                    </div>
+                    <div class="products__product-info-row">
+                        <strong>Estado:</strong>
+                        <span>{{ product.productStatus?.name }}</span>
+                    </div>
+                </div>
+            </div>
         </app-store-modal>
     }
 </section>

@@ -15,8 +15,7 @@
           }
           @if (showConfirmButton() || showCancelButton()) {
               <footer class="modal__footer">
-                  <app-button color="secondary" icon="close" shape="rounded" (click)="handleClose()" />
-                  <app-button color="primary" icon="check" shape="rounded"  (click)="handleConfirmation()" />
+                  <app-button color="primary" buttonText="Confirmar"  (click)="handleConfirmation()" />
               </footer>
           }
       </article>
