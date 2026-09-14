@@ -8,32 +8,32 @@
   <div class="purchase-orders__filters">
     <div>
       <label for="filterId">Código</label>
-      <input id="filterId" type="number" [value]="filterId() ?? ''" (input)="filterId.set(+$any($event.target).value || null)"> 
+      <input id="filterId" type="number" [value]="filterId() ?? ''" (input)="filterId.set(+$any($event.target).value || null)">
     </div>
 
     <div>
       <label for="filterPhone">Teléfono</label>
-      <input id="filterPhone" type="text" [value]="filterPhone()" (input)="filterPhone.set($any($event.target).value)" />    
+      <input id="filterPhone" type="text" [value]="filterPhone()" (input)="filterPhone.set($any($event.target).value)" />
     </div>
 
     <div>
       <label for="filterDateFrom">Fecha desde</label>
-      <input id="filterDateFrom" type="date" [value]="filterDateFrom()" (input)="filterDateFrom.set($any($event.target).value)" />    
+      <input id="filterDateFrom" type="date" [value]="filterDateFrom()" (input)="filterDateFrom.set($any($event.target).value)" />
     </div>
 
     <div>
       <label for="filterDateTo">Fecha hasta</label>
-      <input id="filterDateTo" type="date" [value]="filterDateTo()" (input)="filterDateTo.set($any($event.target).value)" />    
+      <input id="filterDateTo" type="date" [value]="filterDateTo()" (input)="filterDateTo.set($any($event.target).value)" />
     </div>
 
     <div>
       <label for="filterTotalFrom">Precio mínimo</label>
-      <input id="filterTotalFrom" type="number" [value]="filterTotalFrom() ?? ''" (input)="filterTotalFrom.set(+$any($event.target).value || null)" />    
+      <input id="filterTotalFrom" type="number" [value]="filterTotalFrom() ?? ''" (input)="filterTotalFrom.set(+$any($event.target).value || null)" />
     </div>
 
     <div>
       <label for="filterTotalTo">Precio máximo</label>
-      <input id="filterTotalTo" type="number" [value]="filterTotalTo() ?? ''" (input)="filterTotalTo.set(+$any($event.target).value || null)" />    
+      <input id="filterTotalTo" type="number" [value]="filterTotalTo() ?? ''" (input)="filterTotalTo.set(+$any($event.target).value || null)" />
     </div>
   </div>
 </app-filter>
@@ -50,6 +50,7 @@
   modalTitle="Detalle de la orden"
   [(showModal)]="showModal"
   [showConfirmButton]="false"
+  [showCancelButton]="false"
   cancelLabel="Cerrar">
   @if (selectedOrder(); as order) {
     <p><strong>Cliente:</strong> {{ order.customerName }}</p>
