@@ -2,19 +2,19 @@
 
 namespace API.DataTransferObjects
 {
-    public class GetProductDTO
+    public class GetProductDto
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
         public string? ImageUrl { get; set; }
         public decimal Price { get; set; }
-        public GetCategoryDTO? Category { get; set; }
-        public GetProductStatusDTO ProductStatus { get; set; } = null!;
+        public GetCategoryDto? Category { get; set; }
+        public GetProductStatusDto ProductStatus { get; set; } = null!;
         public int Stock { get; set; }
     }
 
-    public class InsertUpdateProductDTO
+    public class InsertUpdateProductDto
     {
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
@@ -27,7 +27,7 @@ namespace API.DataTransferObjects
         public int Stock { get; set; }
     }
 
-    public class FilterProductDTO
+    public class FilterProductDto
     {
         public string? Name { get; set; }
         public decimal? MinPrice { get; set; }

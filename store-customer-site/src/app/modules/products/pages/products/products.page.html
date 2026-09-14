@@ -1,7 +1,7 @@
 <header class="products__header">
     <h1 class="products__title">Productos</h1>
 
-    <app-store-filters confirmButtonText="Limpiar" [(searchingText)]="nameSearched" cancelButtonText="Cerrar" (onConfirm)="cleanFilters()">
+    <app-store-filters confirmButtonText="Limpiar"  [(searchingText)]="nameSearched" cancelButtonText="Cerrar" (onConfirm)="cleanFilters()">
         <div class="products__filters">
             <div>
                 <label for="minPrice">Precio mínimo</label>
@@ -38,14 +38,14 @@
             <div class="products__container-select">
                 <label for="selectQuantity">Seleccionar cantidad</label>
                 <select (change)="onSelectQuantity($event, product)" id="selectQuantity">
-                    @for (number of getStockNumbers(product.stock); track $index) {
+                    @for (number of getStockNumbers(product.stock - getProductQuantity(product.id)); track $index) {
                         <option [value]="number">{{number}}</option>
                     }
                 </select>
             </div>
             <div class="products__container-actions">
                 <app-store-btn (click)="openModal(product.id)" color="secondary" buttonText="Detalles" />
-                <app-store-btn buttonText="Agregar" (click)="addProductTest(product)"></app-store-btn>
+                <app-store-btn buttonText="Agregar" [isDisabled]="getProductQuantity(product.id) >= product.stock" (click)="addProductTest(product)"></app-store-btn>
             </div>
         </app-store-card>
     } @empty {

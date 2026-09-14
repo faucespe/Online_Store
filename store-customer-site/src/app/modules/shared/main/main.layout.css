@@ -13,6 +13,7 @@ main {
 }
 
 .main__header{
+<<<<<<< HEAD
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -24,6 +25,19 @@ main {
     gap: 1rem;
     background-color: var(--color-background-topbar);
     box-shadow: 0 0 0.8rem -0.4rem var(--color-shadow-dark)
+=======
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 7rem;
+  max-height: 4rem;
+  gap: 1rem;
+  background-color: var(--color-background-topbar);
+
+  z-index: 1000;
+>>>>>>> origin/dev
 }
 
 .main__actions-container {
@@ -40,8 +54,18 @@ main {
   justify-content: center;
   align-items: center;
   font-size: 1.1rem;
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/dev
   background-color: var(--color-danger-primary);
   border-radius: 50%;
   color: var(--color-background-secondary)
 }
 
+<<<<<<< HEAD
+=======
+main {
+  padding: 2rem;
+}
+>>>>>>> origin/dev

@@ -25,16 +25,16 @@ namespace API.Controllers
             this._purchaseOrderValidator = purchaseOrderValidator;
         }
         [HttpGet]
-        public async Task<ActionResult<ApiResponse>> ListPurchaseOrders([FromQuery] FilterPurchaseOrderDTO data)
+        public async Task<ActionResult<ApiResponse>> ListPurchaseOrders([FromQuery] FilterPurchaseOrderDto data)
         {
-            PurchaseOrderFilters filter = this._mapper.Map<FilterPurchaseOrderDTO, PurchaseOrderFilters>(data);
+            PurchaseOrderFilters filter = this._mapper.Map<FilterPurchaseOrderDto, PurchaseOrderFilters>(data);
             List<PurchaseOrder> list = await this._purchaseOrderService.ListPurchaseOrders(filter)
                 .OrderBy(p => p.Id)
                 .ToListAsync();
 
             ApiResponse response = new()
             {
-                Data = list.Select(p => this._mapper.Map<PurchaseOrder, GetPurchaseOrderDTO>(p))
+                Data = list.Select(p => this._mapper.Map<PurchaseOrder, GetPurchaseOrderDto>(p))
             };
 
             return response;
@@ -50,23 +50,23 @@ namespace API.Controllers
             }
             ApiResponse response = new ApiResponse()
             {
-                Data = this._mapper.Map<PurchaseOrder, GetPurchaseOrderDTO>(purchaseOrder)
+                Data = this._mapper.Map<PurchaseOrder, GetPurchaseOrderDto>(purchaseOrder)
             };
             return response;
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse>> InsertPurchaseOrder(CreateUpdatePurchaseOrderDTO data)
+        public async Task<ActionResult<ApiResponse>> InsertPurchaseOrder(CreatePurchaseOrderDto data)
         {
             ApiResponse response = new ApiResponse();
             response.Success = await this._purchaseOrderValidator.ValidateCreateUpdatePurchaseOrder(null, data, response.Messages);
 
             if (response.Success)
             {
-                PurchaseOrderCustom purchaseOrderCustom = this._mapper.Map<CreateUpdatePurchaseOrderDTO, PurchaseOrderCustom>(data);
-                PurchaseOrder purchaseOrder = await this._purchaseOrderService.InsertPurchaseOrder(purchaseOrderCustom);
+                PurchaseOrder purchaseOrder = this._mapper.Map<CreatePurchaseOrderDto, PurchaseOrder>(data);
+                await this._purchaseOrderService.InsertPurchaseOrder(purchaseOrder);
 
-                response.Data = this._mapper.Map<PurchaseOrder, GetPurchaseOrderDTO>(purchaseOrder);
+                response.Data = this._mapper.Map<PurchaseOrder, GetPurchaseOrderDto>(purchaseOrder);
                 response.Messages.Add("PurchaseOrder has been inserted");
             }
 

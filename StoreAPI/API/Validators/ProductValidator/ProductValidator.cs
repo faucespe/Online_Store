@@ -12,7 +12,7 @@ namespace API.Validators
         {
             this._database = database;
         }
-        public bool ValidateInsertUpdateProductDTO(int? id, InsertUpdateProductDTO data, List<string> messages)
+        public bool ValidateInsertUpdateProductDto(int? id, InsertUpdateProductDto data, List<string> messages)
         {
             List<string> innerMessages = new();
 

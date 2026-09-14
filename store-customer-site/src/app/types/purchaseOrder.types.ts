@@ -1,12 +1,12 @@
-export type PurchaseOrderCartProduct = {
+export type CreatePurchaseOrderProductDto = {
     productId: number;
-    quantity: number;
+    productQuantity: number;
 }
 
-export type CreateUpdatePurchaseOrderDto = {
+export type CreatePurchaseOrderDto = {
     customerName: string;
     customerPhoneNumber: string;
     customerEmail: string;
     customerAddress: string;
-    cartProducts: PurchaseOrderCartProduct[];
+    purchaseOrderProduct: CreatePurchaseOrderProductDto[];
 }

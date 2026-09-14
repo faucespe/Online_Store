@@ -2,19 +2,19 @@
 
 namespace API.DataTransferObjects
 {
-    public class GetCategoryDTO
+    public class GetCategoryDto
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public GetCategoryStatusDTO CategoryStatus { get; set; } = null!;
+        public GetCategoryStatusDto CategoryStatus { get; set; } = null!;
 
     }
-    public class CreateUpdateCategoryDTO
+    public class CreateUpdateCategoryDto
     {
         public string? Name { get; set; } = null!;
         public int? CategoryStatusId { get; set; } = null!;
     }
-    public class CategoryFiltersDTO
+    public class CategoryFiltersDto
     {
         public string? Name { get; set; }
         public int? CategoryStatusId { get; set; }

@@ -47,43 +47,29 @@ namespace API.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<PurchaseOrder> InsertPurchaseOrder(PurchaseOrderCustom entity)
+        public async Task InsertPurchaseOrder(PurchaseOrder entity)
         {
-            List<Product> productList = await this._productService.ListProducts()
-                .OrderBy(p => p.Id)
-                .ToListAsync();
+            var cartProductIds = entity.PurchaseOrderProduct.Select(pop => pop.ProductId);
 
-            //Calculates GrandTotal
-            entity.GrandTotal = 0;
-            foreach (CartProduct cartProduct in entity.CartProducts)
+            Dictionary<int, Product> productsDictionary = await this._database.Product
+                .Where(p => cartProductIds.Contains(p.Id))
+                .ToDictionaryAsync(p => p.Id);
+
+            foreach (PurchaseOrderProduct cartProduct in entity.PurchaseOrderProduct.ToList())
             {
-                Product product = productList.Find(p => p.Id == cartProduct.ProductId);
-                entity.GrandTotal += cartProduct.Quantity * product.Price;
+                // Calculate GrandTotal & Update product stock
+                Product product = productsDictionary[cartProduct.ProductId];
+                entity.GrandTotal += cartProduct.ProductQuantity * product.Price;
+                product.Stock -= cartProduct.ProductQuantity;
+                 
+                // Fill PurhcaseOrderProduct Table
+                cartProduct.Price = product.Price;
+                entity.PurchaseOrderProduct.Add(cartProduct);
             }
 
             entity.PurchaseDate = DateTime.UtcNow;
-
-            //Mappings
-            PurchaseOrder purchaseOrder = this._mapper.Map<PurchaseOrderCustom, PurchaseOrder>(entity);
-
-            //SQL Transaction
-            foreach (CartProduct cartProduct in entity.CartProducts)
-            {
-                Product product = productList.First(p => p.Id == cartProduct.ProductId);
-                product.Stock -= cartProduct.Quantity;
-
-                purchaseOrder.PurchaseOrderProduct.Add(new PurchaseOrderProduct
-                {
-                    ProductId = product.Id,
-                    ProductQuantity = cartProduct.Quantity,
-                    Price = product.Price
-                });
-            }
-
-            this._database.PurchaseOrder.Add(purchaseOrder);
+            this._database.PurchaseOrder.Add(entity);
             await this._database.SaveChangesAsync();
-
-            return purchaseOrder;
         }
     }
 }

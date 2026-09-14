@@ -18,7 +18,7 @@ namespace API.Validators
             this._productService = productService;
         }
 
-        public async Task<bool> ValidateCreateUpdatePurchaseOrder(int? id, CreateUpdatePurchaseOrderDTO data, List<string> messages)
+        public async Task<bool> ValidateCreateUpdatePurchaseOrder(int? id, CreatePurchaseOrderDto data, List<string> messages)
         {
             List<string> innerMessages = new();
 
@@ -61,22 +61,27 @@ namespace API.Validators
             {
                 innerMessages.Add("CustomerEmail must be less than or equal to 100 characters.");
             }
+            else if (!IsValidEmail(data.CustomerEmail.Trim()))
+            {
+                innerMessages.Add("CustomerEmail must have a valid email format.");
+            }
 
             //CartProductList
             List<Product> productList = await this._productService.ListProducts().OrderBy(p => p.Id).ToListAsync();
+            List<CreatePurchaseOrderProductDto> cartProducts = data.PurchaseOrderProduct.ToList();
 
-            if (!data.CartProducts.Any())
+            if (!cartProducts.Any())
             {
                 innerMessages.Add("Cart products list can not be empty.");
             }
 
-            bool hasDuplicatedProducts = data.CartProducts.DistinctBy(cp => cp.ProductId).Count() != data.CartProducts.Count;
+            bool hasDuplicatedProducts = cartProducts.DistinctBy(cp => cp.ProductId).Count() != cartProducts.Count;
             if (hasDuplicatedProducts)
             {
                 innerMessages.Add("Cart can't contain duplicated products.");
             }
 
-            foreach (CartProduct cartProduct in data.CartProducts)
+            foreach (CreatePurchaseOrderProductDto cartProduct in cartProducts)
             {
                 bool cartProductExist = false;
                 bool hasEnoughStock = true;
@@ -91,7 +96,7 @@ namespace API.Validators
                     cartProductExist = true;
 
                     // Check if the product has enough stock
-                    if (product.Stock < cartProduct.Quantity || cartProduct.Quantity <= 0)
+                    if (product.Stock < cartProduct.ProductQuantity || cartProduct.ProductQuantity <= 0)
                     {
                         hasEnoughStock = false;
                         break;
@@ -112,6 +117,19 @@ namespace API.Validators
             messages.AddRange(innerMessages);
 
             return !innerMessages.Any();
+        }
+
+        private static bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

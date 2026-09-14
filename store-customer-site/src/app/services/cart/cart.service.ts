@@ -11,7 +11,7 @@ export class CartService {
   public cartCount$: Observable<number> = this.subjectCart.pipe(
     map((cartProducts: CartProduct[]) => cartProducts.reduce((total, item) => total + item.quantity, 0)
   ));
-  
+
   public getCartProducts(): CartProduct[] {
     return this.subjectCart.getValue();
   }
@@ -21,7 +21,7 @@ export class CartService {
     const exists = currentCart.find(item => item.id === newCartProduct.id);
 
     const updatedCart = exists
-      ? currentCart.map(item => item.id === newCartProduct.id ? { ...item, quantity: item.quantity + newCartProduct.quantity } : item)
+      ? currentCart.map(item => item.id === newCartProduct.id ? { ...item, quantity: Math.min(item.quantity + newCartProduct.quantity, item.stock )} : item)
       : [...currentCart, newCartProduct];
 
     this.subjectCart.next(updatedCart);
@@ -52,5 +52,14 @@ export class CartService {
 
   public emptyCart(): void {
     this.subjectCart.next([]);
-  } 
+  }
+
+  //Obtener la cantidad de un producto hay agregado en el carrito por medio de su id
+  public getProductQuantityById(productId: number): number {
+    const item = this.subjectCart.value.find(
+      item => item.id === productId
+    );
+
+    return item?.quantity ?? 0;
+  }
 }

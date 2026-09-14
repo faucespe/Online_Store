@@ -134,4 +134,8 @@ export class ProductsPage implements OnInit {
       this.categories.set(activeCategories);
     })
   }
+
+  protected getProductQuantity(productId: number): number {
+    return this.cartService.getProductQuantityById(productId);
+  }
 }
