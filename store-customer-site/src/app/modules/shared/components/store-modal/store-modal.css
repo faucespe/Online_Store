@@ -57,6 +57,5 @@
 .modal__main {
     margin: 2rem 0;
     overflow-wrap: break-word;
-    overflow-y: auto;
     max-height: 50vh;
 }
