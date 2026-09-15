@@ -3,7 +3,8 @@ import { CartService } from '@services/cart/cart.service';
 import { PurchaseOrderService } from '@services/purchaseOrder/purchase-order.service';
 import { CartProduct, CreatePurchaseOrderProductDto, CreatePurchaseOrderDto } from '@types';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, takeUntil } from 'rxjs';
+import { ValidationTranslatorService } from '@shared/translator/validation-translator.service';
 
 @Component({
   selector: 'app-checkout',
@@ -12,6 +13,9 @@ import { Subscription } from 'rxjs';
   styleUrl: './checkout.page.css',
 })
 export class CheckoutPage implements OnDestroy, OnInit {
+
+  private validationTranslator = inject(ValidationTranslatorService);
+
   protected customerName = signal<string>('');
   protected customerEmail = signal<string>('');
   protected customerPhoneNumber = signal<string>('');
@@ -28,6 +32,13 @@ export class CheckoutPage implements OnDestroy, OnInit {
 
   protected disableButton = signal<boolean>(true);
   protected showPurhcaseOrderCreationModal = signal<boolean>(false);
+
+  protected onPhoneInput(event: Event): void {
+    const input = event.target as HTMLInputElement
+    const onlyDigits = input.value.replace(/\D/g, '');
+    input.value = onlyDigits;
+    this.customerPhoneNumber.set(onlyDigits);
+  }
 
   constructor() {
     this.subscriptions = new Subscription();
@@ -55,17 +66,25 @@ export class CheckoutPage implements OnDestroy, OnInit {
       purchaseOrderProduct: cartProductsList,
     }
 
-    this.purchaseOrderService.createPurchaseOrder(purchaseOrderDetails).subscribe((apiResponse) => {
-      this.messages.set([]);
+    this.purchaseOrderService.createPurchaseOrder(purchaseOrderDetails).subscribe({
+      next: (apiResponse) => {
+        this.messages.set([]);
 
-      if(apiResponse.success) {
-        this.cartService.emptyCart();
-        this.showPurhcaseOrderCreationModal.set(true);
-      } else {
-        this.messages.set(apiResponse.messages ?? []);
+        if (apiResponse.success) {
+          this.cartService.emptyCart();
+          this.showPurhcaseOrderCreationModal.set(true);
+        } else {
+          const translated = (apiResponse.messages ?? []).map(m => this.validationTranslator.translate(m));
+          this.messages.set(translated);
+        }
+      },
+      error: (error: {error: { messages?: string[] } }) => {
+        const rawMessages = error.error?.messages ?? ['Ocurrió un error al procesar la compra.'];
+        const translated = rawMessages.map(m => this.validationTranslator.translate(m))
+        this.messages.set(translated);
       }
-    });
-  }
+    });    
+  };
 
   public ngOnInit(): void {
     this.subscriptions.add(this.cartService.subjectCart.subscribe((cartProducts: CartProduct[]) => {

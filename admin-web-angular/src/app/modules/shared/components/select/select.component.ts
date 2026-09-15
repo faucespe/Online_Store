@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-select',
@@ -7,6 +7,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './select.component.css'
 })
 export class SelectComponent {
+  @Input()
+  showAnyOption: boolean = true;
+
+  @Input() 
+  placeholder: string = 'Seleccione una opción';
+
   @Input()
   public name: string = '';
 

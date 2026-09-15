@@ -46,7 +46,8 @@ h4 {
 /* Inputs tipo number */
 input[type="number"],
 input[type="text"],
-input[type="email"] {
+input[type="email"],
+input[type="tel"] {
   padding: .8rem 1.2rem;
   border: 1px solid var(--color-primary-shadow);
   border-radius: .6rem;
@@ -58,7 +59,8 @@ input[type="email"] {
 
 input[type="number"]:focus,
 input[type="text"]:focus,
-input[type="email"]:focus {
+input[type="email"]:focus,
+input[type="tel"]:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 .3rem var(--color-primary-shadow);
@@ -112,4 +114,14 @@ label {
   color: var(--color-text-primary);
   margin-bottom: .4rem;
   display: block;
+}
+
+.validation-message {
+  color: var(--color-danger-secondary);
+  background-color:var(--color-danger-background);
+  border: 1px solid var(--color-danger-primary);
+  padding: .8rem 1.2rem;
+  border-radius: .6rem;
+  margin-bottom: 1.2rem;
+  font-size: 1rem
 }
