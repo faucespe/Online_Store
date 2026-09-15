@@ -26,6 +26,8 @@ export class ProductsPage implements OnInit {
   public filteredProducts = signal<Product[]>([]);
   protected showDetailsModal = signal<boolean>(false);
 
+  public readonly defaultImageUrl = 'https://www.gstatic.com/webp/gallery/4.webp';
+
   //filters signals
   protected nameSearched = signal<string>('');
   protected minPrice = signal<number>(0);

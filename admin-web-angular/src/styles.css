@@ -2,16 +2,16 @@
 @import './app/styles/theme-light.css';
 
 html {
-   font-size: 10px;
-   height: 100%;
+  font-size: 10px;
+  height: 100%;
 }
 
 body {
-   height: 100%;
-   font-family: 'Roboto', Helvetica, sans-serif;
-   font-size: 1.4rem;   
-   background: var(--color-background-primary);
-   color: var(--color-text-primary);
+  height: 100%;
+  font-family: 'Roboto', Helvetica, sans-serif;
+  font-size: 1.4rem;   
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
 }
 
 ::-webkit-scrollbar {

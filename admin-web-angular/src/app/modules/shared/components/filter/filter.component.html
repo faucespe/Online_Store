@@ -3,14 +3,15 @@
     <label class="filter__search-label">{{ searchLabel() }}</label>
   }
 
-  <div class="filter__container">
-    <app-button icon="tune" shape="rounded" (click)="toggleFilter()"/>
+<div class="filter__container">
     <input class="filter__search-bar" type="text" placeholder="Buscar" [value]="searchingText()" (keydown.enter)="applyFilter()" (input)="onInputText($event)"/>
+
+    <app-button icon="tune" shape="rounded" (click)="toggleFilter()"/>
     @if (showonConfirmButton()) {
       <app-button icon="search" shape="rounded" (click)="applyFilter()"/>
     }
   </div>
-
+  
   @if (showPopover()) {
     <div class="filter__popover">
       <ng-content></ng-content>

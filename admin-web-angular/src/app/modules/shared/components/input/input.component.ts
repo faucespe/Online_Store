@@ -7,11 +7,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './input.component.css'
 })
 export class InputComponent {
+
   @Input()
   public name: string = '';
 
   @Input()
   public type: string = 'text';
+
+  @Input()
+  public placeholder: string = '';
 
   @Input()
   public label: string = '';

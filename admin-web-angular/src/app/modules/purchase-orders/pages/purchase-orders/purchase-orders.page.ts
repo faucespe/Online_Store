@@ -34,6 +34,12 @@ export class PurchaseOrdersPage implements OnInit {
     { key: 'grandTotal', header: 'Total', align: 'right', format: 'currency' },
   ];
 
+  public orderProductColumns: TableColumn<any>[] = [
+    { key: 'product.name', header: 'Producto' },
+    { key: 'productQuantity', header: 'Cantidad', align: 'right' },
+    { key: 'price', header: 'Precio', align: 'right', format: 'currency' },
+  ]
+
   ngOnInit(): void {
     this.loadOrders();
   }

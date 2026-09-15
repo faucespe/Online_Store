@@ -13,7 +13,7 @@
       </div>
   </app-filter>
   <!-- Botón de creación de producto -->
-  <app-button color="primary" icon="add" shape="rounded" buttonText="Agregar" (click)="insertUpdate()"/>
+  <app-button color="primary" buttonText="Agregar" (click)="insertUpdate()"/>
 </div>
 
 <div class="products-table">
@@ -28,54 +28,56 @@
 </div>
 
 <app-modal [modalTitle]="product.id ?  'Actualización de Producto' : 'Creación de Producto'" [validationMessage]="validationMessage()" (onClose)="resetProduct()" (onConfirm)="handleConfirmation()" [(showModal)]="isActive" [showConfirmButton]="true" [showCancelButton]="true">
-  <div style="display: flex; flex-wrap: wrap; gap: 2em; margin: 2rem 0; border-bottom: 1px solid black;">
+  <div class="product-modal-grid">
     <app-input name="nameModal" label="Nombre" type="text" [required]="true" [(model)]="product.name"></app-input>
-    <app-input name="descriptionModal" label="Descripción" type="textarea"[(model)]="product.description"></app-input>
-    <app-input name="imageUrlModal" label="Imagen" type="text" [(model)]="product.imageUrl"></app-input>
     <app-input name="priceModal" label="Precio" type="number" [min]="0" [(model)]="product.price"></app-input>
     <app-select name="categoryModal" label="Categoría" [options]="categories()" [(model)]="product.category"></app-select>
     <app-select name="statusModal" label="Estado" [options]="statuses()" [(model)]="product.productStatus"></app-select>
     <app-input name="stockModal" label="Stock" type="number" [min]="0" [(model)]="product.stock"></app-input>
+    <app-input name="imageUrlModal" label="Url de la Imagen" type="text" placeholder="https://ejemplo.com/imagen.jpg" [(model)]="product.imageUrl"></app-input>
+    <app-input name="descriptionModal" label="Descripción" type="textarea"[(model)]="product.description"></app-input>
   </div>
 </app-modal>
 
 <app-modal
-modalTitle="Detalle del producto"
-[(showModal)]="showProductInfoModal"
-[showConfirmButton]="false"
-[showCancelButton]="false"
-cancelLabel="Cerrar">
-  @if (selectedProduct(); as product) {
-    <div class="product-info">
-      <div class="product-info__image">
-        <img
-          [src]="product.imageUrl || defaultImageUrl"
-          [alt]="product.name">
+  modalTitle="Detalle del producto"
+  [(showModal)]="showProductInfoModal"
+  [showConfirmButton]="false"
+  [showCancelButton]="false"
+  cancelLabel="Cerrar">
+    @if (selectedProduct(); as product) {
+      <div class="product-info">
+        <div class="product-info__image">
+          <img
+            [src]="product.imageUrl || defaultImageUrl"
+            [alt]="product.name">
+        </div>
+          <div class="product-info__details">
+            <div class="product-info__row">
+              <strong>Nombre:</strong>
+              <span>{{ product.name }}</span>
+            </div>
+            <div class="product-info__row">
+              <strong>Descripción:</strong>
+              <span>{{ product.description }}</span>
+            </div>
+            <div class="product-info__row">
+              <strong>Precio:</strong>
+              <span>{{ product.price | currencyFormat}}</span>
+            </div>
+            <div class="product-info__row">
+              <strong>Stock:</strong>
+              <span>{{ product.stock }}</span>
+            </div>
+            <div class="product-info__row">
+              <strong>Categoría:</strong>
+              <span>{{ product.category?.name ?? 'Sin categoría' }}</span>
+            </div>
+            <div class="product-info__row">
+              <strong>Estado:</strong>
+              <span>{{ product.productStatus?.name }}</span>
+            </div>
+          </div>
       </div>
-      <div class="product-info__row">
-        <strong>Nombre:</strong>
-        <span>{{ product.name }}</span>
-      </div>
-      <div class="product-info__row">
-        <strong>Descripción:</strong>
-        <span>{{ product.description }}</span>
-      </div>
-      <div class="product-info__row">
-        <strong>Precio:</strong>
-        <span>₡{{ product.price }}</span>
-      </div>
-      <div class="product-info__row">
-        <strong>Stock:</strong>
-        <span>{{ product.stock }}</span>
-      </div>
-      <div class="product-info__row">
-        <strong>Categoría:</strong>
-        <span>{{ product.category?.name ?? 'Sin categoría' }}</span>
-      </div>
-      <div class="product-info__row">
-        <strong>Estado:</strong>
-        <span>{{ product.productStatus?.name }}</span>
-      </div>
-    </div>
   }
 </app-modal>
