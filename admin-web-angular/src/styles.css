@@ -9,7 +9,7 @@ html {
 body {
   height: 100%;
   font-family: 'Roboto', Helvetica, sans-serif;
-  font-size: 1.4rem;   
+  font-size: 1.4rem;
   background: var(--color-background-primary);
   color: var(--color-text-primary);
 }

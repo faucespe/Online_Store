@@ -36,6 +36,23 @@ namespace API.Validators
                 innerMessages.Add("Description must be less than or equal to 500 characters");
             }
 
+            //ImageURL
+            if (!string.IsNullOrWhiteSpace(data.ImageUrl))
+            {
+                if (!Uri.TryCreate(data.ImageUrl, UriKind.Absolute, out Uri? uri) ||
+                    (uri.Scheme != Uri.UriSchemeHttp &&
+                     uri.Scheme != Uri.UriSchemeHttps))
+                {
+                    innerMessages.Add("Invalid image URL");
+                }
+                else if (!uri.AbsolutePath.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) &&
+                         !uri.AbsolutePath.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) &&
+                         !uri.AbsolutePath.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
+                {
+                    innerMessages.Add("Image URL must end with .jpg, .jpeg or .png");
+                }
+            }
+
             // Price
             if (data.Price == 0)
             {
@@ -90,10 +107,6 @@ namespace API.Validators
                 if (data.UpdatedAt > DateTime.Now)
                 {
                     innerMessages.Add("UpdatedAt must be less than or equal to the current date/time");
-                }
-                else if (data.CreatedAt.HasValue && data.UpdatedAt <= data.CreatedAt)
-                {
-                    innerMessages.Add("UpdatedAt must be later than CreatedAt");
                 }
             }
 

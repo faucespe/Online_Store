@@ -1,6 +1,6 @@
 //Formato de obtención de respuesta de los products
-import { Category } from '../category.model';
-import { ProductStatus } from '../productStatus.model';
+import { Category } from '@models/category/category.model';
+import { ProductStatus } from './productStatus.model';
 
 // Formato de obtención de respuesta de los products
 export class Product {

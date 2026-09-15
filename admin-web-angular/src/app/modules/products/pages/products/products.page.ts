@@ -1,12 +1,12 @@
 import { Component, OnInit, inject, signal , model } from '@angular/core';
-import { ApiResponse } from '../../../../models/http.types';
-import { Product } from '../../../../models/product/product.model';
+import { ApiResponse } from 'src/app/types/http/http.types';
+import { Product } from '@models/product/product.model';
 import { ProductService } from '../../../../services/product/product.service';
 import { ProductStatusService } from '@services/product-status/product-status.service';
-import { ProductStatus } from '@models/productStatus.model';
+import { ProductStatus } from '@models/product/productStatus.model';
 import { CategoryService } from '@services/category/category.service';
-import { Category } from '@models/category.model';
-import { FilterProductDTO } from '@models/product/product.dto';
+import { Category } from '@models/category/category.model';
+import { FilterProductDTO } from 'src/app/types/product/product.dto';
 import { TableColumn } from '@shared/components/table/table.component';
 
 // CRÍTICA CONSTRUCTIVA:

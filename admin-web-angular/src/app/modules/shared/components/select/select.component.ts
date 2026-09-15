@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 
 @Component({
   selector: 'app-select',
@@ -7,25 +7,17 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './select.component.css'
 })
 export class SelectComponent {
-  @Input()
-  public name: string = '';
 
-  @Input()
-  public label: string = '';
-
-  @Input()
-  public options: any[] = [];
-
-  @Input()
-  public model: any = null;
-
-  @Output()
-  public modelChange = new EventEmitter<any>();
+  public readonly name = input<string>('');
+  public readonly label = input<string>('');
+  public readonly options = input<any[]>([]);
+  public readonly model = model<any>(null);
 
   public onModelChange(value: any): void {
-    const selectedOption = this.options.find(
+    const selectedOption = this.options().find(
       option => option.id === Number(value)
     );
-    this.modelChange.emit(selectedOption);
+
+    this.model.set(selectedOption);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { PurchaseOrder } from '@models/purchase-order.model';
-import { PurchaseOrderFilters } from '@models/purchase-order-filters.model';
+import { PurchaseOrder } from '@models/purchaseOrder/purchase-order.model';
+import { PurchaseOrderFilters } from 'src/app/types/purchaseOrder/purchase-order-filters.model';
 import { PurchaseOrderService } from '@services/purchase-order/purchase-order.service';
 import { TableColumn } from '@shared/components/table/table.component';
 
