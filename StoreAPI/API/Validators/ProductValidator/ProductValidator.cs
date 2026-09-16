@@ -110,13 +110,6 @@ namespace API.Validators
                 {
                     innerMessages.Add("UpdatedAt must be less than or equal to the current date/time.");
                 }
-<<<<<<< HEAD
-=======
-                else if (data.CreatedAt.HasValue && data.UpdatedAt <= data.CreatedAt)
-                {
-                    innerMessages.Add("UpdatedAt must be later than CreatedAt.");
-                }
->>>>>>> dev
             }
 
             messages.AddRange(innerMessages);

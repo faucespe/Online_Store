@@ -4,7 +4,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Category, UpdateCategory } from '@models/category/category.model';
-import { CategoryStatus } from '../../models/category/category-status.model';
+import { CategoryStatus } from '@models/category/category-status.model';
 import { CategoryFilters } from '../../types/category/category-filters.model';
 
 @Injectable({

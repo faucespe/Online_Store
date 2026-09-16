@@ -75,7 +75,7 @@ public handleConfirmation(): void {
       this.backendError.set(this.validationTranslator.translate(rawMessage));
     },
   });
-}     
+}
 
   // Función para cargar los productos desde el servicio de productos, con la opción de aplicar un filtro
   public loadProducts(filter?: FilterProductDTO): void {
@@ -113,7 +113,6 @@ public handleConfirmation(): void {
   //Desglose de datos de tabla para insertar los datos de los productos
   public productColumns: TableColumn<Product>[] = [
     { key: 'name', header: 'Nombre' },
-    { key: 'description', header: 'Descripción' },
     { key: 'category.name', header: 'Categoría' },
     { key: 'productStatus.name', header: 'Estado' },
     { key: 'price', header: 'Precio', align: 'right', format: 'currency' },
