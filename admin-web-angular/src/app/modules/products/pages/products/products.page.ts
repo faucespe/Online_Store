@@ -8,6 +8,7 @@ import { CategoryService } from '@services/category/category.service';
 import { Category } from '@models/category/category.model';
 import { FilterProductDTO } from 'src/app/types/product/product.dto';
 import { TableColumn } from '@shared/components/table/table.component';
+import { ValidationTranslatorService } from '@shared/translator/validation-translator.service';
 
 // CRÍTICA CONSTRUCTIVA:
 // ProductsPage está concentrando muchas responsabilidades relacionadas con las
@@ -24,6 +25,7 @@ import { TableColumn } from '@shared/components/table/table.component';
 export class ProductsPage implements OnInit {
 
   private productService = inject(ProductService);
+  private validationTranslator = inject(ValidationTranslatorService);
   public products = signal<Product[]>([]);
   public product: Product = new Product();
   private productStatusService = inject(ProductStatusService);
@@ -32,7 +34,7 @@ export class ProductsPage implements OnInit {
   public categories = signal<Category[]>([]);;
   public filter = new FilterProductDTO();
   isActive = model<boolean>(false);
-  public validationMessage = signal('');
+  public backendError = signal('');
   public selectedProduct = signal<Product | null>(null);
   public showProductInfoModal = signal(false);
 
@@ -45,58 +47,35 @@ export class ProductsPage implements OnInit {
     this.loadProductStatuses();
   }
 
-  public handleConfirmation(): void {
-    this.validationMessage.set('');
-    // Nombre obligatorio
-    if (!this.product.name?.trim()) {
-      this.showValidationMessage('El nombre es obligatorio.');
-      return;
-    }
+public handleConfirmation(): void {
+  this.backendError.set('');
 
-    // Descripción obligatoria
-    if (!this.product.description?.trim()) {
-      this.showValidationMessage('La descripción es obligatoria.');
-      return;
-    }
+  const request = this.product.id
+    ? this.productService.updateProduct(this.product)
+    : this.productService.createProduct(this.product);
 
-    // Precio obligatorio y mayor que 0
-    if (this.product.price <= 0) {
-      this.showValidationMessage('El precio debe ser mayor que 0.');
-      return;
-    }
-
-    // Estado obligatorio
-    if (!this.product.productStatus) {
-      this.showValidationMessage('El estado es obligatorio.');
-      return;
-    }
-
-    // Stock obligatorio y mayor o igual a 0
-    if (this.product.stock < 0) {
-      this.showValidationMessage('El stock debe ser mayor o igual a 0.');
-      return;
-    }
-
-    //Inserción o Actualización de producto, acción validada por medio de un id existente
-    const request = this.product.id
-      ? this.productService.updateProduct(this.product)
-      : this.productService.createProduct(this.product);
-
-    request.subscribe({
-      next: () => {
-        this.isActive.set(false);
-
-        this.productService.getProducts().subscribe({
-          next: (apiResponse) => {
-            this.products.set(apiResponse.data);
-          }
-        });
-      },
-      error: (error) => {
-        console.error(error);
+  request.subscribe({
+    next: (response) => {
+      if (!response.success) {
+        const rawMessage = response.messages?.[0] ?? 'Ocurrió un error al guardar el producto.';
+        this.backendError.set(this.validationTranslator.translate(rawMessage));
+        return;
       }
-    });
-  }
+
+      this.isActive.set(false);
+
+      this.productService.getProducts().subscribe({
+        next: (apiResponse) => {
+          this.products.set(apiResponse.data);
+        }
+      });
+    },
+    error: (error: { error: ApiResponse }) => {
+      const rawMessage = error.error?.messages?.[0] ?? 'Ocurrió un error al guardar el producto.';
+      this.backendError.set(this.validationTranslator.translate(rawMessage));
+    },
+  });
+}     
 
   // Función para cargar los productos desde el servicio de productos, con la opción de aplicar un filtro
   public loadProducts(filter?: FilterProductDTO): void {
@@ -144,7 +123,7 @@ export class ProductsPage implements OnInit {
   //Función para insertar o actualizar un dato producto, con el set de productStatus como activo
   public insertUpdate(data: unknown = null): void {
     this.showProductInfoModal.set(false);
-    this.validationMessage.set('');
+    this.backendError.set('');
     this.product = new Product(data);
     if (!this.product.id) {
       this.product.productStatus = new ProductStatus({
@@ -177,11 +156,11 @@ export class ProductsPage implements OnInit {
 
   // Función para mostrar mensajes de inserción de datos erronea
   private showValidationMessage(message: string): void {
-    this.validationMessage.set(message);
+    this.backendError.set(message);
 
     //Tiempo para que se quite el mensaje del modal
     setTimeout(() => {
-      this.validationMessage.set('');
+      this.backendError.set('');
     }, 6000);
   }
 

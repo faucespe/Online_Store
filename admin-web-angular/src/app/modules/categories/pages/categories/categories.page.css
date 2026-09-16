@@ -43,6 +43,7 @@ app-modal select{
     flex-direction: column;
     gap: 1rem;
 }
+
 app-filter {
   display: block;
   margin-bottom: 1.5rem;

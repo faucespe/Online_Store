@@ -25,6 +25,13 @@ export class PurchaseOrdersPage implements OnInit {
   public filterTotalFrom = signal<number | null>(null);
   public filterTotalTo = signal<number | null>(null);
 
+  protected onPhoneFilterInput(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  const onlyDigits = input.value.replace(/\D/g, '');
+  input.value = onlyDigits;
+  this.filterPhone.set(onlyDigits);
+  }
+  
   //Formato de tabla de cargado de Purchase Orders
   public columns: TableColumn<PurchaseOrder>[] = [
     { key: 'id', header: 'Código' },

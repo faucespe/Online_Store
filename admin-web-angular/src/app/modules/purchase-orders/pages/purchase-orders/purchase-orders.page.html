@@ -13,7 +13,7 @@
 
     <div>
       <label for="filterPhone">Teléfono</label>
-      <input id="filterPhone" type="text" [value]="filterPhone()" (input)="filterPhone.set($any($event.target).value)" />
+      <input id="filterPhone" type="tel" [value]="filterPhone()" (input)="onPhoneFilterInput($event)" maxlength="8"/>
     </div>
 
     <div>
