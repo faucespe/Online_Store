@@ -1,30 +1,32 @@
 <div class="input">
 
-  @if (label) {
-    <label [for]="name">
-      {{ label }}
+  @if (label()) {
+    <label [for]="name()">
+      {{ label() }}
     </label>
   }
 
-  @if (type === 'textarea') {
+  @if (type() === 'textarea') {
     <textarea
-      [id]="name"
-      [name]="name"
-      [value]="model"
+      [id]="name()"
+      [name]="name()"
+      [value]="model()"
       autocomplete="off"
       rows="3"
       (input)="onModelChange($any($event.target).value)">
     </textarea>
   } @else {
     <input
-      [id]="name"
-      [name]="name"
-      [type]="type"
-      [value]="model"
-      [required]="required"
-      [placeholder]="placeholder"
+      [id]="name()"
+      [name]="name()"
+      [type]="type()"
+      [value]="model()"
+      [required]="required()"
+      [placeholder]="placeholder()"
+      [min]="min()"
       autocomplete="off"
       (input)="onModelChange($any($event.target).value)"
     />
   }
+
 </div>

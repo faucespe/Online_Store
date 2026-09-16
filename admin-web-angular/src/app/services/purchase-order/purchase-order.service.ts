@@ -1,10 +1,10 @@
 import { Observable } from "rxjs";
-import { ApiResponse } from "@models/http.types";
+import { ApiResponse } from "src/app/types/http/http.types";
 import { Injectable, inject } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
-import { PurchaseOrder } from "@models/purchase-order.model";
-import { PurchaseOrderFilters } from "@models/purchase-order-filters.model";
+import { PurchaseOrder } from "@models/purchaseOrder/purchase-order.model";
+import { PurchaseOrderFilters } from "src/app/types/purchaseOrder/purchase-order-filters.model";
 
 @Injectable({
   providedIn: 'root',

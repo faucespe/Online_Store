@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../../models/http.types';
+import { ApiResponse } from '../../types/http/http.types';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { FilterProductDTO, InsertUpdateProductDTO } from '@models/product/product.dto';
+import { FilterProductDTO , InsertUpdateProductDTO } from 'src/app/types/product/product.dto';
 import { Product } from '@models/product/product.model';
 
 @Injectable({

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, model, input } from '@angular/core';
 
 @Component({
   selector: 'app-input',
@@ -8,37 +8,21 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class InputComponent {
 
-  @Input()
-  public name: string = '';
-
-  @Input()
-  public type: string = 'text';
-
-  @Input()
-  public placeholder: string = '';
-
-  @Input()
-  public label: string = '';
-
-  @Input()
-  public model: any = '';
-
-  @Input()
-  public required: boolean = false;
-
-  @Input()
-  public min: number | null = null;
-
-  @Output()
-  public modelChange = new EventEmitter<any>();
+  public readonly name = input<string>('');
+  public readonly type = input<string>('text');
+  public readonly placeholder = input<string>('');
+  public readonly label = input<string>('');
+  public readonly model = model<any>('');
+  public readonly required = input<boolean>(false);
+  public readonly min = input<number | null>(null);
 
   public onModelChange(value: any): void {
-    this.modelChange.emit(value);
+    this.model.set(value);
   }
 
   public get inputSize(): number {
     const minSize = 20;
-    const valueLength = String(this.model ?? '').length;
+    const valueLength = String(this.model() ?? '').length;
 
     return Math.max(minSize, valueLength + 2);
   }

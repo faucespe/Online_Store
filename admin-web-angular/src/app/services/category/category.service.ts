@@ -1,11 +1,11 @@
 import { Observable }from 'rxjs';
-import { ApiResponse } from '../../models/http.types';
+import { ApiResponse } from '../../types/http/http.types';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { Category, UpdateCategory } from '../../models/category.model';
-import { CategoryStatus } from '../../models/category-status.model';
-import { CategoryFilters } from '../../models/category-filters.model';
+import { Category, UpdateCategory } from '@models/category/category.model';
+import { CategoryStatus } from '@models/category/category-status.model';
+import { CategoryFilters } from '../../types/category/category-filters.model';
 
 @Injectable({
   providedIn: 'root',
