@@ -6,6 +6,7 @@ import { CategoryFilters } from '@models/category-filters.model';
 import { CategoryService } from '@services/category/category.service';
 import { TableColumn } from '@shared/components/table/table.component';
 import { ApiResponse } from '@models/http.types';
+import { ValidationTranslatorService } from '@shared/translator/validation-translator.service';
 
 // Component vincula el html, el css y el ts, del page de categories
 @Component({
@@ -21,6 +22,7 @@ export class CategoriesPage implements OnInit {
 
 // se injecta en el categories.page.ts el contenido de category.service.ts
   private categoryService = inject(CategoryService);
+  private validationTranslator = inject(ValidationTranslatorService);
 
 // signal es un estado reactivo parecido a las variables de un valor predefinido
 // que angular va a modificar automaticamente en pantalla
@@ -32,7 +34,7 @@ export class CategoriesPage implements OnInit {
   public selectedCategoryId = signal<number | null>(null);
 
   public editName = signal<string>('');
-  public editStatusId = signal<number | null>(null);
+  public editStatus = signal<CategoryStatus | null>(null);
 
   public filterName = signal<string>('');
   public filterStatusId = signal<number | null>(null);
@@ -82,7 +84,7 @@ export class CategoriesPage implements OnInit {
   openCreateModal(): void {
     this.selectedCategoryId.set(null);
     this.editName.set('');
-    this.editStatusId.set(2);
+    this.editStatus.set({ id: 2, name: 'Active' } as CategoryStatus);
     this.editMode.set(false);
     this.showModal.set(true);
     this.backendError.set(null);
@@ -92,7 +94,7 @@ export class CategoriesPage implements OnInit {
   onEditCategory(category: Category): void {
     this.selectedCategoryId.set(category.id);
     this.editName.set(category.name);
-    this.editStatusId.set(category.categoryStatus.id);
+    this.editStatus.set(category.categoryStatus);
     this.editMode.set(true);
     this.backendError.set(null);
     this.showModal.set(true);
@@ -104,50 +106,38 @@ export class CategoriesPage implements OnInit {
     this.loadCategories();
   }
 
-// diccionario que traduce los errores del backend al español en el front
-private translateValidations(message: string): string {
-  const translations: Record<string, string> = {
-    'Name is required.': 'El nombre es obligatorio.',
-    'Name must be less than or equal to 60 characters.': 'El nombre debe tener 60 caracteres o menos.',
-    'A category with this name already exists.': 'Ya existe una categoría con este nombre.',
-    'Status is required.': 'El estado es obligatorio.',
-    'Invalid status provided.': 'Estado inválido.',
-  };
-  return translations[message] ?? message;
-}
+  saveCategory(): void {
+    this.backendError.set(null);
+    this.saving.set(true);
 
-saveCategory(): void {
-  this.backendError.set(null);
-  this.saving.set(true);
+    const data: UpdateCategory = {
+      name: this.editName().trim(),
+    categoryStatusId: this.editStatus()?.id as number,
+    };
 
-  const data: UpdateCategory = {
-    name: this.editName().trim(),
-    categoryStatusId: this.editStatusId() as number,
-  };
+    const request$ = this.editMode()
+      ? this.categoryService.updateCategory(this.selectedCategoryId() as number, data)
+      : this.categoryService.createCategory(data);
 
-  const request$ = this.editMode()
-    ? this.categoryService.updateCategory(this.selectedCategoryId() as number, data)
-    : this.categoryService.createCategory(data);
-
-  request$.subscribe({
-    next: (response) => {
-      if (!response.success) {
-        const rawMessage = response.messages?.[0] ?? 'Ocurrió un error al guardar la categoría.';
-        this.backendError.set(this. translateValidations(rawMessage));
+    request$.subscribe({
+      next: (response) => {
+        if (!response.success) {
+          const rawMessage = response.messages?.[0] ?? 'Ocurrió un error al guardar la categoría.';
+          this.backendError.set(this.validationTranslator.translate(rawMessage));
+          this.saving.set(false);
+          return;
+        }
+        else {
+          this.loadCategories();
+          this.showModal.set(false);
+          this.saving.set(false);
+        }
+      },
+      error: (error: { error: ApiResponse }) => {
+        const rawMessage = error.error?.messages?.[0] ?? 'Ocurrió un error al guardar la categoría.';
+        this.backendError.set(this.validationTranslator.translate(rawMessage));
         this.saving.set(false);
-        return;
-      }
-      else {
-        this.loadCategories();
-        this.showModal.set(false);
-        this.saving.set(false);
-      }
-    },
-    error: (error: { error: ApiResponse }) => {
-      const rawMessage = error.error?.messages?.[0] ?? 'Ocurrió un error al guardar la categoría.';
-      this.backendError.set(this.translateValidations(rawMessage));
-      this.saving.set(false);
-    },
-  });
-}
+      },
+    });
+  }
 }

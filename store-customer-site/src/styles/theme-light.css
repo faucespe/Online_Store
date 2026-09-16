@@ -21,6 +21,7 @@ body.light {
    /* ALERT COLORS */
    --color-danger-primary: #f55757;
    --color-danger-secondary: #bb4242;
+   --color-danger-background: #fdecec ;
 
    /* other */
    --color-scrollbar-thumb: #c1c1c1;

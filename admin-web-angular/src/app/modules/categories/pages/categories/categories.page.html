@@ -50,6 +50,5 @@
     <div class="category-modal-grid">
         <app-input name="editNameModal" label="Nombre de la Categoría" type="text" [(model)]="editName"></app-input>
     
-        <app-select name="editStatusModal" label="Estado" [options]="statuses()" [(model)]="editStatusId"></app-select>
-      </div>
+        <app-select name="editStatusModal" label="Estado" [options]="statuses()" [(model)]="editStatus" [showAnyOption]="false"></app-select>      </div>
 </app-modal>

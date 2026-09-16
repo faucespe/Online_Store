@@ -25,13 +25,11 @@ body.light {
    /* ALERT COLORS */
    --color-danger-primary: #f55757;
    --color-danger-secondary: #bb4242;
+   --color-danger-background: #fdecec ;
 
    /* other */
    --color-scrollbar-thumb: #c1c1c1;
-   --color-scrollbar-thumb-hover: #a1a1a1;
-  /* ALERT COLORS */
-  --color-danger-primary: #f55757;
-  --color-danger-secondary: #bb4242;
+   --color-scrollbar-thumb-hover: #a1a1a1
 
   /*TABLE COLORS*/
   --color-table-thead-text: #4B5563;

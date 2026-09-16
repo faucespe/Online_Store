@@ -1,6 +1,6 @@
 <section>
     <main class="form__container">
-        <form class="form" (submit)="savePurchaseOrder($event)">
+        <form class="form" novalidate (submit)="savePurchaseOrder($event)">
             <h1 class="form__title">Confirme su compra</h1>
             @if (messages()) {
                 <ul>
@@ -19,7 +19,8 @@
             </div>
             <div>
                 <label for="customerPhoneNumber">Ingrese su número telefónico</label>
-                <input [value]="customerPhoneNumber()" (input)="customerPhoneNumber.set($event.target.value)" id="customerPhoneNumber" type="text" />
+                <input [value]="customerPhoneNumber()" (input)="onPhoneInput($event)" id="customerPhoneNumber" type="tel" maxlength="8"
+/>
             </div>
             <div>
                 <label for="customerAddress">Ingrese su dirección</label>

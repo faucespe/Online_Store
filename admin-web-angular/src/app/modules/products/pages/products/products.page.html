@@ -27,12 +27,22 @@
   </app-table>
 </div>
 
-<app-modal [modalTitle]="product.id ?  'Actualización de Producto' : 'Creación de Producto'" [validationMessage]="validationMessage()" (onClose)="resetProduct()" (onConfirm)="handleConfirmation()" [(showModal)]="isActive" [showConfirmButton]="true" [showCancelButton]="true">
+<app-modal 
+[modalTitle]="product.id ?  'Actualización de Producto' : 'Creación de Producto'" 
+(onClose)="resetProduct()" 
+(onConfirm)="handleConfirmation()" 
+[(showModal)]="isActive" 
+[showConfirmButton]="true" 
+[showCancelButton]="true">
+
+@if(backendError()) {
+  <p class="backend-error">{{ backendError() }}</p>
+}
   <div class="product-modal-grid">
     <app-input name="nameModal" label="Nombre" type="text" [required]="true" [(model)]="product.name"></app-input>
     <app-input name="priceModal" label="Precio" type="number" [min]="0" [(model)]="product.price"></app-input>
-    <app-select name="categoryModal" label="Categoría" [options]="categories()" [(model)]="product.category"></app-select>
-    <app-select name="statusModal" label="Estado" [options]="statuses()" [(model)]="product.productStatus"></app-select>
+    <app-select name="categoryModal" label="Categoría" [options]="categories()" [(model)]="product.category" [showAnyOption]="false" placeholder="Seleccione una categoría"></app-select>
+    <app-select name="statusModal" label="Estado" [options]="statuses()" [(model)]="product.productStatus" [showAnyOption]="false" placeholder="Seleccione un estado"></app-select>
     <app-input name="stockModal" label="Stock" type="number" [min]="0" [(model)]="product.stock"></app-input>
     <app-input name="imageUrlModal" label="Url de la Imagen" type="text" placeholder="https://ejemplo.com/imagen.jpg" [(model)]="product.imageUrl"></app-input>
     <app-input name="descriptionModal" label="Descripción" type="textarea"[(model)]="product.description"></app-input>
