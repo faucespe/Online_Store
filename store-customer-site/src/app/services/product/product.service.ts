@@ -2,8 +2,9 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { ApiResponse } from '@types';
-import { Product } from '@models/product/product'
+import { ApiResponse, ProductFilter } from '@types';
+import { Product } from '@models/product/product';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,16 @@ import { Product } from '@models/product/product'
 export class ProductService {
   private http = inject(HttpClient);
 
-  public getProducts(): Observable<ApiResponse<Product[]>> {
-    return this.http.get<ApiResponse<Product[]>>('https://localhost:7044/api/products', {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+  public getProducts(filter?: ProductFilter): Observable<ApiResponse<Product[]>> {
+    const params = {
+        name: filter?.name ?? '',
+        minPrice: filter?.minPrice ?? '',
+        maxPrice: filter?.maxPrice ?? '',
+        categoryId: filter?.categoryId ?? ''
+    };
+
+    return this.http.get<ApiResponse<Product[]>>(`${environment.apiURL}/products`, 
+      { params }
+    );
   }
 }

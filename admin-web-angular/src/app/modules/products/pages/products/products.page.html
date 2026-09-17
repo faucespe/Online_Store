@@ -27,6 +27,7 @@
   </app-table>
 </div>
 
+<<<<<<< Updated upstream
 <app-modal 
 [modalTitle]="product.id ?  'Actualización de Producto' : 'Creación de Producto'" 
 (onClose)="resetProduct()" 
@@ -39,6 +40,10 @@
   <p class="backend-error">{{ backendError() }}</p>
 }
   <div class="product-modal-grid">
+=======
+<app-modal [modalTitle]="product.id ?  'Actualización de Producto' : 'Creación de Producto'" [validationMessage]="validationMessage()" (onClose)="resetProduct()" (onConfirm)="handleConfirm()" [(showModal)]="showCreateUpdateProductModal" [showConfirmButton]="true" [showCancelButton]="true">
+  <div style="display: flex; flex-wrap: wrap; gap: 2em; margin: 2rem 0; border-bottom: 1px solid black;">
+>>>>>>> Stashed changes
     <app-input name="nameModal" label="Nombre" type="text" [required]="true" [(model)]="product.name"></app-input>
     <app-input name="priceModal" label="Precio" type="number" [min]="0" [(model)]="product.price"></app-input>
     <app-select name="categoryModal" label="Categoría" [options]="categories()" [(model)]="product.category" [showAnyOption]="false" placeholder="Seleccione una categoría"></app-select>

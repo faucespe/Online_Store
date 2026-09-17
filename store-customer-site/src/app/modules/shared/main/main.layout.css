@@ -3,13 +3,12 @@ main {
 }
 
 .main__header-logo {
-    width: 4rem;
-    height: 4rem;
-    object-fit: cover;
-    cursor: pointer;
-    border-radius: 30%;
-    margin: 10px 0;
-    background-color: var(--color-background-secondary);
+  width: 4.2rem;
+  cursor: pointer;
+  border-radius: 1rem;
+  margin: 1rem 0;
+  background-color: var(--color-background-secondary);
+  padding: .14rem;
 }
 
 .main__header{

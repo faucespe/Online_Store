@@ -10,12 +10,6 @@ import { FilterProductDTO } from 'src/app/types/product/product.dto';
 import { TableColumn } from '@shared/components/table/table.component';
 import { ValidationTranslatorService } from '@shared/translator/validation-translator.service';
 
-// CRÍTICA CONSTRUCTIVA:
-// ProductsPage está concentrando muchas responsabilidades relacionadas con las
-// solicitudes al API. Es una idea recomendable, centralizar estas funcionalidades en
-// una capa o servicio dedicado al manejo de las operaciones con el API
-// y dejar product.page.ts centrado en ui
-
 @Component({
   selector: 'app-products',
   standalone: false,
@@ -35,11 +29,13 @@ export class ProductsPage implements OnInit {
   public filter = new FilterProductDTO();
   isActive = model<boolean>(false);
   public backendError = signal('');
+  protected showCreateUpdateProductModal = model<boolean>(false);
+  public validationMessage = signal('');
   public selectedProduct = signal<Product | null>(null);
   public showProductInfoModal = signal(false);
 
   //imagen por default si una imagen no tiene una imagen de carga
-  public readonly defaultImageUrl = 'https://www.gstatic.com/webp/gallery/4.webp';
+  public readonly defaultImageUrl = '/img/no-image-available.jpg';
 
   ngOnInit(): void {
     this.loadProducts();
@@ -131,7 +127,7 @@ public handleConfirmation(): void {
       });
     }
 
-    this.isActive.set(true);
+    this.showCreateUpdateProductModal.set(true);
   }
 
   // Función para aplicar el filtro de productos
@@ -165,7 +161,7 @@ public handleConfirmation(): void {
 
   //Función para ver la info de un producto
   public onViewProduct(product: Product): void {
-    this.isActive.set(false);
+    this.showCreateUpdateProductModal.set(false);
     this.selectedProduct.set(product);
     this.showProductInfoModal.set(true);
   }

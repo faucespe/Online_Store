@@ -8,7 +8,7 @@ import { Component, input, computed } from '@angular/core';
 })
 export class StoreBtn {
   public readonly shape = input<'default' | 'rounded'>('default');
-  public readonly color = input<'primary' | 'secondary'>('primary');
+  public readonly color = input<'primary' | 'secondary' | 'tertiary' | 'danger'>('primary');
   public readonly icon = input<string>();
   public readonly buttonText = input<string>();
   public readonly isDisabled = input<boolean>(false);

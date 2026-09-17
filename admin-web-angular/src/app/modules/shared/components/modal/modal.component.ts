@@ -30,4 +30,11 @@ export class ModalComponent {
     this.showModal.set(false);
     this.onClose.emit();
   }
+
+  protected onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    if(target.className == 'modal-overlay') {
+      this.showModal.set(false);
+    }
+  }
 }

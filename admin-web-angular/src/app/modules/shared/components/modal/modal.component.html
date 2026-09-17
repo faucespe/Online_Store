@@ -1,5 +1,5 @@
 @if (showModal()) {
-  <div class="modal-overlay">
+  <div class="modal-overlay" (click)="onClickOutside($event)">
       <article class="modal">
           <header class="modal__header">
               <h2 class="modal__header-label">{{ modalTitle() }}</h2>
