@@ -35,7 +35,7 @@ export class ProductsPage implements OnInit {
   public showProductInfoModal = signal(false);
 
   //imagen por default si una imagen no tiene una imagen de carga
-  public readonly defaultImageUrl = '/img/no-image-available.jpg';
+  protected readonly defaultImagePath = signal<string>('/img/no-image-available.jpg');
 
   ngOnInit(): void {
     this.loadProducts();
