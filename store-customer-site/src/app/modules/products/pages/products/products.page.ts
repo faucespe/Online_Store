@@ -29,6 +29,7 @@ export class ProductsPage implements OnInit {
   protected filterIdCategory = signal<number | string>(0);
 
   // Modal functions
+  protected readonly defaultImagePath = signal<string>('/img/no-image-available.jpg');
   protected selectedProduct = signal<Product | undefined>(undefined);
   protected openModal(productId: number) {
     this.selectedProduct.set(this.getProduct(productId))
@@ -38,6 +39,7 @@ export class ProductsPage implements OnInit {
   protected getProduct(productId: number): Product | undefined {
     const products: Product[] = this.products();
     const product: Product | undefined = products.find((e: Product) => e.id === productId);
+    
     return product;
   }
 

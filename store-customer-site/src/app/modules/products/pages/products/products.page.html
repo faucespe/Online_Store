@@ -66,35 +66,31 @@
         cancelLabel="Cerrar"
         >
             <div class="products__product-info-container">
-            <div class="products__product-info-image">
+            <figure class="products__product-info-image">
                 <img
-                    [src]="product.imageUrl || defaultImageUrl"
+                    [src]="product.imageUrl || defaultImagePath()"
                     [alt]="product.name">
-            </div>
+            </figure>
             <div class="products__product-info-details">
                     <div class="products__product-info-row">
-                        <strong>Nombre:</strong>
+                        <strong>Nombre</strong>
                         <span>{{ product.name }}</span>
                     </div>
                     <div class="products__product-info-row">
-                        <strong>Descripción:</strong>
-                        <span>{{ product.description }}</span>
-                    </div>
-                    <div class="products__product-info-row">
-                        <strong>Precio:</strong>
+                        <strong>Precio</strong>
                         <span>{{ product.price | currencyFormat}}</span>
                     </div>
                     <div class="products__product-info-row">
-                        <strong>Stock:</strong>
+                        <strong>Disponibles</strong>
                         <span>{{ product.stock }}</span>
                     </div>
                     <div class="products__product-info-row">
-                        <strong>Categoría:</strong>
+                        <strong>Categoría</strong>
                         <span>{{ product.category?.name ?? 'Sin categoría' }}</span>
                     </div>
                     <div class="products__product-info-row">
-                        <strong>Estado:</strong>
-                        <span>{{ product.productStatus?.name }}</span>
+                        <strong>Descripción</strong>
+                        <p>{{ product.description }}</p>
                     </div>
                 </div>
             </div>
