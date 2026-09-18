@@ -4,7 +4,6 @@ using API.DataTransferObjects;
 using API.Services;
 using API.Validators;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -53,7 +52,7 @@ namespace API.Controllers
                 return HttpErrors.NotFound("Product does not exist in the system");
             }
 
-            ApiResponse response = new ApiResponse()
+            ApiResponse response = new()
             {
                 Data = this._mapper.Map<Product, GetProductDto>(product)
             };

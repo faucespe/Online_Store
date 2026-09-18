@@ -1,11 +1,9 @@
-﻿using API.Data;
-using API.Data.Filters;
+﻿using API.Data.Filters;
 using API.Data.Models;
 using API.DataTransferObjects;
 using API.Services;
 using API.Validators;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,7 +30,7 @@ namespace API.Controllers
             CategoryFilters filter = this._mapper.Map<CategoryFiltersDto, CategoryFilters>(data);
             List<Category> list = await this._categoryService.ListCategories(filter).ToListAsync();
 
-            ApiResponse response = new ApiResponse
+            ApiResponse response = new()
             {
                 Data = list.Select(C => this._mapper.Map<Category, GetCategoryDto>(C) )
             };
@@ -50,7 +48,7 @@ namespace API.Controllers
                 return HttpErrors.NotFound("Category not found");
             }
 
-            ApiResponse response = new ApiResponse
+            ApiResponse response = new()
             {
                 Data = this._mapper.Map<Category?, GetCategoryDto?>(category)
             };
@@ -94,7 +92,6 @@ namespace API.Controllers
                 await this._categoryService.UpdateCategory(category);
                 response.Data = this._mapper.Map<Category, CreateUpdateCategoryDto>(category);
                 response.Messages.Add("Category updated successfully");
-
             }
 
             return response;

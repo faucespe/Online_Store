@@ -1,11 +1,8 @@
 ﻿using API.Data;
 using API.Data.Filters;
 using API.Data.Models;
-using API.DataTransferObjects;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using System.Net;
 
 namespace API.Services
 {
@@ -47,10 +44,12 @@ namespace API.Services
                 .FirstOrDefaultAsync();
         }
 
+        // InsertPurchaseOrder method fills two tables: PurchaseOrder and PurchaseOrderProducts
         public async Task InsertPurchaseOrder(PurchaseOrder entity)
         {
             var cartProductIds = entity.PurchaseOrderProduct.Select(pop => pop.ProductId);
 
+            // Dictionary implementation to find products faster without iterations
             Dictionary<int, Product> productsDictionary = await this._database.Product
                 .Where(p => cartProductIds.Contains(p.Id))
                 .ToDictionaryAsync(p => p.Id);

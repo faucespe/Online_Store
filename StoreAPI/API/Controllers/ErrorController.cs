@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Net;
 
 namespace API.Controllers
@@ -21,7 +19,7 @@ namespace API.Controllers
         [HttpGet]
         public ObjectResult HandleStatus(HttpStatusCode statusCode)
         {
-            ApiResponse response = new ApiResponse()
+            ApiResponse response = new()
             {
                 statusCode = statusCode,
                 Success = false
