@@ -5,6 +5,7 @@ import { CartService } from '@services/cart/cart.service';
 import { CartProduct, ProductFilter } from '@types';
 import { CategoryService } from '@services/category/category.service';
 import { ProductService } from '@services/product/product.service';
+import { ValidationTranslatorService } from '@shared/translator/validation-translator.service';
 
 @Component({
   selector: 'app-products',
@@ -13,11 +14,13 @@ import { ProductService } from '@services/product/product.service';
   styleUrl: './products.page.css',
 })
 export class ProductsPage implements OnInit {
+  protected filterErrors = signal<string[]>([]);
   protected products = signal<Product[]>([]);
   protected categories = signal<Category[]>([]);
   protected filter = signal<ProductFilter>(new ProductFilter());
   protected showDetailsModal = signal<boolean>(false);
 
+  private translator = inject(ValidationTranslatorService);
   private productService = inject(ProductService);
   private categoryService = inject(CategoryService);
   private cartService = inject(CartService);
@@ -69,11 +72,20 @@ export class ProductsPage implements OnInit {
 
   private loadProducts(filter?: ProductFilter): void {
     this.productService.getProducts(filter).subscribe((apiResponse) => {
-      const receivedProducts = apiResponse.data
-      .filter((product: Product) => product.productStatus.name === 'Activado')
-      .map((product: Product) => ({...product, quantity: 1}));
+      if (!apiResponse.success) {
+        this.filterErrors.set(
+          (apiResponse.messages ?? []).map((message: string) => this.translator.translate(message))
+        );
+        return;
+      }
+
+      this.filterErrors.set([]);
+
+      const receivedProducts = (apiResponse.data ?? [])
+        .filter((product: Product) => product.productStatus.name === 'Activado')
+        .map((product: Product) => ({ ...product, quantity: 1 }));
       this.products.set(receivedProducts);
-    })
+    });
   }
 
   private loadCategories(): void {
