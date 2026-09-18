@@ -96,7 +96,7 @@ SELECT
     V.GrandTotal
 FROM (VALUES
     ('Carlos Rodríguez', '88881111', 'carlos.rodriguez@email.com',
-     'San José, Costa Rica', '2026-08-01 09:30:00', 507000.00),
+     'San José, Costa Rica', '2026-08-01 09:30:00', 472000.00),
 
     ('María González', '88882222', 'maria.gonzalez@email.com',
      'Alajuela, Costa Rica', '2026-08-03 14:15:00', 147000.00),
@@ -111,19 +111,19 @@ FROM (VALUES
      'Puntarenas, Costa Rica', '2026-08-10 10:00:00', 95000.00),
 
     ('Laura Ramírez', '88886666', 'laura.ramirez@email.com',
-     'Limón, Costa Rica', '2026-08-12 13:30:00', 160000.00),
+     'Limón, Costa Rica', '2026-08-12 13:30:00', 90000.00),
 
     ('José Méndez', '88887777', 'jose.mendez@email.com',
-     'Guanacaste, Costa Rica', '2026-08-14 15:45:00', 317000.00),
+     'Guanacaste, Costa Rica', '2026-08-14 15:45:00', 192000.00),
 
     ('Miguel Solano', '88889999', 'miguel.solano@email.com',
-     'San José, Costa Rica', '2026-08-15 09:20:00', 185000.00),
+     'San José, Costa Rica', '2026-08-15 09:20:00', 210000.00),
 
     ('Daniela Rojas', '88880000', 'daniela.rojas@email.com',
-     'Heredia, Costa Rica', '2026-08-16 12:40:00', 117000.00),
+     'Heredia, Costa Rica', '2026-08-16 12:40:00', 95000.00),
 
     ('Luis Jiménez', '88881122', 'luis.jimenez@email.com',
-     'Alajuela, Costa Rica', '2026-08-16 16:10:00', 365000.00)
+     'Alajuela, Costa Rica', '2026-08-16 16:10:00', 450000.00)
 ) AS V(
     CustomerName,
     CustomerPhoneNumber,
@@ -208,7 +208,7 @@ FROM (VALUES
 
     -- Order 8
     ('miguel.solano@email.com', '2026-08-15 09:20:00',
-     'Monitor Curvo 32"', 1, 185000.00),
+     'Monitor Curvo 32', 1, 210000.00),
 
     -- Order 9
     ('daniela.rojas@email.com', '2026-08-16 12:40:00',

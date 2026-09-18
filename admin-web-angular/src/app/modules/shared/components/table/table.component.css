@@ -71,6 +71,22 @@
   display: none;
 }
 
+.table-footer-total {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1rem;
+
+  color: var(--color-primary);
+}
+
+.table-footer-total strong,
+.table-footer-total span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 @media screen and (max-width: 940px) {
 
   .data-table {

@@ -39,6 +39,18 @@
       </tr>
       }
     </tbody>
+    @if (showFooter()) {
+      <tfoot>
+        <tr>
+          <td [attr.colspan]="columns().length + (showActions() || showInfo() ? 1 : 0)">
+            <div class="table-footer-total">
+              <strong>{{ footerLabel() }}</strong>
+              <span>{{ footerValue() }}</span>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    }
   </table>
   } @else {
   <div class="empty-state">

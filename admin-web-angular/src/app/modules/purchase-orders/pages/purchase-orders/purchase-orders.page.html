@@ -65,14 +65,18 @@
       <div class="order-info__row">
         <strong>Teléfono</strong>
         <span>{{ order.customerPhoneNumber }}</span>
-      </div>     
+      </div>
       <div class="order-info__row">
         <strong>Email</strong>
         <span>{{ order.customerEmail }}</span>
-      </div>      
+      </div>
       <div class="order-info__row">
         <strong>Dirección</strong>
         <span>{{ order.customerAddress }}</span>
+      </div>
+      <div class="order-info__row">
+        <strong>Fecha de Compra</strong>
+        <span>{{ order.purchaseDate}}</span>
       </div>
 
       <app-table
@@ -80,6 +84,12 @@
       [columns]="orderProductColumns"
       emptyMessage="Sin Productos"
       class="purchase-order-table"
+      [showFooter]="true"
+      footerLabel="Total:"
+      [footerValue]="'₡' + order.grandTotal.toLocaleString('es-CR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      })"
       />
     </div>
 

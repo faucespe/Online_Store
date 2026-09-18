@@ -24,6 +24,9 @@ export class TableComponent<T = any> {
   showInfo = input<boolean>(false);
   actionLabel = input<string>('Actualizar');
   actionIcon = input<string>('info');
+  public showFooter = input<boolean>(false);
+  public footerLabel = input<string>('');
+  public footerValue = input<string>('');
 
   rowDeactivate = output<T>();
   rowActions = output<T>();
