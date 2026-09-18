@@ -9,6 +9,10 @@
   confirmButtonText="Buscar"
   (onApply)="loadOrders()"
   (onClear)="clearFilters()">
+
+  @for (error of filterErrors(); track error) {
+    <div class="backend-error">{{ error }}</div>
+  }
   <form class="purchase-orders__filters">
     <div>
       <label for="filterId">Código</label>
@@ -32,13 +36,24 @@
 
     <div>
       <label for="filterTotalFrom">Precio mínimo</label>
-      <input id="filterTotalFrom" type="number" [value]="filterTotalFrom() ?? ''" (input)="filterTotalFrom.set(+$any($event.target).value || null)" />
+      <input
+      id="filterTotalFrom"
+      type="number"
+      [value]="filterTotalFrom() ?? ''"
+      (keydown)="($event.key >= '0' && $event.key <= '9') || $event.key === 'Backspace' || $event.key === 'Delete' || $event.key === 'Tab' || $event.key === 'ArrowLeft' || $event.key === 'ArrowRight' || $event.preventDefault()"
+      (paste)="$event.preventDefault()"
+      (input)="filterTotalFrom.set(+$any($event.target).value || null)"
+      />
     </div>
-
-    <div>
       <label for="filterTotalTo">Precio máximo</label>
-      <input id="filterTotalTo" type="number" [value]="filterTotalTo() ?? ''" (input)="filterTotalTo.set(+$any($event.target).value || null)" />
-    </div>
+      <input
+      id="filterTotalTo"
+      type="number"
+      [value]="filterTotalTo() ?? ''"
+      (keydown)="($event.key >= '0' && $event.key <= '9') || $event.key === 'Backspace' || $event.key === 'Delete' || $event.key === 'Tab' || $event.key === 'ArrowLeft' || $event.key === 'ArrowRight' || $event.preventDefault()"
+      (paste)="$event.preventDefault()"
+      (input)="filterTotalTo.set(+$any($event.target).value || null)"
+      />
   </form>
 </app-filter>
 

@@ -4,6 +4,7 @@ import { PurchaseOrderFilters } from 'src/app/types/purchaseOrder/purchase-order
 import { PurchaseOrderService } from '@services/purchase-order/purchase-order.service';
 import { TableColumn } from '@shared/components/table/table.component';
 import { formatDate } from '@angular/common';
+import { ValidationTranslatorService } from '@shared/translator/validation-translator.service';
 
 @Component({
   selector: 'app-purchase-orders',
@@ -13,6 +14,7 @@ import { formatDate } from '@angular/common';
 })
 export class PurchaseOrdersPage implements OnInit {
   private purchaseOrderService = inject(PurchaseOrderService);
+  private validationTranslator = inject(ValidationTranslatorService);
 
   public orders = signal<PurchaseOrder[]>([]);
   public showModal = signal(false);
@@ -25,6 +27,8 @@ export class PurchaseOrdersPage implements OnInit {
   public filterDateTo = signal<string>('');
   public filterTotalFrom = signal<number | null>(null);
   public filterTotalTo = signal<number | null>(null);
+
+  protected filterErrors = signal<string[]>([]);
 
   protected onPhoneFilterInput(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -74,7 +78,17 @@ export class PurchaseOrdersPage implements OnInit {
     };
 
     this.purchaseOrderService.getPurchaseOrders(filters).subscribe({
-      next: (response) => this.orders.set(response.data.flat()),
+      next: (response) => {
+        if (!response.success) {
+          this.filterErrors.set(
+            (response.messages ?? []).map((message: string) => this.validationTranslator.translate(message))
+          );
+          return;
+        }
+
+        this.filterErrors.set([]);
+        this.orders.set(response.data.flat());
+      },
       error: (error) => console.error(error),
     });
   }
@@ -88,6 +102,7 @@ export class PurchaseOrdersPage implements OnInit {
     this.filterDateTo.set('');
     this.filterTotalFrom.set(null);
     this.filterTotalTo.set(null);
+    this.filterErrors.set([]);
     this.loadOrders();
   }
 

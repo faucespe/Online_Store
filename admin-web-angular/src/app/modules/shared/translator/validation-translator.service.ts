@@ -26,6 +26,18 @@ export class ValidationTranslatorService {
         'CreatedAt must be less than or equal to the current date/time.' : 'Fecha de creación no puede ser posterior a la fecha/hora actual.',
         'UpdatedAt must be less than or equal to the current date/time.' : 'Fecha de actualización no puede ser posterior a la fecha/hora actual.',
         'UpdatedAt must be later than CreatedAt.' : 'Fecha de actualización debe ser posterior a Fecha de creación',
+        'Minimum price must be greater than or equal to 0.': 'El precio mínimo debe ser mayor o igual a 0.',
+        'Minimum price must be less than or equal to 99,999,999.99.': 'El precio mínimo debe ser menor o igual a 99,999,999.99.',
+        'Maximum price must be greater than or equal to 0.': 'El precio máximo debe ser mayor o igual a 0.',
+        'Maximum price must be less than or equal to 99,999,999.99.': 'El precio máximo debe ser menor o igual a 99,999,999.99.',
+        'Minimum price cannot be greater than maximum price.': 'El precio mínimo no puede ser mayor al máximo.',
+
+        // Filtro de órdenes de compra
+        'Minimum total must be greater than or equal to 0.': 'El total mínimo debe ser mayor o igual a 0.',
+        'Minimum total must be less than or equal to 99,999,999.99.': 'El total mínimo debe ser menor o igual a 99,999,999.99.',
+        'Maximum total must be greater than or equal to 0.': 'El total máximo debe ser mayor o igual a 0.',
+        'Maximum total must be less than or equal to 99,999,999.99.': 'El total máximo debe ser menor o igual a 99,999,999.99.',
+        'Minimum total cannot be greater than maximum total.': 'El total mínimo no puede ser mayor al máximo.',
     };
     
     translate(message: string): string {

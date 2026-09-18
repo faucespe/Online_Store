@@ -28,16 +28,19 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> ListProducts([FromQuery] FilterProductDto data)
         {
-            ProductFilters filter = this._mapper.Map<FilterProductDto, ProductFilters>(data);
-            List<Product> list = await this._productService.ListProducts(filter)
-                .OrderBy(p => p.Id)
-                .ThenBy(p => p.Name)
-                .ToListAsync();
+            ApiResponse response = new();
+            response.Success = this._productValidator.ValidateFilterProductDto(data, response.Messages);
 
-            ApiResponse response = new()
+            if (response.Success)
             {
-                Data = list.Select(p => this._mapper.Map<Product, GetProductDto>(p))
-            };
+                ProductFilters filter = this._mapper.Map<FilterProductDto, ProductFilters>(data);
+                List<Product> list = await this._productService.ListProducts(filter)
+                    .OrderBy(p => p.Id)
+                    .ThenBy(p => p.Name)
+                    .ToListAsync();
+
+                response.Data = list.Select(p => this._mapper.Map<Product, GetProductDto>(p));
+            }
 
             return response;
         }

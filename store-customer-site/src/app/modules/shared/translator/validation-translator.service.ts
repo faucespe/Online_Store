@@ -3,6 +3,14 @@ import { Injectable } from "@angular/core";
 @Injectable({ providedIn: 'root'})
 export class ValidationTranslatorService {
     private readonly translations: Record<string, string> = {
+        // Filtro de productos
+        'Minimum price must be greater than or equal to 0.': 'El precio mínimo debe ser mayor o igual a 0.',
+        'Minimum price must be less than or equal to 99,999,999.99.': 'El precio mínimo debe ser menor o igual a 99,999,999.99.',
+        'Maximum price must be greater than or equal to 0.': 'El precio máximo debe ser mayor o igual a 0.',
+        'Maximum price must be less than or equal to 99,999,999.99.': 'El precio máximo debe ser menor o igual a 99,999,999.99.',
+        'Minimum price cannot be greater than maximum price.': 'El precio mínimo no puede ser mayor al máximo.',
+        'Price must be less than or equal to 99,999,999.99.': 'El precio debe ser menor o igual a 99,999,999.99.',  
+                
         "There is a product that doesn't exist.": 'Hay un producto que ya no existe.',
         "There is a product that doesn't have enough stock.": 'Hay un producto sin suficiente stock.',
         'Cart products list can not be empty.': 'El carrito no puede estar vacío.',

@@ -7,6 +7,7 @@ namespace API.Validators
     public class ProductValidator : IProductValidator
     {
         private readonly StoreDB _database;
+        private const decimal MaxPrice = 99_999_999.99m;
 
         public ProductValidator(StoreDB database)
         {
@@ -62,6 +63,10 @@ namespace API.Validators
             {
                 innerMessages.Add("Price must be greater than 0.");
             }
+            else if (data.Price > MaxPrice)
+            {
+                innerMessages.Add($"Price must be less than or equal to {MaxPrice:N2}.");
+            }
 
             // CategoryId
             if (!data.CategoryId.HasValue)
@@ -110,6 +115,47 @@ namespace API.Validators
                 {
                     innerMessages.Add("UpdatedAt must be less than or equal to the current date/time.");
                 }
+            }
+
+            messages.AddRange(innerMessages);
+
+            return !innerMessages.Any();
+        }
+
+        public bool ValidateFilterProductDto(FilterProductDto data, List<string> messages)
+        {
+            List<string> innerMessages = new();
+
+            // MinPrice
+            if (data.MinPrice.HasValue)
+            {
+                if (data.MinPrice < 0)
+                {
+                    innerMessages.Add("Minimum price must be greater than or equal to 0.");
+                }
+                else if (data.MinPrice > MaxPrice)
+                {
+                    innerMessages.Add($"Minimum price must be less than or equal to {MaxPrice:N2}.");
+                }
+            }
+
+            // MaxPrice
+            if (data.MaxPrice.HasValue)
+            {
+                if (data.MaxPrice < 0)
+                {
+                    innerMessages.Add("Maximum price must be greater than or equal to 0.");
+                }
+                else if (data.MaxPrice > MaxPrice)
+                {
+                    innerMessages.Add($"Maximum price must be less than or equal to {MaxPrice:N2}.");
+                }
+            }
+
+            // MinPrice vs MaxPrice
+            if (data.MinPrice.HasValue && data.MaxPrice.HasValue && data.MinPrice > data.MaxPrice)
+            {
+                innerMessages.Add("Minimum price cannot be greater than maximum price.");
             }
 
             messages.AddRange(innerMessages);

@@ -6,32 +6,41 @@
 <div class="filter-row">
   <app-filter searchLabel="Busqueda por nombre de producto" [(searchingText)]="filter.name" (onApply)="applyFilter()"
     (onClear)="clearFilter()">
+
+    @for (error of filterErrors(); track error) {
+      <div class="backend-error">{{ error }}</div>
+    }
+
     <div class="filter-content">
         <app-input 
-        name="minPrice" 
-        type="number" 
-        label="Precio mínimo" 
-        [min]="0" 
-        [(model)]="filter.minPrice"
+          name="minPrice"
+          type="number"
+          label="Precio mínimo"
+          [min]="0"
+          [(model)]="filter.minPrice"
+          (keydown)="($event.key >= '0' && $event.key <= '9') || $event.key === 'Backspace' || $event.key === 'Delete' || $event.key === 'Tab' || $event.key === 'ArrowLeft' || $event.key === 'ArrowRight' || $event.preventDefault()"
+          (paste)="$event.preventDefault()"
         />
         <app-input 
-        name="maxPrice" 
-        type="number" 
-        label="Precio máximo" 
-        [min]="0" 
-        [(model)]="filter.maxPrice"
+          name="maxPrice"
+          type="number"
+          label="Precio máximo"
+          [min]="0"
+          [(model)]="filter.maxPrice"
+          (keydown)="($event.key >= '0' && $event.key <= '9') || $event.key === 'Backspace' || $event.key === 'Delete' || $event.key === 'Tab' || $event.key === 'ArrowLeft' || $event.key === 'ArrowRight' || $event.preventDefault()"
+          (paste)="$event.preventDefault()"
+        />
+          <app-select 
+          name="category" 
+          label="Categoría" 
+          [options]="categories()" 
+          [(model)]="filter.category"
         />
         <app-select 
-        name="category" 
-        label="Categoría" 
-        [options]="categories()" 
-        [(model)]="filter.category"
-        />
-        <app-select 
-        name="status" 
-        label="Estado" 
-        [options]="statuses()" 
-        [(model)]="filter.productStatus"
+          name="status" 
+          label="Estado" 
+          [options]="statuses()" 
+          [(model)]="filter.productStatus"
         />
       </div>
   </app-filter>

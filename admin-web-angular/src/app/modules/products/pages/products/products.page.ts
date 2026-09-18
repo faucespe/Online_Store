@@ -34,6 +34,8 @@ export class ProductsPage implements OnInit {
   public selectedProduct = signal<Product | null>(null);
   public showProductInfoModal = signal(false);
 
+  protected filterErrors = signal<string[]>([]);
+
   protected readonly defaultImagePath = signal<string>('/img/no-image-available.jpg');
 
   ngOnInit(): void {
@@ -78,7 +80,15 @@ export class ProductsPage implements OnInit {
   public loadProducts(filter?: FilterProductDTO): void {
     this.productService.getProducts(filter).subscribe({
       next: (apiResponse) => {
-        this.products.set(apiResponse.data);
+        if (!apiResponse.success) {
+          this.filterErrors.set(
+            (apiResponse.messages ?? []).map((message: string) => this.validationTranslator.translate(message))
+          );
+          return;
+        }
+
+        this.filterErrors.set([]);
+        this.products.set(apiResponse.data ?? []);
       },
       error: (error) => {
       }
@@ -137,9 +147,10 @@ export class ProductsPage implements OnInit {
 
   public clearFilter(): void {
     this.filter = new FilterProductDTO();
+    this.filterErrors.set([]); // NUEVO
     this.loadProducts();
   }
-
+  
   // Función para resetear el producto actual cada vez que se cierra el modal,
   // para evitar que se mantenga la información del producto anterior
   public resetProduct(): void {
