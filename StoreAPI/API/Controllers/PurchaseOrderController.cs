@@ -4,7 +4,6 @@ using API.DataTransferObjects;
 using API.Services;
 using API.Validators;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -48,7 +47,7 @@ namespace API.Controllers
             {
                 return HttpErrors.NotFound("Purchase order does not exist in the system");
             }
-            ApiResponse response = new ApiResponse()
+            ApiResponse response = new()
             {
                 Data = this._mapper.Map<PurchaseOrder, GetPurchaseOrderDto>(purchaseOrder)
             };
@@ -58,7 +57,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<ApiResponse>> InsertPurchaseOrder(CreatePurchaseOrderDto data)
         {
-            ApiResponse response = new ApiResponse();
+            ApiResponse response = new();
             response.Success = await this._purchaseOrderValidator.ValidateCreateUpdatePurchaseOrder(null, data, response.Messages);
 
             if (response.Success)

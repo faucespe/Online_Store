@@ -2,7 +2,6 @@
 using API.DataTransferObjects;
 using API.Services;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +24,7 @@ namespace API.Controllers
         public async Task<ActionResult<ApiResponse>> ListCategoryStatus()
         {
             List<CategoryStatus> list = await this._categoryStatusService.ListCategoryStatus().ToListAsync();
-            ApiResponse response = new ApiResponse()
+            ApiResponse response = new()
             {
                 Data = list.Select(cs => this._mapper.Map<CategoryStatus, GetCategoryStatusDto>(cs))
             };

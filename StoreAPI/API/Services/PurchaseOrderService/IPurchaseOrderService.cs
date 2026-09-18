@@ -1,6 +1,5 @@
 ﻿using API.Data.Filters;
 using API.Data.Models;
-using API.DataTransferObjects;
 
 namespace API.Services
 {
