@@ -9,7 +9,7 @@
   confirmButtonText="Buscar"
   (onApply)="loadOrders()"
   (onClear)="clearFilters()">
-  <div class="purchase-orders__filters">
+  <form class="purchase-orders__filters">
     <div>
       <label for="filterId">Código</label>
       <input id="filterId" type="number" [value]="filterId() ?? ''" (input)="filterId.set(+$any($event.target).value || null)">
@@ -39,7 +39,7 @@
       <label for="filterTotalTo">Precio máximo</label>
       <input id="filterTotalTo" type="number" [value]="filterTotalTo() ?? ''" (input)="filterTotalTo.set(+$any($event.target).value || null)" />
     </div>
-  </div>
+  </form>
 </app-filter>
 
 <app-table

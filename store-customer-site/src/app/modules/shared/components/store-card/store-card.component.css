@@ -12,7 +12,7 @@
   width: 40%;
   overflow: hidden;
   height: 20rem;
-  border: .15rem solid #ddd
+  border: .15rem solid var(--color-text-secondary)
 }
 
 .card__image {

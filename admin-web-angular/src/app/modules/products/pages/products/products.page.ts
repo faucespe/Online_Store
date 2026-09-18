@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal , model } from '@angular/core';
+import { Component, OnInit, inject, signal, model } from '@angular/core';
 import { ApiResponse } from 'src/app/types/http/http.types';
 import { Product } from '@models/product/product.model';
 import { ProductService } from '../../../../services/product/product.service';
@@ -27,7 +27,7 @@ export class ProductsPage implements OnInit {
   private categoryService = inject(CategoryService);
   public categories = signal<Category[]>([]);;
   public filter = new FilterProductDTO();
-  isActive = model<boolean>(false);
+  protected isActive = model<boolean>(false);
   public backendError = signal('');
   protected showCreateUpdateProductModal = model<boolean>(false);
   public validationMessage = signal('');
@@ -42,46 +42,46 @@ export class ProductsPage implements OnInit {
     this.loadProductStatuses();
   }
 
-public handleConfirmation(): void {
-  this.backendError.set('');
+  public handleConfirmation(): void {
+    this.backendError.set('');
 
-  const request = this.product.id
-    ? this.productService.updateProduct(this.product)
-    : this.productService.createProduct(this.product);
+    const request = this.product.id
+      ? this.productService.updateProduct(this.product)
+      : this.productService.createProduct(this.product);
 
-  request.subscribe({
-    next: (response) => {
-      if (!response.success) {
-        const rawMessage = response.messages?.[0] ?? 'Ocurrió un error al guardar el producto.';
-        this.backendError.set(this.validationTranslator.translate(rawMessage));
-        return;
-      }
-
-      this.isActive.set(false);
-
-      this.productService.getProducts().subscribe({
-        next: (apiResponse) => {
-          this.products.set(apiResponse.data);
+    request.subscribe({
+      next: (response) => {
+        if (!response.success) {
+          const rawMessage = response.messages?.[0] ?? 'Ocurrió un error al guardar el producto.';
+          this.backendError.set(this.validationTranslator.translate(rawMessage));
+          return;
         }
-      });
-    },
-    error: (error: { error: ApiResponse }) => {
-      const rawMessage = error.error?.messages?.[0] ?? 'Ocurrió un error al guardar el producto.';
-      this.backendError.set(this.validationTranslator.translate(rawMessage));
-    },
-  });
 
-  this.showCreateUpdateProductModal.set(false);
-}
+        this.isActive.set(false);
+
+        this.productService.getProducts().subscribe({
+          next: (apiResponse) => {
+            this.products.set(apiResponse.data);
+          }
+        });
+      },
+      error: (error: { error: ApiResponse }) => {
+        const rawMessage = error.error?.messages?.[0] ?? 'Ocurrió un error al guardar el producto.';
+        this.backendError.set(this.validationTranslator.translate(rawMessage));
+      },
+    });
+
+    this.showCreateUpdateProductModal.set(false);
+  }
 
   // Función para cargar los productos desde el servicio de productos, con la opción de aplicar un filtro
   public loadProducts(filter?: FilterProductDTO): void {
     this.productService.getProducts(filter).subscribe({
-        next: (apiResponse) => {
-          this.products.set(apiResponse.data);
-        },
-        error: (error) => {
-        }
+      next: (apiResponse) => {
+        this.products.set(apiResponse.data);
+      },
+      error: (error) => {
+      }
     });
   }
 
@@ -107,7 +107,7 @@ public handleConfirmation(): void {
     });
   }
 
-  //Desglose de datos de tabla para insertar los datos de los productos
+  // Se definen las columnas para ser consumidas por el table component
   public productColumns: TableColumn<Product>[] = [
     { key: 'name', header: 'Nombre' },
     { key: 'category.name', header: 'Categoría' },
@@ -130,33 +130,20 @@ public handleConfirmation(): void {
     this.showCreateUpdateProductModal.set(true);
   }
 
-  // Función para aplicar el filtro de productos
   public applyFilter(): void {
-      const filter = new FilterProductDTO(this.filter);
-      this.loadProducts(filter);
+    const filter = new FilterProductDTO(this.filter);
+    this.loadProducts(filter);
   }
 
-  // Función para limpiar el filtro de productos (inputs y selects), y recargar los productos sin filtro
   public clearFilter(): void {
     this.filter = new FilterProductDTO();
     this.loadProducts();
   }
 
-  // Función para resetear el producto actual cada vez que se cierra el modal, para evitar que se mantenga la información del producto anterior
-  // Ya que se esta utilizando el mismo modal para crear y actualizar productos, si no se resetea el producto, al abrir el modal para crear un nuevo producto,
-  // se mostrará la información del producto anterior
+  // Función para resetear el producto actual cada vez que se cierra el modal,
+  // para evitar que se mantenga la información del producto anterior
   public resetProduct(): void {
     this.product = new Product();
-  }
-
-  // Función para mostrar mensajes de inserción de datos erronea
-  private showValidationMessage(message: string): void {
-    this.backendError.set(message);
-
-    //Tiempo para que se quite el mensaje del modal
-    setTimeout(() => {
-      this.backendError.set('');
-    }, 6000);
   }
 
   //Función para ver la info de un producto

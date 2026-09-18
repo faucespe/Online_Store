@@ -56,7 +56,6 @@ export class ProductsPage implements OnInit {
   }
 
   protected applyFilter(): void {
-    console.log(this.filter())
     this.loadProducts(this.filter());
   }
 

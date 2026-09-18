@@ -7,44 +7,44 @@
         <form class="form" novalidate (submit)="savePurchaseOrder($event)">
             <h2 class="form__title">Datos de contacto</h2>
             @if (messages()) {
-                <ul>
-                    @for (message of messages(); track $index) {
-                        <li class="validation-message">{{message}}</li>
-                    }
-                </ul>
+            <ul>
+                @for (message of messages(); track $index) {
+                <li class="validation-message">{{message}}</li>
+                }
+            </ul>
             }
             <div>
                 <label for="customerName">Nombre completo</label>
-                <input [value]="customerName()" (input)="customerName.set($event.target.value)" placeholder="Ej. Juan Aguirre" id="customerName" type="text" />
+                <input [value]="customerName()" (input)="customerName.set($event.target.value)"
+                    placeholder="Ej. Juan Aguirre" id="customerName" type="text" />
             </div>
             <div>
                 <label for="customerEmail">Correo electrónico</label>
-                <input [value]="customerEmail()" (input)="customerEmail.set($event.target.value)" placeholder="nombre@correo.com" id="customerEmail" type="email" />
+                <input [value]="customerEmail()" (input)="customerEmail.set($event.target.value)"
+                    placeholder="nombre@correo.com" id="customerEmail" type="email" />
             </div>
             <div>
                 <label for="customerPhoneNumber">Número telefónico</label>
-                <input [value]="customerPhoneNumber()" (input)="onPhoneInput($event)" placeholder="89898989" id="customerPhoneNumber" type="tel" maxlength="8"/>
+                <input [value]="customerPhoneNumber()" (input)="onPhoneInput($event)" placeholder="89898989"
+                    id="customerPhoneNumber" type="tel" maxlength="8" />
             </div>
             <div>
                 <label for="customerAddress">Dirección exacta</label>
-                <input [value]="customerAddress()" placeholder="Ej. Provincia, cantón, distrito, señales adicionales..." (input)="customerAddress.set($event.target.value)" id="customerAddress" type="text" />
+                <input [value]="customerAddress()" placeholder="Ej. Provincia, cantón, distrito, señales adicionales..."
+                    (input)="customerAddress.set($event.target.value)" id="customerAddress" type="text" />
             </div>
-        
+
             <div class="form__footer">
-                <app-store-btn type="submit" [isDisabled]="disableButton()" buttonText="Finalizar pedido"></app-store-btn>
+                <app-store-btn type="submit" [isDisabled]="disableButton()"
+                    buttonText="Finalizar pedido"></app-store-btn>
                 <p class="form__grand-total">Monto total: {{ grandTotal() | currencyFormat }}</p>
             </div>
         </form>
     </main>
 
     <!-- Purchase Order creation success modal-->
-    <app-store-modal 
-        modalTitle="Orden enviada"
-        [(showModal)]="showPurhcaseOrderCreationModal"
-        [showCancelButton]="false"
-        confirmLabel="Aceptar"
-        (onConfirm)="this.router.navigate(['/'])"
-    >
+    <app-store-modal modalTitle="Orden enviada" [(showModal)]="showPurhcaseOrderCreationModal"
+        [showCancelButton]="false" confirmLabel="Aceptar" (onConfirm)="this.router.navigate(['/'])">
         <p>Su orden ha sido enviada exitosamente!</p>
     </app-store-modal>
 </section>

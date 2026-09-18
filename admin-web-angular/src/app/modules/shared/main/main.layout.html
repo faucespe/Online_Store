@@ -8,44 +8,36 @@
   <h1>Web de Administración</h1>
   <div class="main__actions-container">
     <app-button shape="rounded" color="secondary" icon="menu" (click)="toggleMenu()"></app-button>
-    
+
     @if (menuOpen()) {
-      <nav class="menu-options">
-        <a routerLink="/">Órdenes de Compra</a>
-        <a routerLink="/products">Productos</a>
-        <a routerLink="/categories">Categorías</a>
-      </nav>
+    <nav class="menu-options">
+      <a routerLink="/">Órdenes de Compra</a>
+      <a routerLink="/products">Productos</a>
+      <a routerLink="/categories">Categorías</a>
+    </nav>
     }
   </div>
 </header>
 
 <section class="wrapper">
-    <nav class="sidenav">
+  <nav class="sidenav">
     <h3 class="category">Menú Principal</h3>
     <ul class="list">
       <li>
-        <a routerLink="/"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >Órdenes de Compra
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Órdenes de Compra
         </a>
       </li>
       <li>
-        <a routerLink="/products"
-          routerLinkActive="active"
-          >Productos</a>
+        <a routerLink="/products" routerLinkActive="active">Productos</a>
       </li>
-      <li> 
-        <a routerLink="/categories"
-        routerLinkActive="active"
-        >Categorías</a>
+      <li>
+        <a routerLink="/categories" routerLinkActive="active">Categorías</a>
       </li>
     </ul>
   </nav>
 
   <main>
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 
   </main>
 </section>
-

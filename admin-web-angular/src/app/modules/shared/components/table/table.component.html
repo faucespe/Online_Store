@@ -1,48 +1,48 @@
 <div class="table-wrapper">
   @if (data() && data().length > 0) {
-    <table class="data-table">
-      <thead>
-        <tr>
-          @for (column of columns(); track column.key) {
-            <th [class.numeric]="column.align === 'right'">
-              {{ column.header }}
-            </th>
-          }
-          @if (showActions() || showInfo()) {
-            <th class="actions-col"></th>
-          }
-        </tr>
-      </thead>
-      <tbody>
-        @for (row of data(); track $index) {
-          <tr>
-            @for (column of columns(); track column.key) {
-              <td [class.numeric]="column.align === 'right'">
-                <span class="mobile-label">
-                  {{ column.header }}
-                </span>
-                {{ getCellValue(row, column) }}
-              </td>
-            }
-            @if (showActions() || showInfo()) {
-              <td class="actions-col">
-                <div class="actions-cell">
-                  @if (showInfo()) {
-                    <app-button color="primary" icon="info" shape="rounded" (click)="rowDeactivate.emit(row)"/>
-                  }
-                  @if (showActions()) {
-                    <app-button color="primary" icon="edit" shape="rounded" (click)="rowActions.emit(row)"/>
-                  }
-                </div>
-              </td>
-            }
-          </tr>
+  <table class="data-table">
+    <thead>
+      <tr>
+        @for (column of columns(); track column.key) {
+        <th [class.numeric]="column.align === 'right'">
+          {{ column.header }}
+        </th>
         }
-      </tbody>
-    </table>
+        @if (showActions() || showInfo()) {
+        <th class="actions-col"></th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of data(); track $index) {
+      <tr>
+        @for (column of columns(); track column.key) {
+        <td [class.numeric]="column.align === 'right'">
+          <span class="mobile-label">
+            {{ column.header }}
+          </span>
+          {{ getCellValue(row, column) }}
+        </td>
+        }
+        @if (showActions() || showInfo()) {
+        <td class="actions-col">
+          <div class="actions-cell">
+            @if (showInfo()) {
+            <app-button color="primary" icon="info" shape="rounded" (click)="rowDeactivate.emit(row)" />
+            }
+            @if (showActions()) {
+            <app-button color="primary" icon="edit" shape="rounded" (click)="rowActions.emit(row)" />
+            }
+          </div>
+        </td>
+        }
+      </tr>
+      }
+    </tbody>
+  </table>
   } @else {
-    <div class="empty-state">
-      {{ emptyMessage() }}
-    </div>
+  <div class="empty-state">
+    {{ emptyMessage() }}
+  </div>
   }
 </div>
