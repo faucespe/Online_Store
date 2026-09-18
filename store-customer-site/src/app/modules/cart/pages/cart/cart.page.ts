@@ -13,9 +13,7 @@ export class CartPage implements OnDestroy, OnInit {
   private cartService = inject(CartService);
   protected cartProducts = signal<CartProduct[]>([]);
   protected cartTotalItemsCounter = signal<number>(0);
-
   protected subscriptions: Subscription;
-
   protected grandTotal = computed(() => this.cartProducts().reduce((total, product) => total + (product.price * product.quantity), 0))
 
   protected increaseProductQuantityById(productId: number) {
@@ -33,7 +31,6 @@ export class CartPage implements OnDestroy, OnInit {
   protected emptyCart(): void {
     this.cartService.emptyCart();
   }
-
 
   constructor() {
     this.subscriptions = new Subscription();

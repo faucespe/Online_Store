@@ -12,7 +12,7 @@ export class StoreCard {
   public readonly imageUrl = input<string>('');
   public readonly imageDescription = input<string>('Item image');
 
-  private readonly defaultImageUrl = 'https://www.gstatic.com/webp/gallery/4.webp';
+  private readonly defaultImageUrl = '/img/no-image-available.jpg';
   private readonly validExtensions: imageExtensions[] = ['jpg', 'jpeg', 'png', 'webp'];
 
   //Validate image format

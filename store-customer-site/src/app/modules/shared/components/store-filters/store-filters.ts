@@ -10,13 +10,18 @@ export class StoreFilters {
   public readonly searchingText = model<string>('');
   public readonly showonConfirmButton = input<boolean>(true);
   public readonly cancelButtonText = input<string>('Cancelar');
-  public readonly confirmButtonText = input<string>('Confirmar');
   public showPopover = signal<boolean>(false);
 
-  onConfirm = output<void>();
+  public onApply = output<void>();
+  public onClear = output<void>();
 
-  handleConfirm() {
-    this.onConfirm.emit();
+  public applyFilter(): void {
+    this.onApply.emit();
+  }
+
+  public clearFilter(): void {
+    this.searchingText.set('');
+    this.onClear.emit();
   }
 
   onInputText(event: Event) {

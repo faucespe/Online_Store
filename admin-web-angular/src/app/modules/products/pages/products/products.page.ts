@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal , model } from '@angular/core';
+import { Component, OnInit, inject, signal, model } from '@angular/core';
 import { ApiResponse } from 'src/app/types/http/http.types';
 import { Product } from '@models/product/product.model';
 import { ProductService } from '../../../../services/product/product.service';
@@ -9,12 +9,6 @@ import { Category } from '@models/category/category.model';
 import { FilterProductDTO } from 'src/app/types/product/product.dto';
 import { TableColumn } from '@shared/components/table/table.component';
 import { ValidationTranslatorService } from '@shared/translator/validation-translator.service';
-
-// CRÍTICA CONSTRUCTIVA:
-// ProductsPage está concentrando muchas responsabilidades relacionadas con las
-// solicitudes al API. Es una idea recomendable, centralizar estas funcionalidades en
-// una capa o servicio dedicado al manejo de las operaciones con el API
-// y dejar product.page.ts centrado en ui
 
 @Component({
   selector: 'app-products',
@@ -33,13 +27,14 @@ export class ProductsPage implements OnInit {
   private categoryService = inject(CategoryService);
   public categories = signal<Category[]>([]);;
   public filter = new FilterProductDTO();
-  isActive = model<boolean>(false);
+  protected isActive = model<boolean>(false);
   public backendError = signal('');
+  protected showCreateUpdateProductModal = model<boolean>(false);
+  public validationMessage = signal('');
   public selectedProduct = signal<Product | null>(null);
   public showProductInfoModal = signal(false);
 
-  //imagen por default si una imagen no tiene una imagen de carga
-  public readonly defaultImageUrl = 'https://www.gstatic.com/webp/gallery/4.webp';
+  protected readonly defaultImagePath = signal<string>('/img/no-image-available.jpg');
 
   ngOnInit(): void {
     this.loadProducts();
@@ -47,44 +42,46 @@ export class ProductsPage implements OnInit {
     this.loadProductStatuses();
   }
 
-public handleConfirmation(): void {
-  this.backendError.set('');
+  public handleConfirmation(): void {
+    this.backendError.set('');
 
-  const request = this.product.id
-    ? this.productService.updateProduct(this.product)
-    : this.productService.createProduct(this.product);
+    const request = this.product.id
+      ? this.productService.updateProduct(this.product)
+      : this.productService.createProduct(this.product);
 
-  request.subscribe({
-    next: (response) => {
-      if (!response.success) {
-        const rawMessage = response.messages?.[0] ?? 'Ocurrió un error al guardar el producto.';
-        this.backendError.set(this.validationTranslator.translate(rawMessage));
-        return;
-      }
-
-      this.isActive.set(false);
-
-      this.productService.getProducts().subscribe({
-        next: (apiResponse) => {
-          this.products.set(apiResponse.data);
+    request.subscribe({
+      next: (response) => {
+        if (!response.success) {
+          const rawMessage = response.messages?.[0] ?? 'Ocurrió un error al guardar el producto.';
+          this.backendError.set(this.validationTranslator.translate(rawMessage));
+          return;
         }
-      });
-    },
-    error: (error: { error: ApiResponse }) => {
-      const rawMessage = error.error?.messages?.[0] ?? 'Ocurrió un error al guardar el producto.';
-      this.backendError.set(this.validationTranslator.translate(rawMessage));
-    },
-  });
-}
+
+        this.isActive.set(false);
+
+        this.productService.getProducts().subscribe({
+          next: (apiResponse) => {
+            this.products.set(apiResponse.data);
+          }
+        });
+      },
+      error: (error: { error: ApiResponse }) => {
+        const rawMessage = error.error?.messages?.[0] ?? 'Ocurrió un error al guardar el producto.';
+        this.backendError.set(this.validationTranslator.translate(rawMessage));
+      },
+    });
+
+    this.showCreateUpdateProductModal.set(false);
+  }
 
   // Función para cargar los productos desde el servicio de productos, con la opción de aplicar un filtro
   public loadProducts(filter?: FilterProductDTO): void {
     this.productService.getProducts(filter).subscribe({
-        next: (apiResponse) => {
-          this.products.set(apiResponse.data);
-        },
-        error: (error) => {
-        }
+      next: (apiResponse) => {
+        this.products.set(apiResponse.data);
+      },
+      error: (error) => {
+      }
     });
   }
 
@@ -110,13 +107,12 @@ public handleConfirmation(): void {
     });
   }
 
-  //Desglose de datos de tabla para insertar los datos de los productos
+  // Se definen las columnas para ser consumidas por el table component
   public productColumns: TableColumn<Product>[] = [
     { key: 'name', header: 'Nombre' },
     { key: 'category.name', header: 'Categoría' },
     { key: 'productStatus.name', header: 'Estado' },
     { key: 'price', header: 'Precio', align: 'right', format: 'currency' },
-    { key: 'stock', header: 'Stock', align: 'right' }
   ];
 
   //Función para insertar o actualizar un dato producto, con el set de productStatus como activo
@@ -131,41 +127,28 @@ public handleConfirmation(): void {
       });
     }
 
-    this.isActive.set(true);
+    this.showCreateUpdateProductModal.set(true);
   }
 
-  // Función para aplicar el filtro de productos
   public applyFilter(): void {
-      const filter = new FilterProductDTO(this.filter);
-      this.loadProducts(filter);
+    const filter = new FilterProductDTO(this.filter);
+    this.loadProducts(filter);
   }
 
-  // Función para limpiar el filtro de productos (inputs y selects), y recargar los productos sin filtro
   public clearFilter(): void {
     this.filter = new FilterProductDTO();
     this.loadProducts();
   }
 
-  // Función para resetear el producto actual cada vez que se cierra el modal, para evitar que se mantenga la información del producto anterior
-  // Ya que se esta utilizando el mismo modal para crear y actualizar productos, si no se resetea el producto, al abrir el modal para crear un nuevo producto,
-  // se mostrará la información del producto anterior
+  // Función para resetear el producto actual cada vez que se cierra el modal,
+  // para evitar que se mantenga la información del producto anterior
   public resetProduct(): void {
     this.product = new Product();
   }
 
-  // Función para mostrar mensajes de inserción de datos erronea
-  private showValidationMessage(message: string): void {
-    this.backendError.set(message);
-
-    //Tiempo para que se quite el mensaje del modal
-    setTimeout(() => {
-      this.backendError.set('');
-    }, 6000);
-  }
-
   //Función para ver la info de un producto
   public onViewProduct(product: Product): void {
-    this.isActive.set(false);
+    this.showCreateUpdateProductModal.set(false);
     this.selectedProduct.set(product);
     this.showProductInfoModal.set(true);
   }

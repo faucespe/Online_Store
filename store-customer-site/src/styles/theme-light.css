@@ -4,6 +4,7 @@ body.light {
    /* GENERAL */
    --color-primary: #008dff;
    --color-primary-hover: #007fe7;
+   --color-info: #485cc3;
    --color-secondary: #abc1f8;
    --color-secondary-hover: #9cb1e5;
    --color-text-primary: rgb(56, 56, 56);
@@ -12,6 +13,8 @@ body.light {
    --color-text-secondary-hover: rgb(207, 206, 206);
    --color-primary-shadow: #888;
    --color-app-overlay: rgba(102, 123, 233, .7);
+   --color-tertiary: #21a52c;
+   --color-tertiary-hover: #1d9327;
 
    /* LAYOUT */
    --color-background-topbar: #3d3e45;
