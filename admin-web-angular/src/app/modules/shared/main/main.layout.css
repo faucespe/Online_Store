@@ -13,7 +13,7 @@ main {
   object-fit: cover;
   cursor: pointer;
   border-radius: 30%;
-  margin: 10px 0;
+  margin: 1rem 0;
   background-color: var(--color-background-secondary);
   padding: .14rem;
 }
@@ -39,7 +39,7 @@ main {
   margin: 0;
   font-size: 2.2rem;
   font-weight: bold;
-  color: var(--color-background-primary);
+  color: var(--color-text-on-dark);
 }
 
 .main__actions-container {
@@ -78,7 +78,7 @@ main {
 
 .menu-options a:hover {
   background-color: var(--color-primary-hover);
-  color: var(--color-text-secondary)
+  color: var(--color-text-on-dark-hover)
 }
 
 
@@ -131,9 +131,9 @@ main {
     float: left;
     width: 25rem;
     height: 100%;
-    overflow: auto;
-    background: var(--color-dark-background-primary);
-    color: var(--color-background-primary);
+    overflow: auto; 
+    background: var(--color-background-primary-dark);
+    color:var(--color-text-on-dark);
     box-shadow: 0.1rem 0.1rem 0.3rem 0 var(--color-shadow-dark);
   }
 
@@ -179,9 +179,5 @@ main {
 
   .data-table {
     min-width: 800px;
-  }
-
-  .backbtn {
-    display: none;
   }
 }

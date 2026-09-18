@@ -4,9 +4,7 @@
     align-items: center; 
     border: none;
     user-select: none;
-
     font-size: 1.65rem;
-    transition: background-color, color 500ms;
 }
 
 .button:disabled {
@@ -31,12 +29,12 @@
 
 .primary {
     background-color: var(--color-primary);
-    color: var(--color-text-secondary)
+    color: var(--color-text-on-dark);
 }
 
 .primary:hover {
     background-color: var(--color-primary-hover);
-    color: var(--color-text-secondary-hover)
+    color: var(--color-text-on-dark-hover);
 }
 
 .secondary {
@@ -50,16 +48,16 @@
 }
 
 .tertiary {
-    color: var(--color-text-secondary);
+    color: var(--color-text-on-dark);
     background-color: var(--color-tertiary);
 }
 
 .tertiary:hover {
     background-color: var(--color-tertiary-hover);
-    color: var(--color-text-secondary-hover)
+    color: var(--color-text-on-dark-hover)
 }
 
 .danger {
-    color: var(--color-text-secondary);
+    color: var(--color-text-on-dark);
     background-color:var(--color-danger-secondary);
 }

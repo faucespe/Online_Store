@@ -18,9 +18,9 @@
   font-weight: 600;
   font-size: 1.3rem;
   color: var(--color-table-thead-text);
-  border-bottom: 0.2rem solid var(--color-table-border-bottom);
+  border-bottom: 2px solid var(--color-table-border-bottom);
   white-space: nowrap;
-  background-color: var(--color-dark-background-secundary);
+  background-color: var(--color-background-secondary-dark);
   color: var(--color-table-element);
 }
 
@@ -51,11 +51,9 @@
   padding: 1.5rem;
   border-radius: 1.2rem;
   border: 1px solid var(--color-table-border-bottom);
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   text-align: center;
   color: var(--color-text-primary);
   font-size: 1.4rem;

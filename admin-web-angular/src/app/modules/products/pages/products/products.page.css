@@ -10,17 +10,6 @@
   flex: 1;
 }
 
-.products-container {
-  gap: 2rem;
-  padding: 2rem;
-}
-
-.products-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
 /* Contenido de los filtros */
 .filter-content {
   display: flex;

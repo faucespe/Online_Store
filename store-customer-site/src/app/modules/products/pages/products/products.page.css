@@ -10,10 +10,6 @@
     padding: 0 5rem;
 }
 
-.products__product-card-content {
-    margin: 0 auto;
-}
-
 .products__container-select {
     display: flex;
     justify-content: left;
