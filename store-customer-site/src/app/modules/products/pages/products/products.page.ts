@@ -26,7 +26,7 @@ export class ProductsPage implements OnInit {
   protected filterName = signal<string>('');
   protected filterMinPrice = signal<number | null>(null);
   protected filterMaxPrice = signal<number | null>(null);
-  protected filterIdCategory = signal<number | string>(0);
+  protected filterIdCategory = signal<number | string | null>(null);
 
   // Modal functions
   protected readonly defaultImagePath = signal<string>('/img/no-image-available.jpg');
@@ -56,6 +56,7 @@ export class ProductsPage implements OnInit {
   }
 
   protected applyFilter(): void {
+    console.log(this.filter())
     this.loadProducts(this.filter());
   }
 
