@@ -61,6 +61,8 @@ export class ProductsPage implements OnInit {
 
         this.isActive.set(false);
 
+        this.showCreateUpdateProductModal.set(false);
+
         this.productService.getProducts().subscribe({
           next: (apiResponse) => {
             this.products.set(apiResponse.data);
@@ -72,8 +74,6 @@ export class ProductsPage implements OnInit {
         this.backendError.set(this.validationTranslator.translate(rawMessage));
       },
     });
-
-    this.showCreateUpdateProductModal.set(false);
   }
 
   // Función para cargar los productos desde el servicio de productos, con la opción de aplicar un filtro
