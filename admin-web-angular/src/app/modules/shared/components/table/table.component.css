@@ -41,11 +41,7 @@
 }
 
 .data-table tbody tr:nth-child(even) {
-  background-color: var(--color-background-primary);
-}
-
-.data-table tbody tr:hover {
-  background-color: var(--color-table-background-color);
+  background-color: var(--color-row-even);
 }
 
 .data-table td.numeric,

@@ -51,36 +51,35 @@
   /* Opciones del menú */
 
   .menu-options {
-    z-index: 999;
+    z-index: 200;
     border-radius: 1rem;
-    top: calc(100% + 0.5rem);
-    gap: 0.5rem;
+    top: calc(100% + 1rem);
     right: 0;
-    padding: 0.5rem;
-    background: var(--color-dark-background-secundary);
-    border: 1px solid #050505;
-    box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 .4rem var(--color-shadow-dark);
     position: absolute;
+    background-color: var(--color-menu); 
     display: flex;
     flex-direction: column;
     width: 20rem;
-    text-decoration: none;
+    text-decoration: none; 
+    padding: .5rem;
   }
 
   .menu-options a {
     border-radius: 0.8rem;
     width: 100%;
-    padding: 1rem;
+    padding: 1.1rem 1rem;
     display: block;
     box-sizing: border-box;
     text-align: center;
     text-decoration: none;
-    background-color: var(--color-background-primary); 
-    color: var(--color-text-primary); 
-    border: 1px solid #030303;
-    transition: background-color 0.15s ease;
+    color: var(--color-text-primary);
   }
 
+  .menu-options a:hover {
+    background-color: var(--color-primary-hover);
+    color: var(--color-text-secondary)
+  }
 
 
  .sidenav .category {
