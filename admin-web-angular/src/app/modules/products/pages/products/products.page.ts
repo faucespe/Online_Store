@@ -70,6 +70,8 @@ public handleConfirmation(): void {
       this.backendError.set(this.validationTranslator.translate(rawMessage));
     },
   });
+
+  this.showCreateUpdateProductModal.set(false);
 }
 
   // Función para cargar los productos desde el servicio de productos, con la opción de aplicar un filtro

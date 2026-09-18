@@ -23,7 +23,7 @@
                 <div>
                     <label for="selectCategories">Categoría</label>
                     <select #categoryIdInput (change)="filterIdCategory.set(categoryIdInput.value)" [value]="this.filterIdCategory()" name="selectedCategory" id="selectCategories">
-                        <option value="0">Cualquiera</option>
+                        <option value="">Cualquiera</option>
                         @for (category of categories(); track category.id) {
                             <option [value]="category.id">{{ category.name }}</option>
                         }
