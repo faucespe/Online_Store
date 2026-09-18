@@ -111,7 +111,6 @@ public handleConfirmation(): void {
     { key: 'category.name', header: 'Categoría' },
     { key: 'productStatus.name', header: 'Estado' },
     { key: 'price', header: 'Precio', align: 'right', format: 'currency' },
-    { key: 'stock', header: 'Stock', align: 'right' }
   ];
 
   //Función para insertar o actualizar un dato producto, con el set de productStatus como activo

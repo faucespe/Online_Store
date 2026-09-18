@@ -1,12 +1,12 @@
 /* Contenedor de productos */
-.filter {
+.filter-row {
   display: flex;
   align-items: flex-end;
   gap: 0.75rem;
   margin-bottom: 1rem;
 }
 
-.filter app-filter {
+.filter-row app-filter {
   flex: 1;
 }
 
@@ -56,6 +56,13 @@
 
 .product-info__row strong {
   min-width: 9rem;
+  font-weight: bold;
+}
+
+.product-info__row:last-child {
+  flex-direction: column;
+  gap: .8rem;
+  margin-top: 1.5rem;
 }
 
 .product-info__image {
@@ -65,8 +72,9 @@
 }
 
 .product-info__image img {
-  max-width: 100%;
-  max-height: 200px;
+  max-width: 22rem;
+  max-height: 20rem;
+  border-radius: 1rem;
   object-fit: contain;
 }
 
@@ -82,5 +90,10 @@
 
   .filter-content {
     flex-direction: column;
+  }
+
+  .filter-row {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

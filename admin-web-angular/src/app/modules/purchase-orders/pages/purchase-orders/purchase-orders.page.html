@@ -1,3 +1,7 @@
+<header>
+  <h2>Órdenes de compra</h2>
+</header>
+
 <app-filter
   searchLabel="Busqueda por nombre de cliente"
   [(searchingText)]="filterCustomerName"
@@ -55,19 +59,19 @@
   @if (selectedOrder(); as order) {
     <div class="order-info">
       <div class="order-info__row">
-        <strong>Cliente:</strong>
+        <strong>Cliente</strong>
         <span>{{ order.customerName }}</span>
       </div>
       <div class="order-info__row">
-        <strong>Teléfono:</strong>
+        <strong>Teléfono</strong>
         <span>{{ order.customerPhoneNumber }}</span>
       </div>     
       <div class="order-info__row">
-        <strong>Email:</strong>
+        <strong>Email</strong>
         <span>{{ order.customerEmail }}</span>
       </div>      
       <div class="order-info__row">
-        <strong>Dirección:</strong>
+        <strong>Dirección</strong>
         <span>{{ order.customerAddress }}</span>
       </div>
 
@@ -75,6 +79,7 @@
       [data]="order.purchaseOrderProduct"
       [columns]="orderProductColumns"
       emptyMessage="Sin Productos"
+      class="purchase-order-table"
       />
     </div>
 

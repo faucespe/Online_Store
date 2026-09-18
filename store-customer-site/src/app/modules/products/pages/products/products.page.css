@@ -80,7 +80,7 @@
 }
 
 .products__product-info-image img {
-    max-width: 100%;
+    max-width: 22rem;
     max-height: 20rem;
     object-fit: contain;
     border-radius: 1rem;

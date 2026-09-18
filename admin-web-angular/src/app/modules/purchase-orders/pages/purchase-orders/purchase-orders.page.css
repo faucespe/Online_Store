@@ -12,7 +12,7 @@ app-filter {
 .order-info {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
@@ -23,4 +23,9 @@ app-filter {
 
 .order-info__row strong {
   min-width: 15rem;
+  font-weight: bold;
+}
+
+.purchase-order-table {
+  margin-top: 2rem;
 }

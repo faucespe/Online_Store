@@ -1,15 +1,12 @@
 <div class="filter">
   @if (searchLabel()) {
-    <label class="filter__search-label">{{ searchLabel() }}</label>
+    <label for="searchbar" class="filter__search-label">{{ searchLabel() }}</label>
   }
 
-<div class="filter__container">
-    <input class="filter__search-bar" type="text" placeholder="Buscar" [value]="searchingText()" (keydown.enter)="applyFilter()" (input)="onInputText($event)"/>
-
+  <div class="filter__container">
     <app-button icon="tune" shape="rounded" (click)="toggleFilter()"/>
-    @if (showonConfirmButton()) {
-      <app-button icon="search" shape="rounded" (click)="applyFilter()"/>
-    }
+    <input id="searchbar" class="filter__search-bar" type="text" placeholder="Buscar" [value]="searchingText()" (keydown.enter)="applyFilter()" (input)="onInputText($event)"/>
+    <app-button icon="search" shape="rounded" (click)="applyFilter()"/>
   </div>
   
   @if (showPopover()) {
