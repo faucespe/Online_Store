@@ -1,0 +1,17 @@
+<div class="store-filter">
+    <div class="store-filter__container">
+        <app-store-btn icon="tune" shape="rounded" (click)="showPopover.set(showPopover() ? false : true)" />
+        <input (keydown.enter)="applyFilter()" (input)="onInputText($event)" [value]="searchingText()" class="store-filter__search-bar" type="text" placeholder="Buscar">
+        <app-store-btn icon="search" shape="rounded" (click)="applyFilter()"/>
+    </div>
+    @if (showPopover()) {
+        <div class="store-filter__popover">
+            <ng-content></ng-content>
+            <div class="store-filter__popover-actions">
+                <app-store-btn icon="search" buttonText="Buscar" (click)="applyFilter()"/>
+                <app-store-btn icon="cleaning_services" color="secondary" shape="rounded" (click)="clearFilter()"/>
+                <app-store-btn icon="close" shape="rounded" (click)="showPopover.set(false)" color="secondary"/>
+            </div>
+        </div>
+    }
+</div>

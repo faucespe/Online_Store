@@ -1,0 +1,50 @@
+<div class="cart">
+    @if (cartProducts().length === 0) {
+    <figure class="empty-cart__figure">
+        <img class="empty-cart__img" src="/img/empty-cart.png" alt="Empty cart">
+    </figure>
+    } @else {
+    <header class="cart__header">
+        <h1>Mi carrito de compras</h1>
+        <app-store-btn color="secondary" buttonText="Vaciar Carrito" (click)="emptyCart()" />
+    </header>
+    <main class="cart__main">
+        <section class="cart__products-container">
+            @for (product of cartProducts(); track product.id) {
+            <app-store-card [imageUrl]="product.imageUrl ?? ''" [imageDescription]="product.name">
+                <div class="cart__products-container-item">
+                    <div>
+                        <h2 class="products__product-title">{{ product.name }}</h2>
+
+                        <p class="products__product-info">{{ product.price | currencyFormat}}</p>
+                        <p class="products__product-info">{{ product.stock }} disponibles</p>
+
+                        <div class="products__container-actions">
+                            <app-store-btn color="secondary" [icon]="product.quantity === 1 ? 'delete' : 'remove'"
+                                shape="rounded" (click)="removeProduct(product.id, 1)" />
+                            <span>{{ product.quantity }}</span>
+                            <app-store-btn [isDisabled]="product.quantity == product.stock" color="secondary" icon="add"
+                                shape="rounded" (click)="increaseProductQuantityById(product.id)" />
+                            @if (product.quantity > 1) {
+                            <app-store-btn class="products__remove-item" color="danger" icon="delete" shape="rounded"
+                                (click)="removeProduct(product.id, product.quantity)" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </app-store-card>
+            }
+        </section>
+        <section class="cart__actions-section">
+            <div class="cart__additional-actions">
+                <div class="cart__additional-actions-checkout">
+                    <p>Subtotal ({{ cartTotalItemsCounter() }} Items)</p>
+                    <p class="cart__grand-total-copy">{{ grandTotal() | currencyFormat }}</p>
+                    <app-store-btn color="tertiary" routerLink="/checkout"
+                        buttonText="Continuar al checkout"></app-store-btn>
+                </div>
+            </div>
+        </section>
+    </main>
+    }
+</div>

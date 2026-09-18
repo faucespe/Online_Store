@@ -1,0 +1,23 @@
+<div class="filter">
+  @if (searchLabel()) {
+    <label for="searchbar" class="filter__search-label">{{ searchLabel() }}</label>
+  }
+
+  <div class="filter__container">
+    <app-button icon="tune" shape="rounded" (click)="toggleFilter()"/>
+    <input id="searchbar" class="filter__search-bar" type="text" placeholder="Buscar" [value]="searchingText()" (keydown.enter)="applyFilter()" (input)="onInputText($event)"/>
+    <app-button icon="search" shape="rounded" (click)="applyFilter()"/>
+  </div>
+  
+  @if (showPopover()) {
+    <div class="filter__popover">
+      <ng-content></ng-content>
+      <div class="filter__popover-actions">
+        <app-button icon="search" shape="rounded" (click)="applyFilter()"/>
+        <app-button color="secondary" icon="cleaning_services" shape="rounded" (click)="clearFilter()"/>
+        <app-button color="secondary" icon="close" shape="rounded" (click)="showPopover.set(false)"/>
+      </div>
+    </div>
+  }
+</div>
+

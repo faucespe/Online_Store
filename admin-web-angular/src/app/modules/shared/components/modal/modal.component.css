@@ -1,0 +1,83 @@
+.modal-overlay {
+  position: fixed;
+  z-index: 1100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 5rem 0;
+  background-color: var(--color-app-overlay);
+  min-height: 100vh;
+  animation: overlay 300ms ease-out;
+}
+
+@keyframes overlay {
+  from {
+    opacity: 0.7;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background-color: var(--color-background-secondary);
+  border-radius: 1rem;
+  margin: 2rem auto 0;
+  padding: 2rem;
+  max-height: 90vh;
+  animation: modal 300ms ease-out;
+
+  @media screen and (min-width: 600px) {
+    width: fit-content;
+    min-width: 48rem;
+    max-width: 95%;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 95%;
+  }
+}
+
+@keyframes modal {
+  from {
+    scale: 0.7;
+  }
+
+  to {
+    scale: 1;
+  }
+}
+
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal__header-label {
+  font-weight: 500;
+  font-size: 2rem;
+}
+
+.modal__main {
+  margin: 2rem 0;
+  overflow-wrap: break-word;
+  max-height: none;
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+  padding-top: 2rem;
+}
+
+.validation-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--color-danger-primary);
+  border-radius: 0.5rem;
+  color: var(--color-danger-secondary);
+  background-color: var(--color-danger-background);
+}

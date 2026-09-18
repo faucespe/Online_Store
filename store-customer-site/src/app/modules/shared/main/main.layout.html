@@ -1,0 +1,17 @@
+<header class="main__header">
+  <figure>
+    <a routerLink="/">
+      <img class="main__header-logo" src="/img/logo.svg" alt="Store logo">
+    </a>
+  </figure>
+
+  <div class="main__actions-container">
+    <app-store-btn routerLink="/cart" color="secondary" icon="shopping_cart" shape="rounded" />
+    @if (cartProductCounter() > 0) {
+      <div class="main__actions-container-counter">{{ cartProductCounter() }}</div>
+    }
+  </div>
+</header>
+<main>
+  <router-outlet />
+</main>

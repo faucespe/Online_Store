@@ -1,0 +1,23 @@
+@if (showModal()) {
+<div class="modal-overlay" (click)="onClickOutside($event)">
+    <article class="modal">
+        <header class="modal__header">
+            <h3 class="modal__header-label">{{ modalTitle() }}</h3>
+            <app-button color="secondary" icon="close" shape="rounded" (click)="handleClose()" />
+        </header>
+        <main class="modal__main">
+            <ng-content></ng-content>
+        </main>
+        @if (validationMessage) {
+        <div class="validation-message">
+            {{ validationMessage }}
+        </div>
+        }
+        @if (showConfirmButton() || showCancelButton()) {
+        <footer class="modal__footer">
+            <app-button color="primary" buttonText="Confirmar" (click)="handleConfirmation()" />
+        </footer>
+        }
+    </article>
+</div>
+}

@@ -1,0 +1,96 @@
+<header class="products__header">
+    <h1 class="products__title">Productos</h1>
+
+    <app-store-filters confirmButtonText="Limpiar" [(searchingText)]="filterName" cancelButtonText="Cerrar"
+        (onApply)="applyFilter()" (onClear)="clearFilter()">
+
+        @for (error of filterErrors(); track error) {
+            <div class="validation-message">{{ error }}</div>
+        }
+
+        <form class="products__filters">
+            <div>
+                <label for="minPrice">Precio mínimo</label>
+                <input type="number" id="minPrice" #minPriceInput min="0" [value]="filterMinPrice()"
+                (keydown)="($event.key >= '0' && $event.key <= '9') || $event.key === 'Backspace' || $event.key === 'Delete' || $event.key === 'Tab' || $event.key === 'ArrowLeft' || $event.key === 'ArrowRight' || $event.preventDefault()" (paste)="$event.preventDefault()"
+                (change)="filterMinPrice.set(minPriceInput.valueAsNumber)">
+            </div>
+            <div>
+                <label for="maxPrice">Precio máximo</label>
+                <input type="number" id="maxPrice" #maxPriceInput min="0" [value]="filterMaxPrice()"
+                (keydown)="($event.key >= '0' && $event.key <= '9') || $event.key === 'Backspace' || $event.key === 'Delete' || $event.key === 'Tab' || $event.key === 'ArrowLeft' || $event.key === 'ArrowRight' || $event.preventDefault()" (paste)="$event.preventDefault()"
+                (change)="filterMaxPrice.set(maxPriceInput.valueAsNumber)">
+            </div>
+            @if (categories()) {
+            <div>
+                <label for="selectCategories">Categoría</label>
+                <select #categoryIdInput (change)="filterIdCategory.set(categoryIdInput.value)"
+                    [value]="this.filterIdCategory()" name="selectedCategory" id="selectCategories">
+                    <option value="">Cualquiera</option>
+                    @for (category of categories(); track category.id) {
+                    <option [value]="category.id">{{ category.name }}</option>
+                    }
+                </select>
+            </div>
+            }
+        </form>
+    </app-store-filters>
+</header>
+
+<section class="products__container">
+    @for (product of products(); track product.id) {
+    <app-store-card [imageUrl]="product.imageUrl ?? ''" [imageDescription]="product.name">
+        <h2 class="products__product-title">{{ product.name }}</h2>
+        <p class="products__product-info">{{ product.price | currencyFormat}}</p>
+        <p class="products__product-info">{{ product.stock }} disponibles</p>
+        <div class="products__container-select">
+            <label for="selectQuantity">Cantidad</label>
+            <select (change)="onSelectQuantity($event, product)" id="selectQuantity">
+                @for (number of getStockNumbers(product.stock - getProductQuantity(product.id)); track $index) {
+                <option [value]="number">{{number}}</option>
+                }
+            </select>
+        </div>
+        <div class="products__container-actions">
+            <app-store-btn (click)="openModal(product.id)" color="secondary" buttonText="Detalles" />
+            <app-store-btn buttonText="Agregar" [isDisabled]="getProductQuantity(product.id) >= product.stock"
+                (click)="addProductToCart(product)" />
+        </div>
+    </app-store-card>
+    } @empty {
+    <p>No se encontraron resultados</p>
+    }
+
+    @if (selectedProduct(); as product) {
+    <app-store-modal modalTitle="Detalle del producto" [(showModal)]="showDetailsModal" [showConfirmButton]="false"
+        [showCancelButton]="false" cancelLabel="Cerrar">
+        <div class="products__product-info-container">
+            <figure class="products__product-info-image">
+                <img [src]="product.imageUrl || defaultImagePath()" [alt]="product.name">
+            </figure>
+            <div class="products__product-info-details">
+                <div class="products__product-info-row">
+                    <strong>Nombre</strong>
+                    <span>{{ product.name }}</span>
+                </div>
+                <div class="products__product-info-row">
+                    <strong>Precio</strong>
+                    <span>{{ product.price | currencyFormat}}</span>
+                </div>
+                <div class="products__product-info-row">
+                    <strong>Disponibles</strong>
+                    <span>{{ product.stock }}</span>
+                </div>
+                <div class="products__product-info-row">
+                    <strong>Categoría</strong>
+                    <span>{{ product.category?.name ?? 'Sin categoría' }}</span>
+                </div>
+                <div class="products__product-info-row">
+                    <strong>Descripción</strong>
+                    <p>{{ product.description }}</p>
+                </div>
+            </div>
+        </div>
+    </app-store-modal>
+    }
+</section>

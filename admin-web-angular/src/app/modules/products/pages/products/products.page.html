@@ -1,0 +1,152 @@
+<header>
+  <h2>Productos</h2>
+</header>
+
+<!-- Filter de productos -->
+<div class="filter-row">
+  <app-filter searchLabel="Busqueda por nombre de producto" [(searchingText)]="filter.name" (onApply)="applyFilter()"
+    (onClear)="clearFilter()">
+
+    @for (error of filterErrors(); track error) {
+      <div class="backend-error">{{ error }}</div>
+    }
+
+    <div class="filter-content">
+        <app-input 
+          name="minPrice"
+          type="number"
+          label="Precio mínimo"
+          [min]="0"
+          [(model)]="filter.minPrice"
+          (keydown)="($event.key >= '0' && $event.key <= '9') || $event.key === 'Backspace' || $event.key === 'Delete' || $event.key === 'Tab' || $event.key === 'ArrowLeft' || $event.key === 'ArrowRight' || $event.preventDefault()"
+          (paste)="$event.preventDefault()"
+        />
+        <app-input 
+          name="maxPrice"
+          type="number"
+          label="Precio máximo"
+          [min]="0"
+          [(model)]="filter.maxPrice"
+          (keydown)="($event.key >= '0' && $event.key <= '9') || $event.key === 'Backspace' || $event.key === 'Delete' || $event.key === 'Tab' || $event.key === 'ArrowLeft' || $event.key === 'ArrowRight' || $event.preventDefault()"
+          (paste)="$event.preventDefault()"
+        />
+          <app-select 
+          name="category" 
+          label="Categoría" 
+          [options]="categories()" 
+          [(model)]="filter.category"
+        />
+        <app-select 
+          name="status" 
+          label="Estado" 
+          [options]="statuses()" 
+          [(model)]="filter.productStatus"
+        />
+      </div>
+  </app-filter>
+  <!-- Botón de creación de producto -->
+  <app-button color="primary" buttonText="Agregar" (click)="insertUpdate()" />
+</div>
+
+<div class="products-table">
+  <app-table [data]="products()" [columns]="productColumns" [showInfo]="true" [showActions]="true"
+    (rowDeactivate)="onViewProduct($event)" (rowActions)="insertUpdate($event)">
+  </app-table>
+</div>
+
+<app-modal [modalTitle]="product.id ?  'Actualización de Producto' : 'Creación de Producto'" (onClose)="resetProduct()"
+  (onConfirm)="handleConfirmation()" [(showModal)]="showCreateUpdateProductModal" [showConfirmButton]="true"
+  [showCancelButton]="true">
+  @if(backendError()) {
+  <p class="backend-error">{{ backendError() }}</p>
+  }
+  <div class="product-modal-grid">
+    <app-input 
+      name="nameModal" 
+      label="Nombre" 
+      type="text" 
+      [required]="true"  
+      [(model)]="product.name">
+    </app-input>
+    <app-input 
+      name="priceModal" 
+      label="Precio" 
+      type="number" 
+      [min]="0" 
+      [(model)]="product.price">
+    </app-input>
+    <app-select 
+      name="categoryModal" 
+      label="Categoría" 
+      [options]="categories()" 
+      [(model)]="product.category" 
+      [showAnyOption]="false" 
+      placeholder="Seleccione una categoría">
+    </app-select>
+    <app-select 
+      name="statusModal" 
+      label="Estado" 
+      [options]="statuses()" 
+      [(model)]="product.productStatus" 
+      [showAnyOption]="false" 
+      placeholder="Seleccione un estado">
+    </app-select>
+    <app-input 
+      name="stockModal" 
+      label="Stock" 
+      type="number" 
+      [min]="0" 
+      [(model)]="product.stock">
+    </app-input>
+    <app-input 
+      name="imageUrlModal" 
+      label="Url de la Imagen" 
+      type="text" 
+      placeholder="https://ejemplo.com/imagen.jpg" 
+      [(model)]="product.imageUrl">
+    </app-input>
+    <app-input 
+      name="descriptionModal" 
+      label="Descripción" 
+      type="textarea"
+      [(model)]="product.description">
+    </app-input>
+  </div>
+</app-modal>
+
+<app-modal modalTitle="Detalle del producto" [(showModal)]="showProductInfoModal" [showConfirmButton]="false"
+  [showCancelButton]="false" cancelLabel="Cerrar">
+  @if (selectedProduct(); as product) {
+  <div class="product-info">
+    <div class="product-info__image">
+      <img [src]="product.imageUrl || defaultImagePath()" [alt]="product.name">
+    </div>
+    <div class="product-info__details">
+      <div class="product-info__row">
+        <strong>Nombre</strong>
+        <span>{{ product.name }}</span>
+      </div>
+      <div class="product-info__row">
+        <strong>Precio</strong>
+        <span>{{ product.price | currencyFormat}}</span>
+      </div>
+      <div class="product-info__row">
+        <strong>Stock</strong>
+        <span>{{ product.stock }}</span>
+      </div>
+      <div class="product-info__row">
+        <strong>Categoría</strong>
+        <span>{{ product.category?.name ?? 'Sin categoría' }}</span>
+      </div>
+      <div class="product-info__row">
+        <strong>Estado</strong>
+        <span>{{ product.productStatus?.name }}</span>
+      </div>
+      <div class="product-info__row">
+        <strong>Descripción</strong>
+        <p>{{ product.description }}</p>
+      </div>
+    </div>
+  </div>
+  }
+</app-modal>

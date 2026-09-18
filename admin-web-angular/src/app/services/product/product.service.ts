@@ -1,0 +1,46 @@
+import { Observable } from 'rxjs';
+import { ApiResponse } from '../../types/http/http.types';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { FilterProductDTO , InsertUpdateProductDTO } from 'src/app/types/product/product.dto';
+import { Product } from '@models/product/product.model';
+
+@Injectable({
+  providedIn: 'root',
+})
+
+export class ProductService {
+  private http = inject(HttpClient);
+
+  public getProducts(filter?: FilterProductDTO): Observable<ApiResponse> {
+    const params = {
+        name: filter?.name ?? '',
+        minPrice: filter?.minPrice ?? '',
+        maxPrice: filter?.maxPrice ?? '',
+        categoryId: filter?.categoryId ?? '',
+        productStatusId: filter?.productStatusId ?? ''
+    };
+
+    return this.http.get<ApiResponse>(
+        environment.apiURL + '/products',
+        { params }
+    );
+  }
+
+  public createProduct(product: Product): Observable<ApiResponse> {
+    const dto = new InsertUpdateProductDTO(product);
+    return this.http.post<ApiResponse>(
+        environment.apiURL + '/products',
+        dto
+    );
+  }
+
+  public updateProduct(product: Product): Observable<ApiResponse> {
+    const dto = new InsertUpdateProductDTO(product);
+    return this.http.put<ApiResponse>(
+        environment.apiURL + `/products/${product.id}`,
+        dto
+    );
+  }
+}
