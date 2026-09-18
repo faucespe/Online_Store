@@ -1,12 +1,12 @@
 import { Component, OnInit, inject, signal , model } from '@angular/core';
-import { ApiResponse } from '../../../../models/http.types';
-import { Product } from '../../../../models/product/product.model';
+import { ApiResponse } from 'src/app/types/http/http.types';
+import { Product } from '@models/product/product.model';
 import { ProductService } from '../../../../services/product/product.service';
 import { ProductStatusService } from '@services/product-status/product-status.service';
-import { ProductStatus } from '@models/productStatus.model';
+import { ProductStatus } from '@models/product/productStatus.model';
 import { CategoryService } from '@services/category/category.service';
-import { Category } from '@models/category.model';
-import { FilterProductDTO } from '@models/product/product.dto';
+import { Category } from '@models/category/category.model';
+import { FilterProductDTO } from 'src/app/types/product/product.dto';
 import { TableColumn } from '@shared/components/table/table.component';
 import { ValidationTranslatorService } from '@shared/translator/validation-translator.service';
 
@@ -75,7 +75,7 @@ public handleConfirmation(): void {
       this.backendError.set(this.validationTranslator.translate(rawMessage));
     },
   });
-}     
+}
 
   // Función para cargar los productos desde el servicio de productos, con la opción de aplicar un filtro
   public loadProducts(filter?: FilterProductDTO): void {
@@ -113,7 +113,6 @@ public handleConfirmation(): void {
   //Desglose de datos de tabla para insertar los datos de los productos
   public productColumns: TableColumn<Product>[] = [
     { key: 'name', header: 'Nombre' },
-    { key: 'description', header: 'Descripción' },
     { key: 'category.name', header: 'Categoría' },
     { key: 'productStatus.name', header: 'Estado' },
     { key: 'price', header: 'Precio', align: 'right', format: 'currency' },

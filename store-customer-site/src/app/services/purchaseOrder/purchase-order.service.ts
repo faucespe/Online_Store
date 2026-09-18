@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ApiResponse, CreatePurchaseOrderDto } from '@types';
-import { PurchaseOrder } from '@models/purchaseOrder';
+import { PurchaseOrder } from '@models/purchaseOrder/purchaseOrder';
 
 @Injectable({
   providedIn: 'root',

@@ -1,11 +1,11 @@
 import { Component, OnInit, inject, signal, effect } from '@angular/core';
-import { Category } from '@models/category';
-import { Product } from '@models/product';
+import { Category } from '@models/category/category';
+import { Product } from '@models/product/product';
 import { CartService } from '@services/cart/cart.service';
 import { CartProduct } from '@types';
 import { CategoryService } from '@services/category/category.service';
 import { ProductService } from '@services/product/product.service';
-import { CategoryStatus } from '@models/categoryStatus';
+import { CategoryStatus } from '@models/category/categoryStatus';
 
 interface ProductFilters {
   name: string,

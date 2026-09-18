@@ -1,4 +1,4 @@
-import { Product } from "./product.model";
+import { Product } from "@models/product/product.model";
 
 export class PurchaseOrderProduct {
   id: number;

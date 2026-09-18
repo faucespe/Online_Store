@@ -1,11 +1,11 @@
 // el Import traen codigo de archivos externos al componente actual
 import { Component, OnInit, inject, signal } from '@angular/core'
-import { Category, UpdateCategory } from '@models/category.model';
-import { CategoryStatus } from '@models/category-status.model';
-import { CategoryFilters } from '@models/category-filters.model';
+import { Category, UpdateCategory } from '@models/category/category.model';
+import { CategoryStatus } from '@models/category/category-status.model';
+import { CategoryFilters } from 'src/app/types/category/category-filters.model';
 import { CategoryService } from '@services/category/category.service';
 import { TableColumn } from '@shared/components/table/table.component';
-import { ApiResponse } from '@models/http.types';
+import { ApiResponse } from 'src/app/types/http/http.types';
 import { ValidationTranslatorService } from '@shared/translator/validation-translator.service';
 
 // Component vincula el html, el css y el ts, del page de categories

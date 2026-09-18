@@ -1,7 +1,7 @@
 import { formatDate } from '@angular/common';
-import { Product } from './product.model';
-import { ProductStatus } from '@models/productStatus.model';
-import { Category } from '@models/category.model';
+import { Product } from '@models/product/product.model';
+import { ProductStatus } from '@models/product/productStatus.model';
+import { Category } from '@models/category/category.model';
 
 // DTO para insertar o actualizar productos
 export class InsertUpdateProductDTO {
