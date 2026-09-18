@@ -1,34 +1,7 @@
-/* Estilo del label dentro del modal */
-app-modal label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    font-size: 0.875rem;
-    color: #1f2937;
-}
-
-/* Estilo del texto dentro del modal */
-app-modal input,
-app-modal select{
-    padding: 0.5rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    color: #1f2937;
-}
-
-/* Crear Categoria */
-.create-category {
-  margin: 1rem;
-  display: flex;
-  justify-content: flex-end;
-}
-
 .filter {
     display: flex;
     align-items: flex-end;
-    gap: 0.75rem;
+    gap: .75rem;
     margin-bottom: 1rem;
 }
 
@@ -36,7 +9,6 @@ app-modal select{
   flex: 1;
   margin-bottom: 0;
 }
-
 
 .categories__filters {
     display: flex;

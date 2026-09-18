@@ -8,17 +8,18 @@ body.light {
   --color-secondary-hover: #9cb1e5;
   --color-text-primary: rgb(56, 56, 56);
   --color-text-primary-hover: rgb(36, 36, 36);
-  --color-text-secondary: rgb(255, 255, 255);
-  --color-text-secondary-hover: rgb(207, 206, 206);
+  --color-text-on-dark: rgb(255, 255, 255);
+  --color-text-on-dark-hover: rgb(207, 206, 206);
   --color-primary-shadow: #888;
   --color-app-overlay: rgba(102, 123, 233, .7);
   --color-shadow-dark: #1d1d1d;
+  --color-border-dark: #0a0a0a;
 
   /* LAYOUT */
   --color-background-topbar: #3d3e45;
   --color-sidenav-active: #3B7BD6;
-  --color-dark-background-primary: #1E63C7;
-  --color-dark-background-secundary: #0D47A1;
+  --color-background-primary-dark: #1E63C7;
+  --color-background-secondary-dark: #0D47A1;
   --color-background-primary: #e3f0ff;
   --color-background-secondary: #f7f7f7;
 
@@ -29,17 +30,19 @@ body.light {
 
    /* other */
    --color-scrollbar-thumb: #c1c1c1;
-   --color-scrollbar-thumb-hover: #a1a1a1
+   --color-scrollbar-thumb-hover: #a1a1a1;
 
   /*TABLE COLORS*/
   --color-table-thead-text: #4B5563;
   --color-table-element: #fff;
   --color-table-border-bottom: #ddd;
-  --color-table-background-color: #dce8f5;
+  --color-table-background: #dce8f5;
   --color-table-tbody-text: #1F2937;
+  
+  /*Modal*/
+  --color-modal-background: #90CAF9;
 
   /* FORM COLORS */
-  --color-background-modal: #90CAF9;
   --color-placeholder: #bfbfbf;
   --color-form-field-border: #969696;
   --color-form-field-focus: #d2d2d2;

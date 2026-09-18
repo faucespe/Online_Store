@@ -4,9 +4,7 @@
     align-items: center;
     border: none;
     user-select: none;
-
     font-size: 1.65rem;
-    transition: background-color, color 500ms;
 }
 
 .default {
@@ -26,12 +24,12 @@
 
 .primary {
     background-color: var(--color-primary);
-    color: var(--color-text-secondary)
+    color: var(--color-text-on-dark);
 }
 
 .primary:hover {
     background-color: var(--color-primary-hover);
-    color: var(--color-text-secondary-hover)
+    color: var(--color-text-on-dark-hover);
 }
 
 .secondary {
@@ -45,7 +43,7 @@
 }
 
 :host(.create-product-btn) .button {
-    border: 1px solid #0f0f0f;
+    border: 1px solid var(--color-border-dark);
     cursor: pointer;
     margin-bottom: 1rem;
 }

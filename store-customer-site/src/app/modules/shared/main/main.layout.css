@@ -8,7 +8,7 @@ main {
     object-fit: cover;
     cursor: pointer;
     border-radius: 30%;
-    margin: 10px 0;
+    margin: 1rem 0;
     background-color: var(--color-background-secondary);
 }
 
@@ -23,7 +23,7 @@ main {
     padding: 0 1rem;
     gap: 1rem;
     background-color: var(--color-background-topbar);
-    box-shadow: 0 0 0.8rem -0.4rem var(--color-shadow-dark)
+    box-shadow: 0 0 0.8rem -0.4rem var(--color-shadow-dark);
 }
 
 .main__actions-container {
@@ -42,9 +42,5 @@ main {
   font-size: 1.1rem;
   background-color: var(--color-danger-primary);
   border-radius: 50%;
-  color: var(--color-background-secondary)
-}
-
-main {
-  padding: 2rem;
+  color: var(--color-background-secondary);
 }

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from './components/table/table.component';
-import { TopbarComponent } from './components/topbar/topbar.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { InputComponent } from './components/input/input.component';
@@ -16,7 +15,6 @@ import { CurrencyFormatPipe } from '@shared/pipes/currency-format-pipe';
   imports: [CommonModule, RouterModule],
   declarations: [
     TableComponent,
-    TopbarComponent,
     ModalComponent,
     InputComponent,
     SelectComponent,
@@ -27,7 +25,6 @@ import { CurrencyFormatPipe } from '@shared/pipes/currency-format-pipe';
   ],
   exports: [
     TableComponent,
-    TopbarComponent,
     ModalComponent,
     InputComponent,
     SelectComponent,

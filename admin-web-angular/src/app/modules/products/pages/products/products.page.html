@@ -6,10 +6,32 @@
     (onApply)="applyFilter()"
     (onClear)="clearFilter()">
     <div class="filter-content">
-        <app-input name="minPrice" type="number" label="Precio mínimo" [min]="0"[(model)]="filter.minPrice"/>
-        <app-input name="maxPrice" type="number" label="Precio máximo" [min]="0"[(model)]="filter.maxPrice"/>
-        <app-select name="category" label="Categoría" [options]="categories()" [(model)]="filter.category"/>
-        <app-select name="status" label="Estado" [options]="statuses()" [(model)]="filter.productStatus"/>
+        <app-input 
+        name="minPrice" 
+        type="number" 
+        label="Precio mínimo" 
+        [min]="0" 
+        [(model)]="filter.minPrice"
+        />
+        <app-input 
+        name="maxPrice" 
+        type="number" 
+        label="Precio máximo" 
+        [min]="0" 
+        [(model)]="filter.maxPrice"
+        />
+        <app-select 
+        name="category" 
+        label="Categoría" 
+        [options]="categories()" 
+        [(model)]="filter.category"
+        />
+        <app-select 
+        name="status" 
+        label="Estado" 
+        [options]="statuses()" 
+        [(model)]="filter.productStatus"
+        />
       </div>
   </app-filter>
   <!-- Botón de creación de producto -->
@@ -39,13 +61,56 @@
   <p class="backend-error">{{ backendError() }}</p>
 }
   <div class="product-modal-grid">
-    <app-input name="nameModal" label="Nombre" type="text" [required]="true" [(model)]="product.name"></app-input>
-    <app-input name="priceModal" label="Precio" type="number" [min]="0" [(model)]="product.price"></app-input>
-    <app-select name="categoryModal" label="Categoría" [options]="categories()" [(model)]="product.category" [showAnyOption]="false" placeholder="Seleccione una categoría"></app-select>
-    <app-select name="statusModal" label="Estado" [options]="statuses()" [(model)]="product.productStatus" [showAnyOption]="false" placeholder="Seleccione un estado"></app-select>
-    <app-input name="stockModal" label="Stock" type="number" [min]="0" [(model)]="product.stock"></app-input>
-    <app-input name="imageUrlModal" label="Url de la Imagen" type="text" placeholder="https://ejemplo.com/imagen.jpg" [(model)]="product.imageUrl"></app-input>
-    <app-input name="descriptionModal" label="Descripción" type="textarea"[(model)]="product.description"></app-input>
+    <app-input 
+      name="nameModal" 
+      label="Nombre" 
+      type="text" 
+      [required]="true"  
+      [(model)]="product.name">
+    </app-input>
+    <app-input 
+      name="priceModal" 
+      label="Precio" 
+      type="number" 
+      [min]="0" 
+      [(model)]="product.price">
+    </app-input>
+    <app-select 
+      name="categoryModal" 
+      label="Categoría" 
+      [options]="categories()" 
+      [(model)]="product.category" 
+      [showAnyOption]="false" 
+      placeholder="Seleccione una categoría">
+    </app-select>
+    <app-select 
+      name="statusModal" 
+      label="Estado" 
+      [options]="statuses()" 
+      [(model)]="product.productStatus" 
+      [showAnyOption]="false" 
+      placeholder="Seleccione un estado">
+    </app-select>
+    <app-input 
+      name="stockModal" 
+      label="Stock" 
+      type="number" 
+      [min]="0" 
+      [(model)]="product.stock">
+    </app-input>
+    <app-input 
+      name="imageUrlModal" 
+      label="Url de la Imagen" 
+      type="text" 
+      placeholder="https://ejemplo.com/imagen.jpg" 
+      [(model)]="product.imageUrl">
+    </app-input>
+    <app-input 
+      name="descriptionModal" 
+      label="Descripción" 
+      type="textarea"
+      [(model)]="product.description">
+    </app-input>
   </div>
 </app-modal>
 

@@ -1,27 +1,28 @@
 /* These variables are applied only if <body> tag has "light" class on it */
 
 body.light {
-   /* GENERAL */
-   --color-primary: #008dff;
-   --color-primary-hover: #007fe7;
-   --color-secondary: #abc1f8;
-   --color-secondary-hover: #9cb1e5;
-   --color-text-primary: rgb(56, 56, 56);
-   --color-text-primary-hover: rgb(36, 36, 36);
-   --color-text-secondary: rgb(255, 255, 255);
-   --color-text-secondary-hover: rgb(207, 206, 206);
-   --color-primary-shadow: #888;
-   --color-app-overlay: rgba(102, 123, 233, .7);
+  /* GENERAL */
+  --color-primary: #008dff;
+  --color-primary-hover: #007fe7;
+  --color-secondary: #abc1f8;
+  --color-secondary-hover: #9cb1e5;
+  --color-text-primary: rgb(56, 56, 56);
+  --color-text-primary-hover: rgb(36, 36, 36);
+  --color-text-on-dark: rgb(255, 255, 255);
+  --color-text-on-dark-hover: rgb(207, 206, 206);
+  --color-primary-shadow: #888;
+  --color-app-overlay: rgba(102, 123, 233, .7);
+  --color-shadow-dark: #1d1d1d;
 
-   /* LAYOUT */
-   --color-background-topbar: #3d3e45;
-   --color-background-primary: #e3f0ff;
-   --color-background-secondary: #f7f7f7;
+  /* LAYOUT */
+  --color-background-topbar: #3d3e45;
+  --color-background-primary: #e3f0ff;
+  --color-background-secondary: #f7f7f7;
 
    /* ALERT COLORS */
    --color-danger-primary: #f55757;
    --color-danger-secondary: #bb4242;
-   --color-danger-background: #fdecec ;
+   --color-danger-background: #fdecec;
 
    /* other */
    --color-scrollbar-thumb: #c1c1c1;
