@@ -44,21 +44,21 @@ SELECT
     NULL,
     V.Stock
 FROM (VALUES
-    ('Laptop Lenovo IdeaPad', 'Laptop para uso académico y profesional','https://zoca.es/wp-content/uploads/images/product/9997/leno00709_01.jpg', 450000.00, 'Computadoras', 2, 15),
-    ('Teclado Mecánico RGB', 'Teclado mecánico con iluminación RGB', 'https://www.pngkey.com/png/detail/111-1110087_mechanical-keyboards-programmable-keys-control-panels-logitech-gaming.png', 35000.00, 'Periféricos', 2, 30),
-    ('Monitor LG 27', 'Monitor de 27 pulgadas Full HD', 'https://zoca.es/wp-content/uploads/images/product/9997/leno00709_01.jpg',125000.00, 'Monitores', 2, 10),
-    ('Memoria RAM 16GB DDR5', 'Memoria RAM DDR5 de 16GB', 'https://c1.neweggimages.com/productimage/nb640/20-374-781-01.png',45000.00, 'Componentes', 2, 25),
-    ('Mouse Gamer', 'Mouse óptico para gaming', 'https://c1.neweggimages.com/productimage/nb640/3C6-0064-00002-01.jpg',22000.00, 'Periféricos', 2, 40),
-    ('Tarjeta Gráfica RTX 4060', 'Tarjeta gráfica de 8GB', 'https://c1.neweggimages.com/productimage/nb640/14-126-632-01.jpg',280000.00, 'Componentes', 2, 8),
-    ('Webcam Full HD', 'Cámara web Full HD para videollamadas', 'https://e7.pngegg.com/pngimages/445/915/png-clipart-logitech-c920-pro-1080p-logitech-hd-pro-c920-webcam-usb-2-high-definition-video-webcam-angle-electronics.png',30000.00, 'Accesorios', 2, 20),
-    ('Audífonos Gamer', 'Audífonos con micrófono integrado', 'https://w7.pngwing.com/pngs/545/879/png-transparent-xbox-360-wireless-headset-astro-gaming-a50-xbox-one-headphones-headphones-game-electronics-xbox.png',55000.00, 'Accesorios', 2, 18),
-    ('SSD NVMe 1TB', 'Unidad de almacenamiento SSD NVMe de 1TB', 'https://commons.wikimedia.org/wiki/Special:Redirect/file/1TB_2280_NVME_SSD.jpg',65000.00, 'Componentes', 2, 20),
-    ('Webcam Full HD 2', 'Cámara web Full HD para videollamadas', 'https://w7.pngwing.com/pngs/821/207/png-transparent-webcam-1080p-display-resolution-megapixel-camera-usb-electronics-camera-lens-electronic-device.png',30000.00, 'Accesorios', 2, 22),
-    ('Audífonos Gamer 2', 'Audífonos con micrófono integrado para videojuegos', 'https://www.pngkey.com/png/detail/212-2120734_logitech-g433-gaming-headset.png',55000.00, 'Accesorios', 2, 18),
-    ('Base para Laptop', 'Base ajustable para laptops', 'https://icons.iconarchive.com/icons/iconshock/real-vista-computer-gadgets/128/laptop-cooler-icon.png',28000.00, 'Accesorios', 2, 14),
-    ('Teclado de Oficina', 'Teclado estándar para uso empresarial', 'https://w7.pngwing.com/pngs/209/736/png-transparent-computer-keyboard-microsoft-natural-keyboard-wire-keyboard-electronics-computer-keyboard-computer.png',15000.00, 'Periféricos', 2, 35),
+    ('Laptop Lenovo IdeaPad', 'Laptop para uso académico y profesional','https://m.media-amazon.com/images/I/81RiFsuQynL._AC_SL1500_.jpg', 450000.00, 'Computadoras', 2, 15),
+    ('Teclado Mecánico RGB', 'Teclado mecánico con iluminación RGB', '', 35000.00, 'Periféricos', 2, 30),
+    ('Monitor LG 27', 'Monitor de 27 pulgadas Full HD', 'https://m.media-amazon.com/images/I/71XVJMTza3L._AC_SX466_.jpg',125000.00, 'Monitores', 2, 10),
+    ('Memoria RAM 16GB DDR5', 'Memoria RAM DDR5 de 16GB', '',45000.00, 'Componentes', 2, 25),
+    ('Mouse Gamer', 'Mouse óptico para gaming', 'https://m.media-amazon.com/images/I/51+51Ur4jzL._AC_SY300_SX300_QL70_FMwebp_.jpg',22000.00, 'Periféricos', 2, 40),
+    ('Tarjeta Gráfica RTX 4060', 'Tarjeta gráfica de 8GB', 'https://m.media-amazon.com/images/I/71wv2w6edAL._AC_SL1500_.jpg',280000.00, 'Componentes', 2, 8),
+    ('Webcam Full HD', 'Cámara web Full HD para videollamadas', 'https://m.media-amazon.com/images/I/71A0Pp767BL._AC_SL1500_.jpg',30000.00, 'Accesorios', 2, 20),
+    ('Audífonos Gamer', 'Audífonos con micrófono integrado', 'https://m.media-amazon.com/images/I/51Vqs9NufmL._AC_SY300_SX300_QL70_FMwebp_.jpg',55000.00, 'Accesorios', 2, 18),
+    ('SSD NVMe 1TB', 'Unidad de almacenamiento SSD NVMe de 1TB', 'https://m.media-amazon.com/images/I/61Z-ruHaMhL._AC_SL1047_.jpg',65000.00, 'Componentes', 2, 20),
+    ('Webcam Full HD 2', 'Cámara web Full HD para videollamadas', 'https://m.media-amazon.com/images/I/61WQr6U3mwL._AC_SY300_SX300_QL70_FMwebp_.jpg',30000.00, 'Accesorios', 2, 22),
+    ('Audífonos Gamer 2', 'Audífonos con micrófono integrado para videojuegos', 'https://m.media-amazon.com/images/I/81Q5bOpJw+L._AC_SY300_SX300_QL70_FMwebp_.jpg',55000.00, 'Accesorios', 2, 18),
+    ('Base para Laptop', 'Base ajustable para laptops', 'https://m.media-amazon.com/images/I/51KyaTB1EKL._AC_SL1500_.jpg',28000.00, 'Accesorios', 2, 14),
+    ('Teclado de Oficina', 'Teclado estándar para uso empresarial', '',15000.00, 'Periféricos', 2, 35),
     ('Monitor Curvo 32', 'Monitor curvo de 32 pulgadas para entretenimiento', 'https://shop.samsung.com/latin/cac/pub/media/catalog/product/l/s/ls27bg6_001_front_black_thumb_1.png', 210000.00, 'Monitores', 1, 7),
-    ('Tarjeta Madre B650', 'Tarjeta madre compatible con procesadores AMD', 'https://c1.neweggimages.com/productimage/nb640/13-145-411-01.jpg', 145000.00, 'Componentes', 1, 0)
+    ('Tarjeta Madre B650', 'Tarjeta madre compatible con procesadores AMD', 'https://m.media-amazon.com/images/I/71ipZ0RboTL._AC_SL1500_.jpg', 145000.00, 'Componentes', 1, 0)
 ) AS V(
     [Name],
     [Description],
@@ -96,7 +96,7 @@ SELECT
     V.GrandTotal
 FROM (VALUES
     ('Carlos Rodríguez', '88881111', 'carlos.rodriguez@email.com',
-     'San José, Costa Rica', '2026-08-01 09:30:00', 507000.00),
+     'San José, Costa Rica', '2026-08-01 09:30:00', 472000.00),
 
     ('María González', '88882222', 'maria.gonzalez@email.com',
      'Alajuela, Costa Rica', '2026-08-03 14:15:00', 147000.00),
@@ -111,19 +111,19 @@ FROM (VALUES
      'Puntarenas, Costa Rica', '2026-08-10 10:00:00', 95000.00),
 
     ('Laura Ramírez', '88886666', 'laura.ramirez@email.com',
-     'Limón, Costa Rica', '2026-08-12 13:30:00', 160000.00),
+     'Limón, Costa Rica', '2026-08-12 13:30:00', 90000.00),
 
     ('José Méndez', '88887777', 'jose.mendez@email.com',
-     'Guanacaste, Costa Rica', '2026-08-14 15:45:00', 317000.00),
+     'Guanacaste, Costa Rica', '2026-08-14 15:45:00', 192000.00),
 
     ('Miguel Solano', '88889999', 'miguel.solano@email.com',
-     'San José, Costa Rica', '2026-08-15 09:20:00', 185000.00),
+     'San José, Costa Rica', '2026-08-15 09:20:00', 210000.00),
 
     ('Daniela Rojas', '88880000', 'daniela.rojas@email.com',
-     'Heredia, Costa Rica', '2026-08-16 12:40:00', 117000.00),
+     'Heredia, Costa Rica', '2026-08-16 12:40:00', 95000.00),
 
     ('Luis Jiménez', '88881122', 'luis.jimenez@email.com',
-     'Alajuela, Costa Rica', '2026-08-16 16:10:00', 365000.00)
+     'Alajuela, Costa Rica', '2026-08-16 16:10:00', 450000.00)
 ) AS V(
     CustomerName,
     CustomerPhoneNumber,
@@ -208,7 +208,7 @@ FROM (VALUES
 
     -- Order 8
     ('miguel.solano@email.com', '2026-08-15 09:20:00',
-     'Monitor Curvo 32"', 1, 185000.00),
+     'Monitor Curvo 32', 1, 210000.00),
 
     -- Order 9
     ('daniela.rojas@email.com', '2026-08-16 12:40:00',

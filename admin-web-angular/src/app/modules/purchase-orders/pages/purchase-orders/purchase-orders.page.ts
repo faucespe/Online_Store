@@ -47,6 +47,7 @@ export class PurchaseOrdersPage implements OnInit {
     { key: 'price', header: 'Precio', align: 'right', format: 'currency' },
   ]
 
+
   ngOnInit(): void {
     this.loadOrders();
   }

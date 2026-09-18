@@ -18,7 +18,6 @@ namespace API.Controllers
         }
 
         [Route("{StatusCode}")]
-        [HttpGet]
         public ObjectResult HandleStatus(HttpStatusCode statusCode)
         {
             ApiResponse response = new ApiResponse()
