@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, Input, Output , model} from '@angular/core';
+import { Component, input, model } from '@angular/core';
 
 @Component({
   selector: 'app-select',
@@ -13,7 +13,7 @@ export class SelectComponent {
   public readonly label = input<string>('');
   public readonly options = input<any[]>([]);
   public readonly model = model<any>(null);
-  
+
   public onModelChange(value: any): void {
     const selectedOption = this.options().find(
       option => option.id === Number(value)

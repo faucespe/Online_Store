@@ -3,7 +3,7 @@ import { CartService } from '@services/cart/cart.service';
 import { PurchaseOrderService } from '@services/purchaseOrder/purchase-order.service';
 import { CartProduct, CreatePurchaseOrderProductDto, CreatePurchaseOrderDto } from '@types';
 import { Router } from '@angular/router';
-import { Subscription, takeUntil } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ValidationTranslatorService } from '@shared/translator/validation-translator.service';
 
 @Component({

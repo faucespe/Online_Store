@@ -35,15 +35,9 @@ h1 {
    margin-bottom: 1.5rem;
 }
 
-h4 {
-   font-weight: bold;
-   font-size: 2.2rem;
-   margin-bottom: 1rem;
-}
-
 /* Inputs, Selects and others... */
 
-/* Inputs tipo number */
+/* Inputs */
 input[type="number"],
 input[type="text"],
 input[type="email"],

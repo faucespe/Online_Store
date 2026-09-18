@@ -22,6 +22,7 @@ body.light {
   --color-background-secondary-dark: #0D47A1;
   --color-background-primary: #e3f0ff;
   --color-background-secondary: #f7f7f7;
+  --color-menu: #c8d8ff;
 
    /* ALERT COLORS */
    --color-danger-primary: #f55757;
@@ -38,9 +39,7 @@ body.light {
   --color-table-border-bottom: #ddd;
   --color-table-background: #dce8f5;
   --color-table-tbody-text: #1F2937;
-  
-  /*Modal*/
-  --color-modal-background: #90CAF9;
+  --color-row-even: #ebedf0;
 
   /* FORM COLORS */
   --color-placeholder: #bfbfbf;

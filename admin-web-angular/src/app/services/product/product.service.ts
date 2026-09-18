@@ -13,7 +13,6 @@ import { Product } from '@models/product/product.model';
 export class ProductService {
   private http = inject(HttpClient);
 
-  //Esta solicitud a la API se utiliza para el despliegue de los datos en los filtros del producto
   public getProducts(filter?: FilterProductDTO): Observable<ApiResponse> {
     const params = {
         name: filter?.name ?? '',
@@ -29,7 +28,6 @@ export class ProductService {
     );
   }
 
-  //Solictud Post HTTP
   public createProduct(product: Product): Observable<ApiResponse> {
     const dto = new InsertUpdateProductDTO(product);
     return this.http.post<ApiResponse>(
@@ -38,7 +36,6 @@ export class ProductService {
     );
   }
 
-  //Solicitud Put HTTP
   public updateProduct(product: Product): Observable<ApiResponse> {
     const dto = new InsertUpdateProductDTO(product);
     return this.http.put<ApiResponse>(

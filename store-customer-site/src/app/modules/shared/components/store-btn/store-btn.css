@@ -46,3 +46,18 @@
     color: var(--color-text-primary-hover);
     background-color: var(--color-secondary-hover);
 }
+
+.tertiary {
+    color: var(--color-text-on-dark);
+    background-color: var(--color-tertiary);
+}
+
+.tertiary:hover {
+    background-color: var(--color-tertiary-hover);
+    color: var(--color-text-on-dark-hover)
+}
+
+.danger {
+    color: var(--color-text-on-dark);
+    background-color:var(--color-danger-secondary);
+}

@@ -19,4 +19,11 @@ export class StoreModal {
   handleConfirmation() {
     this.onConfirm.emit();
   }
+
+  protected onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    if(target.className == 'modal-overlay') {
+      this.showModal.set(false);
+    }
+  }
 }

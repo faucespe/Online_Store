@@ -33,7 +33,7 @@ export class TableComponent<T = any> {
       .split('.')
       .reduce((value: any, part: string) => value?.[part], row);
 
-    if(column.format === 'currency') {
+    if (column.format === 'currency') {
       return this.currencyFormatPipe.transform(columValue)
     }
 

@@ -1,4 +1,3 @@
-// el Import traen codigo de archivos externos al componente actual
 import { Component, OnInit, inject, signal } from '@angular/core'
 import { Category, UpdateCategory } from '@models/category/category.model';
 import { CategoryStatus } from '@models/category/category-status.model';
@@ -8,24 +7,16 @@ import { TableColumn } from '@shared/components/table/table.component';
 import { ApiResponse } from 'src/app/types/http/http.types';
 import { ValidationTranslatorService } from '@shared/translator/validation-translator.service';
 
-// Component vincula el html, el css y el ts, del page de categories
 @Component({
   selector: 'app-categories',
   standalone: false,
   templateUrl: './categories.page.html',
   styleUrl: './categories.page.css',
 })
-
-// el export permite que otros archivos puedan accder a funciones definidas en este ts
-// implements asegura que la clase vaya a tener un metodo llamado OnInit
 export class CategoriesPage implements OnInit {
-
-// se injecta en el categories.page.ts el contenido de category.service.ts
   private categoryService = inject(CategoryService);
   private validationTranslator = inject(ValidationTranslatorService);
 
-// signal es un estado reactivo parecido a las variables de un valor predefinido
-// que angular va a modificar automaticamente en pantalla
   public categories = signal<Category[]>([]);
   public statuses = signal<CategoryStatus[]>([]);
   public showModal = signal(false);
@@ -49,16 +40,12 @@ export class CategoriesPage implements OnInit {
     { key: 'categoryStatus.name', header: 'Estado' },
   ];
 
-  // ng: prefijo estandar de la libreria de Angular, que vincula la funcion con el
-  // implements OnInit de la class
   ngOnInit(): void {
     this.loadCategories();
     this.loadStatuses();
   }
 
   // carga las categorias segun la respuesta HTTP del category.service.ts
-  // ademas de aplicar los filtros si son solicitados
-  // la solicitud esta vinculada a Category del backend
   loadCategories(): void {
     const filters: CategoryFilters = {
       name: this.filterName() || undefined,
@@ -80,7 +67,6 @@ export class CategoriesPage implements OnInit {
     });
   }
 
-  // Crea el modal al precionar el botón "Crear Categoría" y resetea los valores
   openCreateModal(): void {
     this.selectedCategoryId.set(null);
     this.editName.set('');
@@ -90,7 +76,6 @@ export class CategoriesPage implements OnInit {
     this.backendError.set(null);
   }
 
-  // Crea el modal al precionar el botón "Actualizar" y resetea los valores
   onEditCategory(category: Category): void {
     this.selectedCategoryId.set(category.id);
     this.editName.set(category.name);
