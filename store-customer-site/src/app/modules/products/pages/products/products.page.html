@@ -3,7 +3,7 @@
 
     <app-store-filters confirmButtonText="Limpiar" [(searchingText)]="filterName" cancelButtonText="Cerrar"
         (onApply)="applyFilter()" (onClear)="clearFilter()">
-        <div class="products__filters">
+        <form class="products__filters">
             <div>
                 <label for="minPrice">Precio mínimo</label>
                 <input type="number" id="minPrice" #minPriceInput min="0" [value]="filterMinPrice()"
@@ -26,7 +26,7 @@
                 </select>
             </div>
             }
-        </div>
+        </form>
     </app-store-filters>
 </header>
 
