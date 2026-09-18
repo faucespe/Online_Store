@@ -13,6 +13,8 @@ export class StoreModal {
   public readonly confirmLabel = input<string>('Confirmar');
   public readonly cancelLabel = input<string>('Cancelar');
   public readonly showModal = model<boolean>(false);
+  public readonly closeModalOnClickOutside = input<boolean>(true);
+  public readonly showCloseButton = input<boolean>(true);
 
   onConfirm = output<void>();
 
@@ -22,6 +24,8 @@ export class StoreModal {
 
   protected onClickOutside(event: Event) {
     const target = event.target as HTMLElement;
+    if (!this.closeModalOnClickOutside()) return;
+
     if(target.className == 'modal-overlay') {
       this.showModal.set(false);
     }

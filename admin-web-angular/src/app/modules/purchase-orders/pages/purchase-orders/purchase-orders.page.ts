@@ -1,8 +1,9 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { PurchaseOrder } from '@models/purchaseOrder/purchase-order.model';
 import { PurchaseOrderFilters } from 'src/app/types/purchaseOrder/purchase-order-filters.model';
 import { PurchaseOrderService } from '@services/purchase-order/purchase-order.service';
 import { TableColumn } from '@shared/components/table/table.component';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-purchase-orders',
@@ -31,6 +32,14 @@ export class PurchaseOrdersPage implements OnInit {
     input.value = onlyDigits;
     this.filterPhone.set(onlyDigits);
   }
+
+  // Formatear las columnas de la tabla
+  ordersFormatted = computed(() =>
+    this.orders().map(order => ({
+      ...order,
+      purchaseDate: formatDate(order.purchaseDate, 'dd/MM/yyyy HH:mm', 'en-US'),
+    }))
+  );
 
   //Formato de tabla de cargado de Purchase Orders
   public columns: TableColumn<PurchaseOrder>[] = [
