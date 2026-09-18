@@ -3,7 +3,9 @@
         <article class="modal">
             <header class="modal__header">
                 <h2 class="modal__header-label">{{ modalTitle() }}</h2>
-                <app-store-btn color="secondary" icon="close" shape="rounded" (click)="showModal.set(!showModal())" />
+                @if (showCloseButton()) {
+                    <app-store-btn color="secondary" icon="close" shape="rounded" (click)="showModal.set(!showModal())" />
+                }
             </header>
             <main class="modal__main">
                 <ng-content></ng-content>

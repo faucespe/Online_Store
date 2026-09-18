@@ -43,7 +43,7 @@
 </app-filter>
 
 <app-table
-  [data]="orders()"
+  [data]="ordersFormatted()"
   [columns]="columns"
   [showInfo]="true"
   (rowDeactivate)="onViewOrder($event)"
@@ -76,7 +76,7 @@
       </div>
       <div class="order-info__row">
         <strong>Fecha de Compra</strong>
-        <span>{{ order.purchaseDate}}</span>
+        <span>{{ order.purchaseDate | date:'dd/MM/yyyy HH:mm' }}</span>
       </div>
 
       <app-table

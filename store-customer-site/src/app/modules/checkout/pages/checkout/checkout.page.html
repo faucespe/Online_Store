@@ -43,7 +43,7 @@
     </main>
 
     <!-- Purchase Order creation success modal-->
-    <app-store-modal modalTitle="Orden enviada" [(showModal)]="showPurhcaseOrderCreationModal"
+    <app-store-modal modalTitle="Orden enviada" [closeModalOnClickOutside]="false" [showCloseButton]="false" [(showModal)]="showPurhcaseOrderCreationModal"
         [showCancelButton]="false" confirmLabel="Aceptar" (onConfirm)="this.router.navigate(['/'])">
         <p>Su orden ha sido enviada exitosamente!</p>
     </app-store-modal>
