@@ -91,7 +91,7 @@
       </div>
       <div class="order-info__row">
         <strong>Fecha de Compra</strong>
-        <span>{{ order.purchaseDate | date:'dd/MM/yyyy HH:mm' }}</span>
+        <span>{{ order.purchaseDate.substring(0, 23) }}</span>
       </div>
 
       <app-table
