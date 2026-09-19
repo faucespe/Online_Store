@@ -1,14 +1,16 @@
 ﻿using API.Data;
 using API.Data.Models;
-using API.Services;
 using API.DataTransferObjects;
+using API.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
+using System.Globalization;
 
 namespace API.Validators
 {
     public class PurchaseOrderValidator : IPurchaseOrderValidator
     {
+        private const decimal maxGT = 99_999_999.99m;
         private readonly StoreDB _Database;
         private readonly IProductService _productService;
 
@@ -130,6 +132,50 @@ namespace API.Validators
             {
                 return false;
             }
+        }
+
+
+        public bool ValidateFilterPurchaseOrderDto(FilterPurchaseOrderDto data, List<string> messages)
+        {
+
+            List<string> innerMessages = new();
+
+
+            // GrandTotalFrom
+            if (data.GrandTotalFrom.HasValue)
+            {
+                if (data.GrandTotalFrom < 0)
+                {
+                    innerMessages.Add("Minimum total must be greater than or equal to 0.");
+                }
+                else if (data.GrandTotalFrom > maxGT)
+                {
+                    innerMessages.Add($"Minimum total must be less than or equal to {maxGT.ToString("N2", CultureInfo.InvariantCulture)}.");
+                }
+            }
+
+            // GrandTotalTo
+            if (data.GrandTotalTo.HasValue)
+            {
+                if (data.GrandTotalTo < 0)
+                {
+                    innerMessages.Add("Maximum total must be greater than or equal to 0.");
+                }
+                else if (data.GrandTotalTo > maxGT)
+                {
+                    innerMessages.Add($"Maximum total must be less than or equal to {maxGT.ToString("N2", CultureInfo.InvariantCulture)}.");
+                }
+            }
+
+            // GrandTotalFrom vs GrandTotalTo
+            if (data.GrandTotalFrom.HasValue && data.GrandTotalTo.HasValue && data.GrandTotalFrom > data.GrandTotalTo)
+            {
+                innerMessages.Add("Minimum total cannot be greater than maximum total.");
+            }
+
+            messages.AddRange(innerMessages);
+
+            return !innerMessages.Any();
         }
     }
 }

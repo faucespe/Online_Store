@@ -26,15 +26,18 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> ListPurchaseOrders([FromQuery] FilterPurchaseOrderDto data)
         {
-            PurchaseOrderFilters filter = this._mapper.Map<FilterPurchaseOrderDto, PurchaseOrderFilters>(data);
-            List<PurchaseOrder> list = await this._purchaseOrderService.ListPurchaseOrders(filter)
-                .OrderBy(p => p.Id)
-                .ToListAsync();
+            ApiResponse response = new();
+            response.Success = this._purchaseOrderValidator.ValidateFilterPurchaseOrderDto(data, response.Messages);
 
-            ApiResponse response = new()
+            if (response.Success)
             {
-                Data = list.Select(p => this._mapper.Map<PurchaseOrder, GetPurchaseOrderDto>(p))
-            };
+                PurchaseOrderFilters filter = this._mapper.Map<FilterPurchaseOrderDto, PurchaseOrderFilters>(data);
+                List<PurchaseOrder> list = await this._purchaseOrderService.ListPurchaseOrders(filter)
+                    .OrderBy(p => p.Id)
+                    .ToListAsync();
+
+                response.Data = list.Select(p => this._mapper.Map<PurchaseOrder, GetPurchaseOrderDto>(p));
+            }
 
             return response;
         }
