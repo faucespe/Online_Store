@@ -1,6 +1,4 @@
-# Cert_CodeMinds_08-26
-
-Este proyecto es la evalucion final del curso de CodeMinds, donde se aplican los conocimientos aprendidos durante todo el curso 
+# Online_Store
 
 ## lenguajes utilizados:
 
